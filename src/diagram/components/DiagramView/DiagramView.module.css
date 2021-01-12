@@ -1,0 +1,9 @@
+.panningContainer {
+  height: 70vh;
+  max-height: 50rem;
+}
+
+.panningContainerFullscreen {
+  height: 100vh;
+  max-height: 100vh;
+}

@@ -1,0 +1,37 @@
+.content :global(p) {
+  @apply text-base my-2;
+}
+
+.content :global(h1) {
+  @apply text-2xl font-semibold mb-3;
+}
+
+.content :global(h2) {
+  @apply text-xl font-semibold mb-2;
+}
+
+.content :global(h3) {
+  @apply text-lg font-semibold mb-2;
+}
+
+.content :global(h4) {
+  @apply text-lg mb-2;
+}
+
+.content :global(ol) {
+  list-style: decimal inside;
+  @apply my-2;
+}
+
+.content :global(ol li) {
+  @apply my-1;
+}
+
+.content :global(ul) {
+  list-style: disc inside;
+  @apply my-2;
+}
+
+.content :global(ul li) {
+  @apply my-1;
+}

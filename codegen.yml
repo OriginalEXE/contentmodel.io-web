@@ -1,0 +1,7 @@
+overwrite: true
+schema: 'http://localhost:5000/graphql'
+generates:
+  src/generated/fragments.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'

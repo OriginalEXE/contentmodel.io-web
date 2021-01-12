@@ -1,0 +1,10 @@
+.headerSeparator {
+  background-image: linear-gradient(
+    to right top,
+    #246bfd,
+    #5387ff,
+    #79a2ff,
+    #9dbcff,
+    #c2d6fe
+  );
+}
