@@ -12,6 +12,7 @@ module.exports = {
       './css/**/*.css',
       './pages/**/*.tsx',
       './pages/**/*.css',
+      './src/shared/components/Button/getButtonClassName.ts',
     ],
     options: {
       defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
