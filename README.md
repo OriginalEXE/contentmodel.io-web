@@ -1,4 +1,4 @@
-contentmodel.io - Frontend
+contentmodel.io-web
 
 ### List of required environment variables:
 
