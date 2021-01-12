@@ -222,7 +222,7 @@ const HeaderLargeScreens: React.FC = observer(() => {
 
 const Header: React.FC = observer(() => {
   return (
-    <header className="bg-white shadow-sm">
+    <header className="bg-white shadow-sm relative z-50">
       <nav>
         {/* Big screens nav */}
         <HeaderLargeScreens />
