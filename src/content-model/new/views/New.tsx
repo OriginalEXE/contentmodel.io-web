@@ -199,7 +199,7 @@ const NewView: React.FC = observer(() => {
   return (
     <>
       <Header />
-      <main className="container mx-auto px-3 pb-4">
+      <main className="w-full max-w-screen-2xl mx-auto px-3 pb-4">
         <div className="w-full max-w-xl mt-12 mx-auto">
           <h1 className="text-2xl font-bold text-center md:text-4xl">
             Share your content model

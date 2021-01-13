@@ -30,7 +30,7 @@ const ViewView: React.FC<ViewViewProps> = observer((props) => {
   return (
     <>
       <Header />
-      <main className="container mx-auto px-3 mb-4 xl:flex xl:mt-12 xl:mb-8">
+      <main className="w-full max-w-screen-2xl mx-auto px-3 mb-4 xl:flex xl:mt-12 xl:mb-8">
         <div className="w-full max-w-xl mt-8 mx-auto flex-shrink-0 xl:w-84 xl:mr-4">
           <h1 className="text-2xl font-bold">{contentModel.title}</h1>
           {contentModel.description && (

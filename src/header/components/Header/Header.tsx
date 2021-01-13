@@ -38,7 +38,7 @@ const HeaderSmallScreens: React.FC = observer(() => {
 
   return (
     <div className="md:hidden">
-      <div className="flex justify-between items-center px-3 py-1">
+      <div className="flex justify-between items-center py-1">
         <Link href="/">
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a className="flex items-center justify-center focus:outline-none">
@@ -142,7 +142,7 @@ const HeaderLargeScreens: React.FC = observer(() => {
 
   return (
     <div className="hidden md:block">
-      <div className="flex items-center px-3 py-1">
+      <div className="flex items-center py-1">
         <Link href="/">
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a className="flex items-center justify-center focus:outline-none mr-6">
@@ -197,7 +197,7 @@ const HeaderLargeScreens: React.FC = observer(() => {
               </div>
             ) : (
               <div className="w-full flex justify-between items-center flex-wrap">
-                <div className="flex items-center mr-3">
+                <div className="flex items-center">
                   <ToggleMenu
                     onAction={(key: ReactText) => {
                       router.push(key as string);
@@ -223,7 +223,7 @@ const HeaderLargeScreens: React.FC = observer(() => {
 const Header: React.FC = observer(() => {
   return (
     <header className="bg-white shadow-sm relative z-50">
-      <nav>
+      <nav className="w-full max-w-screen-2xl mx-auto px-3">
         {/* Big screens nav */}
         <HeaderLargeScreens />
 

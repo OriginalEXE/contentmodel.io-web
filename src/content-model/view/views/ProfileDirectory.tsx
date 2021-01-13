@@ -18,7 +18,7 @@ const ProfileDirectoryView: React.FC<ProfileDirectoryViewProps> = observer(
     return (
       <>
         <Header />
-        <main className="container mx-auto px-3 mb-4 xl:flex xl:mt-12 xl:mb-8">
+        <main className="w-full max-w-screen-2xl mx-auto px-3 mb-4 xl:flex xl:mt-12 xl:mb-8">
           <div className="w-full max-w-xl mt-8 mx-auto flex-shrink-0">
             <h1 className="text-2xl font-bold text-center">
               {optimizeLineBreak('Content models shared by you')}
