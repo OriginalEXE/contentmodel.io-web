@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps<{
   if (store.me === null) {
     return {
       redirect: {
-        destination: '/api/login?redirectTo=/new',
+        destination: '/api/login?redirectTo=/content-models/new',
         permanent: false,
       },
     };
