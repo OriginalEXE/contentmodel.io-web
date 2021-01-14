@@ -268,7 +268,8 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
           return linkContentTypeValidation.linkContentType.length === 0
             ? contentModel.model.map((cType) => cType.sys.id)
             : linkContentTypeValidation.linkContentType.filter(
-                (cTypeId) => registeredContentTypes.includes(cTypeId) === true,
+                (cTypeId: string) =>
+                  registeredContentTypes.includes(cTypeId) === true,
               );
         })();
 

@@ -13,7 +13,9 @@ const contentTypeFieldSchema = z.object({
   disabled: z.boolean(),
   omitted: z.boolean(),
   linkType: z.optional(z.union([z.literal('Asset'), z.literal('Entry')])),
-  validations: z.optional(z.array(linkEntryValidationSchema)),
+  validations: z.optional(
+    z.array(z.union([linkEntryValidationSchema, PossibleValidationsSchema])),
+  ),
   items: z.optional(
     z.object({
       type: z.string(),
