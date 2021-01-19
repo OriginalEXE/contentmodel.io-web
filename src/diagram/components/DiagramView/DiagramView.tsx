@@ -282,13 +282,14 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
               ),
               target: generateContentTypeDOMId(cTypeId),
               detachable: false,
-              anchors: ['ContinuousLeftRight', 'ContinuousTop'],
+              anchors: ['ContinuousLeftRight', 'Top'],
               endpoints: ['Blank', 'Dot'],
               connector: [
                 'Flowchart',
                 {
                   stub: 10,
                   gap: 10,
+                  cssClass: `${styles.stroke} text-gray-400`,
                 },
               ],
             }),
@@ -352,13 +353,14 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
               ),
               target: generateContentTypeDOMId(cTypeId),
               detachable: false,
-              anchors: ['ContinuousLeftRight', 'ContinuousTop'],
+              anchors: ['ContinuousLeftRight', 'Top'],
               endpoints: ['Blank', 'Dot'],
               connector: [
                 'Flowchart',
                 {
                   stub: 10,
                   gap: 10,
+                  cssClass: `${styles.stroke} text-gray-400`,
                 },
               ],
             }),
