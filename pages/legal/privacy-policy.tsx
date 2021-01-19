@@ -54,13 +54,12 @@ const PrivacyPolicyPage: React.FC<
             <div className={styles.content}>
               <p>
                 Thank you for choosing to be part of our community at
-                contentmodel.io, owner Ante Šepić, Berlin, Mariendorfer Weg 48,
-                doing business as contentmodel.io (“contentmodel.io”, “we”,
-                “us”, or “our”). We are committed to protecting your personal
-                information and your right to privacy. If you have any questions
-                or concerns about our policy, or our practices with regards to
-                your personal information, please contact us at
-                hello@contentmodel.io.
+                contentmodel.io, owner Ante Šepić, Berlin, Germany, doing
+                business as contentmodel.io (“contentmodel.io”, “we”, “us”, or
+                “our”). We are committed to protecting your personal information
+                and your right to privacy. If you have any questions or concerns
+                about our policy, or our practices with regards to your personal
+                information, please contact us at hello@contentmodel.io.
               </p>
               <p>
                 When you visit our website https://contentmodel.io, and use our
@@ -559,19 +558,18 @@ const PrivacyPolicyPage: React.FC<
                 A privacy breach occurs when there is unauthorized access to or
                 collection, use, disclosure or disposal of personal information.
                 You will be notified about data breaches when contentmodel.io,
-                owner Ante Šepić, Berlin, Mariendorfer Weg 48 believes you are
-                likely to be at risk or serious harm. For example, a data breach
-                may be likely to result in serious financial harm or harm to
-                your mental or physical well-being. In the event that
-                contentmodel.io, owner Ante Šepić, Berlin, Mariendorfer Weg 48
-                becomes aware of a security breach which has resulted or may
-                result in unauthorized access, use or disclosure of personal
-                information contentmodel.io, owner Ante Šepić, Berlin,
-                Mariendorfer Weg 48 will promptly investigate the matter and
-                notify the applicable Supervisory Authority not later than 72
-                hours after having become aware of it, unless the personal data
-                breach is unlikely to result in a risk to the rights and
-                freedoms of natural persons.
+                owner Ante Šepić, Berlin, Germany believes you are likely to be
+                at risk or serious harm. For example, a data breach may be
+                likely to result in serious financial harm or harm to your
+                mental or physical well-being. In the event that
+                contentmodel.io, owner Ante Šepić, Berlin, Germany becomes aware
+                of a security breach which has resulted or may result in
+                unauthorized access, use or disclosure of personal information
+                contentmodel.io, owner Ante Šepić, Berlin, Germany will promptly
+                investigate the matter and notify the applicable Supervisory
+                Authority not later than 72 hours after having become aware of
+                it, unless the personal data breach is unlikely to result in a
+                risk to the rights and freedoms of natural persons.
               </p>
 
               <h2>13. CONTROLS FOR DO-NOT-TRACK FEATURES</h2>
@@ -639,10 +637,7 @@ const PrivacyPolicyPage: React.FC<
               <h2>16. HOW CAN YOU CONTACT US ABOUT THIS POLICY?</h2>
               <p>
                 If you have questions or comments about this policy, you may
-                email us at hello@contentmodel.io or by post to:
-              </p>
-              <p>
-                contentmodel.io, owner Ante Šepić, Berlin, Mariendorfer Weg 48
+                email us at hello@contentmodel.io
               </p>
 
               <h2>

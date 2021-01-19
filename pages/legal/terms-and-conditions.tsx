@@ -49,17 +49,17 @@ const TermsAndConditionsPage: React.FC<
               <p>
                 These Terms of Use constitute a legally binding agreement made
                 between you, whether personally or on behalf of an entity
-                (“you”) and contentmodel.io, owner Ante Šepić, Berlin,
-                Mariendorfer Weg 48, doing business as contentmodel.io
-                (“contentmodel.io”, “we”, “us”, or “our”), concerning your
-                access to and use of the https://contentmodel.io website as well
-                as any other media form, media channel, mobile website or mobile
-                application related, linked, or otherwise connected thereto
-                (collectively, the “Site”). You agree that by accessing the
-                Site, you have read, understood, and agree to be bound by all of
-                these Terms of Use. IF YOU DO NOT AGREE WITH ALL OF THESE TERMS
-                OF USE, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SITE
-                AND YOU MUST DISCONTINUE USE IMMEDIATELY.
+                (“you”) and contentmodel.io, owner Ante Šepić, Berlin, Germany,
+                doing business as contentmodel.io (“contentmodel.io”, “we”,
+                “us”, or “our”), concerning your access to and use of the
+                https://contentmodel.io website as well as any other media form,
+                media channel, mobile website or mobile application related,
+                linked, or otherwise connected thereto (collectively, the
+                “Site”). You agree that by accessing the Site, you have read,
+                understood, and agree to be bound by all of these Terms of Use.
+                IF YOU DO NOT AGREE WITH ALL OF THESE TERMS OF USE, THEN YOU ARE
+                EXPRESSLY PROHIBITED FROM USING THE SITE AND YOU MUST
+                DISCONTINUE USE IMMEDIATELY.
               </p>
               <p>
                 Supplemental terms and conditions or documents that may be
@@ -635,8 +635,8 @@ const TermsAndConditionsPage: React.FC<
               <h2>GOVERNING LAW</h2>
               <p>
                 These Terms of Use and your use of the Site are governed by and
-                construed in accordance with the laws of Croatia applicable to
-                agreements made and to be entirely performed within Croatia,
+                construed in accordance with the laws of Germany applicable to
+                agreements made and to be entirely performed within Germany,
                 without regard to its conflict of law principles.
               </p>
 
@@ -645,7 +645,7 @@ const TermsAndConditionsPage: React.FC<
                 Any legal action of whatever nature brought by either you or us
                 (collectively, the “Parties” and individually, a “Party”) shall
                 be commenced or prosecuted in the state and federal courts
-                located in Croatia, Rijeka, and the Parties hereby consent to,
+                located in Germany, Rijeka, and the Parties hereby consent to,
                 and waive all defenses of lack of personal jurisdiction and
                 forum non conveniens with respect to venue and jurisdiction in
                 such state and federal courts. Application of the United Nations
@@ -811,10 +811,7 @@ const TermsAndConditionsPage: React.FC<
               <p>
                 In order to resolve a complaint regarding the Site or to receive
                 further information regarding use of the Site, you may email us
-                at hello@contentmodel.io or by post to:
-              </p>
-              <p>
-                contentmodel.io, owner Ante Šepić, Berlin, Mariendorfer Weg 48
+                at hello@contentmodel.io
               </p>
 
               <p>
