@@ -2,7 +2,6 @@ import catchify from 'catchify';
 import { getSnapshot } from 'mobx-state-tree';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
-import { SSRProvider } from 'react-aria';
 
 import getContentModels from '@/src/content-model/api/getContentModels';
 import contentModelSchema from '@/src/content-model/types/contentModel';
@@ -74,14 +73,12 @@ const ProfileContentModelsPage: React.FC<
   const store = initializeStore(storeSnapshot);
 
   return (
-    <SSRProvider>
-      <StoreProvider store={store}>
-        <Head>
-          <title>My content models - contentmodel.io</title>
-        </Head>
-        <ProfileDirectoryView contentModels={contentModels} />
-      </StoreProvider>
-    </SSRProvider>
+    <StoreProvider store={store}>
+      <Head>
+        <title>My content models - contentmodel.io</title>
+      </Head>
+      <ProfileDirectoryView contentModels={contentModels} />
+    </StoreProvider>
   );
 };
 

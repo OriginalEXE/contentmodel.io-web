@@ -2,7 +2,6 @@ import catchify from 'catchify';
 import { getSnapshot } from 'mobx-state-tree';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
-import { SSRProvider } from 'react-aria';
 
 import NewView from '@/src/content-model/new/views/New';
 import getCurrentUser from '@/src/user/api/getCurrentUser';
@@ -45,14 +44,12 @@ const NewPage: React.FC<
   const store = initializeStore(storeSnapshot);
 
   return (
-    <SSRProvider>
-      <StoreProvider store={store}>
-        <Head>
-          <title>Share content model - contentmodel.io</title>
-        </Head>
-        <NewView />
-      </StoreProvider>
-    </SSRProvider>
+    <StoreProvider store={store}>
+      <Head>
+        <title>Share content model - contentmodel.io</title>
+      </Head>
+      <NewView />
+    </StoreProvider>
   );
 };
 

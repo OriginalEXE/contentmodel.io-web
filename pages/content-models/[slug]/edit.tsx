@@ -2,7 +2,6 @@ import catchify from 'catchify';
 import { getSnapshot } from 'mobx-state-tree';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
-import { SSRProvider } from 'react-aria';
 
 import getContentModelBySlug from '@/src/content-model/api/getContentModelBySlug';
 import EditView from '@/src/content-model/edit/views/Edit';
@@ -82,14 +81,12 @@ const ContentModelEditPage: React.FC<
   const store = initializeStore(storeSnapshot);
 
   return (
-    <SSRProvider>
-      <StoreProvider store={store}>
-        <Head>
-          <title>Edit {contentModel.title} - contentmodel.io</title>
-        </Head>
-        <EditView contentModel={contentModel} />
-      </StoreProvider>
-    </SSRProvider>
+    <StoreProvider store={store}>
+      <Head>
+        <title>Edit {contentModel.title} - contentmodel.io</title>
+      </Head>
+      <EditView contentModel={contentModel} />
+    </StoreProvider>
   );
 };
 

@@ -2,7 +2,6 @@ import catchify from 'catchify';
 import { getSnapshot } from 'mobx-state-tree';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
-import { SSRProvider } from 'react-aria';
 
 import getContentModelBySlug from '@/src/content-model/api/getContentModelBySlug';
 import contentModelSchema from '@/src/content-model/types/contentModel';
@@ -71,16 +70,14 @@ const ContentModelViewPage: React.FC<
   const store = initializeStore(storeSnapshot);
 
   return (
-    <SSRProvider>
-      <StoreProvider store={store}>
-        <Head>
-          <title>
-            {contentModel.title} by {contentModel.user.name} - contentmodel.io
-          </title>
-        </Head>
-        <ViewView contentModel={contentModel} />
-      </StoreProvider>
-    </SSRProvider>
+    <StoreProvider store={store}>
+      <Head>
+        <title>
+          {contentModel.title} by {contentModel.user.name} - contentmodel.io
+        </title>
+      </Head>
+      <ViewView contentModel={contentModel} />
+    </StoreProvider>
   );
 };
 

@@ -66,11 +66,9 @@ const ContentModelsPage: React.FC<
   const store = initializeStore(storeSnapshot);
 
   return (
-    <SSRProvider>
-      <StoreProvider store={store}>
-        <DirectoryView contentModels={contentModels} />
-      </StoreProvider>
-    </SSRProvider>
+    <StoreProvider store={store}>
+      <DirectoryView contentModels={contentModels} />
+    </StoreProvider>
   );
 };
 
