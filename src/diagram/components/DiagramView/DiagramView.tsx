@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from 'react';
 
 import DraggableContentType from '@/src/content-model/components/DraggableContentType/DraggableContentType';
 import { ParsedDbContentModel } from '@/src/content-model/types/parsedDbContentModel';
+import DiagramControls from '@/src/diagram/components/DiagramControls/DiagramControls';
 import styles from '@/src/diagram/components/DiagramView/DiagramView.module.css';
-import DiagramViewControls from '@/src/diagram/components/DiagramViewControls/DiagramViewControls';
 import {
   generateContentTypeDOMId,
   generateContentTypeFieldDOMId,
@@ -406,6 +406,46 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [plumbInstance, connectionIds, initialDrawingFinished]);
 
+  // Reset diagram position
+  const resetDiagramPosition = () => {
+    if (panZoomInstance.current === undefined) {
+      return;
+    }
+
+    const centralPanValues = calculateCentralPanValues();
+
+    if (centralPanValues === undefined) {
+      return;
+    }
+
+    panZoomInstance.current.zoom(centralPanValues.scale, {
+      animate: true,
+    });
+    panZoomInstance.current.pan(
+      centralPanValues.position.x,
+      centralPanValues.position.y,
+      { animate: true },
+    );
+
+    setPanScale(centralPanValues.scale);
+    setPanPosition(centralPanValues.position);
+    setPanChanged(false);
+  };
+
+  // Reset diagram when fullscreen is toggled
+  useEffect(() => {
+    if (initialDrawingFinished === false) {
+      return;
+    }
+
+    const resetTimeout = setTimeout(resetDiagramPosition, 150);
+
+    return () => {
+      clearTimeout(resetTimeout);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFullscreen, initialDrawingFinished]);
+
   return (
     <div
       className={`relative border rounded-lg border-gray-300 bg-gray-200 ${className}`}
@@ -455,7 +495,7 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
             ))}
           </div>
         </div>
-        <DiagramViewControls
+        <DiagramControls
           scale={panScale}
           onScaleChange={(newScale) => {
             if (panZoomInstance.current === undefined) {
@@ -466,30 +506,7 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
             setPanChanged(true);
             panZoomInstance.current.zoom(newScale, { animate: true });
           }}
-          onReset={() => {
-            if (panZoomInstance.current === undefined) {
-              return;
-            }
-
-            const centralPanValues = calculateCentralPanValues();
-
-            if (centralPanValues === undefined) {
-              return;
-            }
-
-            panZoomInstance.current.zoom(centralPanValues.scale, {
-              animate: true,
-            });
-            panZoomInstance.current.pan(
-              centralPanValues.position.x,
-              centralPanValues.position.y,
-              { animate: true },
-            );
-
-            setPanScale(centralPanValues.scale);
-            setPanPosition(centralPanValues.position);
-            setPanChanged(false);
-          }}
+          onReset={resetDiagramPosition}
           showReset={panChanged}
           isFullscreen={isFullscreen}
           toggleFull={toggleFull}

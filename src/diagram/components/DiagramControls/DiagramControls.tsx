@@ -3,7 +3,7 @@ import { RefObject, useMemo } from 'react';
 import Tooltip from '@/src/shared/components/Tooltip/Tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-interface DiagramEditControlsProps {
+interface DiagramControlsProps {
   scale: number;
   onScaleChange: (scale: number) => void;
   onReset: () => void;
@@ -12,7 +12,7 @@ interface DiagramEditControlsProps {
   toggleFull: () => void;
 }
 
-const DiagramEditControls: React.FC<DiagramEditControlsProps> = (props) => {
+const DiagramControls: React.FC<DiagramControlsProps> = (props) => {
   const {
     scale,
     onScaleChange,
@@ -76,10 +76,6 @@ const DiagramEditControls: React.FC<DiagramEditControlsProps> = (props) => {
               className="appearance-none flex w-8 h-8 items-center justify-center text-white font-semibold bg-primary-500 hover:bg-primary-600 focus:bg-primary-700 rounded-full"
               onClick={() => {
                 toggleFull();
-
-                setTimeout(() => {
-                  onReset();
-                }, 50);
               }}
             >
               <FontAwesomeIcon
@@ -131,4 +127,4 @@ const DiagramEditControls: React.FC<DiagramEditControlsProps> = (props) => {
   );
 };
 
-export default DiagramEditControls;
+export default DiagramControls;

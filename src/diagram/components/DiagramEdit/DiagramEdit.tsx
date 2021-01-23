@@ -2,10 +2,10 @@ import { useFullscreen } from 'ahooks';
 import { useEffect, useRef, useState } from 'react';
 import * as z from 'zod';
 
-import styles from '@/src/content-model/components/DiagramEdit/DiagramEdit.module.css';
 import DraggableContentType from '@/src/content-model/components/DraggableContentType/DraggableContentType';
 import contentModelSchema from '@/src/content-model/types/contentModel';
-import DiagramViewControls from '@/src/diagram/components/DiagramViewControls/DiagramViewControls';
+import DiagramControls from '@/src/diagram/components/DiagramControls/DiagramControls';
+import styles from '@/src/diagram/components/DiagramEdit/DiagramEdit.module.css';
 import contentModelPositionSchema from '@/src/diagram/types/contentModelPosition';
 import contentTypePositionSchema from '@/src/diagram/types/contentTypePosition';
 import {
@@ -293,13 +293,14 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
               ),
               target: generateContentTypeDOMId(cTypeId),
               detachable: false,
-              anchors: ['ContinuousLeftRight', 'ContinuousTop'],
+              anchors: ['ContinuousLeftRight', 'Top'],
               endpoints: ['Blank', 'Dot'],
               connector: [
                 'Flowchart',
                 {
                   stub: 10,
                   gap: 10,
+                  cssClass: `${styles.stroke} text-gray-400`,
                 },
               ],
             }),
@@ -363,13 +364,14 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
               ),
               target: generateContentTypeDOMId(cTypeId),
               detachable: false,
-              anchors: ['ContinuousLeftRight', 'ContinuousTop'],
+              anchors: ['ContinuousLeftRight', 'Top'],
               endpoints: ['Blank', 'Dot'],
               connector: [
                 'Flowchart',
                 {
                   stub: 10,
                   gap: 10,
+                  cssClass: `${styles.stroke} text-gray-400`,
                 },
               ],
             }),
@@ -414,6 +416,46 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [plumbInstance, connectionIds, initialDrawingFinished]);
+
+  // Reset diagram position
+  const resetDiagramPosition = () => {
+    if (panZoomInstance.current === undefined) {
+      return;
+    }
+
+    const centralPanValues = calculateCentralPanValues();
+
+    if (centralPanValues === undefined) {
+      return;
+    }
+
+    panZoomInstance.current.zoom(centralPanValues.scale, {
+      animate: true,
+    });
+    panZoomInstance.current.pan(
+      centralPanValues.position.x,
+      centralPanValues.position.y,
+      { animate: true },
+    );
+
+    setPanScale(centralPanValues.scale);
+    setPanPosition(centralPanValues.position);
+    setPanChanged(false);
+  };
+
+  // Reset diagram when fullscreen is toggled
+  useEffect(() => {
+    if (initialDrawingFinished === false) {
+      return;
+    }
+
+    const resetTimeout = setTimeout(resetDiagramPosition, 150);
+
+    return () => {
+      clearTimeout(resetTimeout);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFullscreen, initialDrawingFinished]);
 
   return (
     <div
@@ -468,7 +510,7 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
             ))}
           </div>
         </div>
-        <DiagramViewControls
+        <DiagramControls
           scale={panScale}
           onScaleChange={(newScale) => {
             if (panZoomInstance.current === undefined) {
@@ -479,30 +521,7 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
             setPanChanged(true);
             panZoomInstance.current.zoom(newScale, { animate: true });
           }}
-          onReset={() => {
-            if (panZoomInstance.current === undefined) {
-              return;
-            }
-
-            const centralPanValues = calculateCentralPanValues();
-
-            if (centralPanValues === undefined) {
-              return;
-            }
-
-            panZoomInstance.current.zoom(centralPanValues.scale, {
-              animate: true,
-            });
-            panZoomInstance.current.pan(
-              centralPanValues.position.x,
-              centralPanValues.position.y,
-              { animate: true },
-            );
-
-            setPanScale(centralPanValues.scale);
-            setPanPosition(centralPanValues.position);
-            setPanChanged(false);
-          }}
+          onReset={resetDiagramPosition}
           showReset={panChanged}
           isFullscreen={isFullscreen}
           toggleFull={toggleFull}

@@ -6,7 +6,7 @@ import { useMutation } from 'react-query';
 import * as z from 'zod';
 
 const DiagramEdit = dynamic(
-  () => import('@/src/content-model/components/DiagramEdit/DiagramEdit'),
+  () => import('@/src/diagram/components/DiagramEdit/DiagramEdit'),
   { ssr: false },
 );
 

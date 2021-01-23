@@ -74,7 +74,7 @@ export default async function afterAuth(
     return;
   }
 
-  console.log(`Fetchign from GraphQL with the following token: ${accessToken}`);
+  console.log(`Fetching from GraphQL with the following token: ${accessToken}`);
 
   const [createUserError, createdUser] = await catchify(
     createUser(
@@ -113,7 +113,7 @@ export default async function afterAuth(
   // An old user signing in
   res.writeHead(302, {
     Location: parsedState.redirectTo
-      ? `${parsedState.redirectTo}?new-user=1`
+      ? `${parsedState.redirectTo}?new-user=0`
       : '/?new-user=0',
   });
   res.end();
