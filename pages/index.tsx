@@ -1,7 +1,6 @@
 import catchify from 'catchify';
 import { getSnapshot } from 'mobx-state-tree';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { SSRProvider } from 'react-aria';
 
 import getContentModels from '@/src/features/content-model/api/getContentModels';
 import contentModelSchema from '@/src/features/content-model/types/contentModel';
