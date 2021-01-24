@@ -9,8 +9,8 @@ import {
   generateContentTypeDOMId,
   generateContentTypeFieldDOMId,
 } from '@/src/diagram/utilities/generateDOMId';
-import * as jsPlumb from '@jsplumb/community';
-import { Connection } from '@jsplumb/community/types/core';
+import * as jsPlumb from '@jsplumb/browser-ui';
+import { Connection } from '@jsplumb/community-core';
 import Panzoom, { PanzoomObject } from '@panzoom/panzoom';
 
 // We want to have some empty space around the drawn content model
@@ -26,6 +26,9 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
 
   // Topmost container ref
   const componentWrapEl = useRef<HTMLDivElement>(null);
+
+  // Map of all connection elements
+  const connectionElementsRef = useRef<Map<string, HTMLElement>>(new Map());
 
   // Toggled on when initial drawing is finished
   const [initialDrawingFinished, setInitialDrawingFinished] = useState(false);
@@ -274,13 +277,27 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
         })();
 
         linksToContentTypes.forEach((cTypeId) => {
+          // Store elements into our ref for later reuse
+          const sourceElId = generateContentTypeFieldDOMId(
+            contentType.sys.id,
+            field.id,
+          );
+          const sourceEl = document.getElementById(sourceElId)!;
+          const targetElId = generateContentTypeDOMId(cTypeId);
+          const targetEl = document.getElementById(targetElId)!;
+
+          if (connectionElementsRef.current.has(sourceElId) === false) {
+            connectionElementsRef.current.set(sourceElId, sourceEl);
+          }
+
+          if (connectionElementsRef.current.has(targetElId) === false) {
+            connectionElementsRef.current.set(targetElId, targetEl);
+          }
+
           connections.push(
             instance.connect({
-              source: generateContentTypeFieldDOMId(
-                contentType.sys.id,
-                field.id,
-              ),
-              target: generateContentTypeDOMId(cTypeId),
+              source: sourceEl as any,
+              target: targetEl as any,
               detachable: false,
               anchors: ['ContinuousLeftRight', 'Top'],
               endpoints: ['Blank', 'Dot'],
@@ -345,13 +362,27 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
         })();
 
         linksToContentTypes.forEach((cTypeId) => {
+          // Store elements into our ref for later reuse
+          const sourceElId = generateContentTypeFieldDOMId(
+            contentType.sys.id,
+            field.id,
+          );
+          const sourceEl = document.getElementById(sourceElId)!;
+          const targetElId = generateContentTypeDOMId(cTypeId);
+          const targetEl = document.getElementById(targetElId)!;
+
+          if (connectionElementsRef.current.has(sourceElId) === false) {
+            connectionElementsRef.current.set(sourceElId, sourceEl);
+          }
+
+          if (connectionElementsRef.current.has(targetElId) === false) {
+            connectionElementsRef.current.set(targetElId, targetEl);
+          }
+
           connections.push(
             instance.connect({
-              source: generateContentTypeFieldDOMId(
-                contentType.sys.id,
-                field.id,
-              ),
-              target: generateContentTypeDOMId(cTypeId),
+              source: sourceEl as any,
+              target: targetEl as any,
               detachable: false,
               anchors: ['ContinuousLeftRight', 'Top'],
               endpoints: ['Blank', 'Dot'],
@@ -400,7 +431,13 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
     setInitialDrawingFinished(true);
 
     connectionIds.forEach((id) => {
-      plumbInstance.revalidate(id);
+      const connectionEl = connectionElementsRef.current.get(id);
+
+      if (connectionEl === undefined) {
+        return;
+      }
+
+      plumbInstance.revalidate(connectionEl as any);
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -487,9 +524,15 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
                     return;
                   }
 
-                  plumbInstance.revalidate(
+                  const contentTypeEl = connectionElementsRef.current.get(
                     generateContentTypeDOMId(contentType.sys.id),
                   );
+
+                  if (contentTypeEl === undefined) {
+                    return;
+                  }
+
+                  plumbInstance.revalidate(contentTypeEl as any);
                 }}
               />
             ))}

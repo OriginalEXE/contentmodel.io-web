@@ -7,7 +7,7 @@ import { Hydrate } from 'react-query/hydration';
 
 import '@/src/shared/icons';
 import '@fortawesome/fontawesome-svg-core/styles.css';
-import '@jsplumb/community/css/jsplumbtoolkit.css';
+import '@jsplumb/browser-ui/css/jsplumbtoolkit.css';
 import '@/css/style.css';
 import getQueryClient from '@/src/graphql/getQueryClient';
 import useScript from '@/src/use-script/useScript';
