@@ -2,10 +2,10 @@ import catchify from 'catchify';
 import { getSnapshot } from 'mobx-state-tree';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
-import Header from '@/src/header/components/Header/Header';
+import Header from '@/src/features/header/components/Header/Header';
+import getCurrentUser from '@/src/features/user/api/getCurrentUser';
 import styles from '@/src/shared/components/StyledDynamicContent/StyledDynamicContent.module.css';
 import optimizeLineBreak from '@/src/typography/optimize-line-break';
-import getCurrentUser from '@/src/user/api/getCurrentUser';
 import { initializeStore, StoreSnapshotInterface } from '@/store';
 import { StoreProvider } from '@/store/hooks';
 

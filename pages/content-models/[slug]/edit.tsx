@@ -3,12 +3,12 @@ import { getSnapshot } from 'mobx-state-tree';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 
-import getContentModelBySlug from '@/src/content-model/api/getContentModelBySlug';
-import EditView from '@/src/content-model/edit/views/Edit';
-import contentModelSchema from '@/src/content-model/types/contentModel';
-import { ParsedDbContentModel } from '@/src/content-model/types/parsedDbContentModel';
-import contentModelPositionSchema from '@/src/diagram/types/contentModelPosition';
-import getCurrentUser from '@/src/user/api/getCurrentUser';
+import getContentModelBySlug from '@/src/features/content-model/api/getContentModelBySlug';
+import EditView from '@/src/features/content-model/edit/views/Edit';
+import contentModelSchema from '@/src/features/content-model/types/contentModel';
+import { ParsedDbContentModel } from '@/src/features/content-model/types/parsedDbContentModel';
+import contentModelPositionSchema from '@/src/features/diagram/types/contentModelPosition';
+import getCurrentUser from '@/src/features/user/api/getCurrentUser';
 import { initializeStore, StoreSnapshotInterface } from '@/store';
 import { StoreProvider } from '@/store/hooks';
 

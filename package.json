@@ -53,7 +53,7 @@
     "tailwindcss": "^2.0.2",
     "ts-node": "^9.1.1",
     "unified": "^9.2.0",
-    "zod": "^2.0.0-beta.29"
+    "zod": "^2.0.0-beta.30"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

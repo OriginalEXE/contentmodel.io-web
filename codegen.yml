@@ -1,5 +1,11 @@
 overwrite: true
 schema: 'http://localhost:5000/graphql'
+config:
+  avoidOptionals:
+    field: true
+    object: true
+    defaultValue: true
+  maybeValue: T | null
 generates:
   src/generated/fragments.ts:
     plugins:

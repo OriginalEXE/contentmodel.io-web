@@ -47,7 +47,7 @@ export const getButtonClassName = ({
     switch (color) {
       case 'primary':
         colorClasses =
-          'text-white bg-primary-500 hover:bg-primary-600 focus:bg-primary-700';
+          'text-primary-700 bg-primary-300 hover:bg-primary-400 focus:bg-primary-400';
         break;
       case 'danger':
         colorClasses =
@@ -55,7 +55,7 @@ export const getButtonClassName = ({
         break;
       default:
         colorClasses =
-          'text-gray-800 bg-gray-200 hover:text-gray-900 hover:bg-gray-300 focus:text-gray-900 focus:bg-gray-300';
+          'text-pinkGray-900 bg-pinkGray-100 hover:text-pinkGray-900 hover:bg-pinkGray-200 focus:text-pinkGray-900 focus:bg-pinkGray-200';
         break;
     }
   }
@@ -99,5 +99,5 @@ export const getButtonClassName = ({
       break;
   }
 
-  return `inline-block font-medium appearance-none transition-colors duration-150 ease-in-out focus:outline-none focus-visible:underline ${colorClasses} ${sizeClasses} ${className} rounded-full`;
+  return `inline-block font-medium appearance-none transition-colors duration-150 ease-in-out focus:outline-none focus-visible:underline ${colorClasses} ${sizeClasses} ${className} rounded-md`;
 };

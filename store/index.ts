@@ -9,6 +9,7 @@ export const User = types.model({
   id: types.string,
   name: types.string,
   picture: types.string,
+  contentful_token_read: types.maybeNull(types.string),
 });
 
 export const Store = types
@@ -16,20 +17,8 @@ export const Store = types
     me: types.maybeNull(User),
   })
   .actions((self) => {
-    const setMe = ({
-      id,
-      name,
-      picture,
-    }: {
-      id: string;
-      name: string;
-      picture: string;
-    }): void => {
-      self.me = {
-        id,
-        name,
-        picture,
-      };
+    const setMe = (me: Instance<typeof User>): void => {
+      self.me = me;
     };
 
     return {

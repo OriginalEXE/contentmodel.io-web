@@ -2,10 +2,10 @@ import catchify from 'catchify';
 import { getSnapshot } from 'mobx-state-tree';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 
-import Header from '@/src/header/components/Header/Header';
+import Header from '@/src/features/header/components/Header/Header';
+import getCurrentUser from '@/src/features/user/api/getCurrentUser';
 import styles from '@/src/shared/components/StyledDynamicContent/StyledDynamicContent.module.css';
 import optimizeLineBreak from '@/src/typography/optimize-line-break';
-import getCurrentUser from '@/src/user/api/getCurrentUser';
 import { initializeStore, StoreSnapshotInterface } from '@/store';
 import { StoreProvider } from '@/store/hooks';
 
@@ -179,13 +179,13 @@ const TermsAndConditionsPage: React.FC<
 
             <h2>CANCELLATION</h2>
             <p>
-              You can cancel your subscription at any time through your accoutn
+              You can cancel your subscription at any time through your account
               settings, or by contacting us using the contact information
               provided below. Your cancellation will take effect at the end of
               the current paid term.
             </p>
             <p>
-              f you are unsatisfied with our services, please email us at
+              If you are unsatisfied with our services, please email us at
               hello@contentmodel.io
             </p>
 

@@ -3,8 +3,8 @@ import { getSnapshot } from 'mobx-state-tree';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 
-import NewView from '@/src/content-model/new/views/New';
-import getCurrentUser from '@/src/user/api/getCurrentUser';
+import NewView from '@/src/features/content-model/new/views/New';
+import getCurrentUser from '@/src/features/user/api/getCurrentUser';
 import { initializeStore, StoreSnapshotInterface } from '@/store';
 import { StoreProvider } from '@/store/hooks';
 

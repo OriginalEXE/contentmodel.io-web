@@ -18,9 +18,9 @@ export type User = {
   id: Scalars['ID'];
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
-  email?: Maybe<Scalars['String']>;
+  email: Maybe<Scalars['String']>;
   name: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
+  contentful_token_read: Maybe<Scalars['String']>;
   picture: Scalars['String'];
 };
 
@@ -31,7 +31,7 @@ export type Login = {
   createdAt: Scalars['DateTime'];
   updatedAt: Scalars['DateTime'];
   auth0Id: Scalars['String'];
-  fresh?: Maybe<Scalars['Boolean']>;
+  fresh: Maybe<Scalars['Boolean']>;
   user: User;
 };
 
@@ -65,9 +65,9 @@ export type PaginatedContentModel = {
 
 export type Query = {
   __typename?: 'Query';
-  me?: Maybe<User>;
+  me: Maybe<User>;
   contentModels: PaginatedContentModel;
-  contentModelBySlug?: Maybe<ContentModel>;
+  contentModelBySlug: Maybe<ContentModel>;
 };
 
 
@@ -86,6 +86,7 @@ export type QueryContentModelBySlugArgs = {
 export type Mutation = {
   __typename?: 'Mutation';
   createUser: Login;
+  updateUser: User;
   createContentModel: ContentModel;
   updateContentModel: ContentModel;
   deleteContentModel: ContentModel;
@@ -94,6 +95,11 @@ export type Mutation = {
 
 export type MutationCreateUserArgs = {
   createUser: CreateUserInput;
+};
+
+
+export type MutationUpdateUserArgs = {
+  updateUser: UpdateUserInput;
 };
 
 
@@ -115,6 +121,11 @@ export type CreateUserInput = {
   email: Scalars['String'];
   name?: Maybe<Scalars['String']>;
   picture?: Maybe<Scalars['String']>;
+};
+
+export type UpdateUserInput = {
+  id: Scalars['String'];
+  contentful_token_read?: Maybe<Scalars['String']>;
 };
 
 export type CreateContentModelInput = {

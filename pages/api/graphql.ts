@@ -1,7 +1,7 @@
 import express from 'express';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
-import { getAccessToken } from '@/src/auth/server';
+import { getAccessToken } from '@/src/features/auth/server';
 
 const app = express();
 

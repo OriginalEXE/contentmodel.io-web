@@ -11,6 +11,8 @@ import {
   faExpand,
   faCompress,
   faSparkles,
+  faUserCircle,
+  faUnlink,
 } from '@fortawesome/pro-solid-svg-icons';
 
 config.autoAddCss = false;
@@ -27,4 +29,6 @@ library.add(
   faExpand,
   faCompress,
   faSparkles,
+  faUserCircle,
+  faUnlink,
 );

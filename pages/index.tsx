@@ -3,12 +3,12 @@ import { getSnapshot } from 'mobx-state-tree';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { SSRProvider } from 'react-aria';
 
-import getContentModels from '@/src/content-model/api/getContentModels';
-import contentModelSchema from '@/src/content-model/types/contentModel';
-import { ParsedDbContentModel } from '@/src/content-model/types/parsedDbContentModel';
-import DirectoryView from '@/src/content-model/view/views/Directory';
-import contentModelPositionSchema from '@/src/diagram/types/contentModelPosition';
-import getCurrentUser from '@/src/user/api/getCurrentUser';
+import getContentModels from '@/src/features/content-model/api/getContentModels';
+import contentModelSchema from '@/src/features/content-model/types/contentModel';
+import { ParsedDbContentModel } from '@/src/features/content-model/types/parsedDbContentModel';
+import DirectoryView from '@/src/features/content-model/view/views/Directory';
+import contentModelPositionSchema from '@/src/features/diagram/types/contentModelPosition';
+import getCurrentUser from '@/src/features/user/api/getCurrentUser';
 import { initializeStore, StoreSnapshotInterface } from '@/store';
 import { StoreProvider } from '@/store/hooks';
 

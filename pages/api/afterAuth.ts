@@ -1,9 +1,9 @@
 import catchify from 'catchify';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import auth0 from '@/src/auth/auth0';
-import { getAccessToken } from '@/src/auth/server';
-import createUser from '@/src/user/api/createUser';
+import auth0 from '@/src/features/auth/auth0';
+import { getAccessToken } from '@/src/features/auth/server';
+import createUser from '@/src/features/user/api/createUser';
 import {
   setCookies,
   parseCookies,

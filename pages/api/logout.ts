@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import auth0 from '@/src/auth/auth0';
+import auth0 from '@/src/features/auth/auth0';
 
 export default async function logout(
   req: NextApiRequest,
