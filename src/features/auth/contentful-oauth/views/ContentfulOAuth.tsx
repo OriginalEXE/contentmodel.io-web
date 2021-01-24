@@ -48,7 +48,8 @@ const ContentfulOAuthView: React.FC = observer(() => {
       id: store.me.id,
       contentful_token_read: accessToken,
     });
-  }, [store.me, updateUserMutation]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [store.me]);
 
   return (
     <>
@@ -73,7 +74,13 @@ const ContentfulOAuthView: React.FC = observer(() => {
                 </p>
                 <Link href="/content-models/new">
                   {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                  <a className={getButtonClassName()}>Try again</a>
+                  <a
+                    className={getButtonClassName({
+                      className: 'mt-4',
+                    })}
+                  >
+                    Try again
+                  </a>
                 </Link>
               </>
             ) : null}
