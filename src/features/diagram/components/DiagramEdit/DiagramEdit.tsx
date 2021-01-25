@@ -308,8 +308,8 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
 
           connections.push(
             instance.connect({
-              source: sourceEl as any,
-              target: targetEl as any,
+              source: sourceEl,
+              target: targetEl,
               detachable: false,
               anchors: ['ContinuousLeftRight', 'Top'],
               endpoints: ['Blank', 'Dot'],
@@ -393,8 +393,8 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
 
           connections.push(
             instance.connect({
-              source: sourceEl as any,
-              target: targetEl as any,
+              source: sourceEl,
+              target: targetEl,
               detachable: false,
               anchors: ['ContinuousLeftRight', 'Top'],
               endpoints: ['Blank', 'Dot'],
@@ -449,7 +449,7 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
         return;
       }
 
-      plumbInstance.revalidate(connectionEl as any);
+      plumbInstance.revalidate(connectionEl);
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -543,7 +543,7 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
                   );
 
                   if (contentTypeEl !== undefined) {
-                    plumbInstance.revalidate(contentTypeEl as any);
+                    plumbInstance.revalidate(contentTypeEl);
                   }
 
                   const contentTypeFieldPrefix = generateContentTypeFieldDOMId(
@@ -556,7 +556,7 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
                       return;
                     }
 
-                    plumbInstance.revalidate(el as any);
+                    plumbInstance.revalidate(el);
                   });
 
                   onContentTypeDrag(contentType.sys.id, position);
