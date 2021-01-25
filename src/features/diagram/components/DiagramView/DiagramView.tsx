@@ -5,6 +5,13 @@ import DraggableContentType from '@/src/features/content-model/components/Dragga
 import { ParsedDbContentModel } from '@/src/features/content-model/types/parsedDbContentModel';
 import DiagramControls from '@/src/features/diagram/components/DiagramControls/DiagramControls';
 import {
+  CONTENT_TYPE_JS_CLASS,
+  CONTENT_TYPE_HIGHLIGHTED_JS_CLASS,
+  CONTENT_TYPE_HIGHLIGHTED_CSS_CLASS,
+  CONTENT_TYPE_CONNECTION_PREFIX,
+  CONTENT_TYPE_CONNECTED_TO_PREFIX,
+} from '@/src/features/diagram/constants';
+import {
   generateContentTypeDOMId,
   generateContentTypeFieldDOMId,
 } from '@/src/features/diagram/utilities/generateDOMId';
@@ -225,8 +232,10 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
       return;
     }
 
+    const diagramContainer = diagramContainerRef.current;
+
     const instance = jsPlumb.newInstance({
-      container: diagramContainerRef.current,
+      container: diagramContainer,
       elementsDraggable: false,
       connectionsDetachable: false,
     });
@@ -307,7 +316,7 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
                 {
                   stub: 10,
                   gap: 10,
-                  cssClass: `${styles.stroke} text-gray-400`,
+                  cssClass: `${styles.stroke} text-sepia-300  js-connects-${contentType.sys.id} js-connects-${cTypeId}`,
                 },
               ],
             }),
@@ -392,7 +401,7 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
                 {
                   stub: 10,
                   gap: 10,
-                  cssClass: `${styles.stroke} text-gray-400`,
+                  cssClass: `${styles.stroke} text-sepia-300 ${CONTENT_TYPE_CONNECTION_PREFIX}${contentType.sys.id} ${CONTENT_TYPE_CONNECTION_PREFIX}${cTypeId}`,
                 },
               ],
             }),
@@ -407,6 +416,127 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
 
     setPlumbInstance(instance);
 
+    // Add hover styles
+    const onCTypeMouseover = (e: MouseEvent) => {
+      if (e.target === null) {
+        return;
+      }
+
+      const target = (e.target as Element).closest(`.${CONTENT_TYPE_JS_CLASS}`);
+
+      if (target === null) {
+        return;
+      }
+
+      if (
+        target.classList.contains(CONTENT_TYPE_JS_CLASS) === false ||
+        target.classList.contains(CONTENT_TYPE_HIGHLIGHTED_JS_CLASS) === true
+      ) {
+        return;
+      }
+
+      diagramContainer.classList.add(CONTENT_TYPE_HIGHLIGHTED_CSS_CLASS);
+
+      target.classList.add(
+        CONTENT_TYPE_HIGHLIGHTED_JS_CLASS,
+        CONTENT_TYPE_HIGHLIGHTED_CSS_CLASS,
+      );
+
+      const contentType = target.getAttribute('data-content-type');
+
+      if (contentType === null) {
+        return;
+      }
+
+      const connections = diagramContainer.querySelectorAll(
+        `.${CONTENT_TYPE_CONNECTION_PREFIX}${contentType}`,
+      );
+
+      if (connections.length > 0) {
+        Array.from(connections).forEach((connectionEl) => {
+          connectionEl.classList.add(
+            CONTENT_TYPE_HIGHLIGHTED_JS_CLASS,
+            CONTENT_TYPE_HIGHLIGHTED_CSS_CLASS,
+          );
+        });
+      }
+
+      const connectedContentTypes = diagramContainer.querySelectorAll(
+        `.${CONTENT_TYPE_CONNECTED_TO_PREFIX}${contentType}`,
+      );
+
+      if (connectedContentTypes.length > 0) {
+        Array.from(connectedContentTypes).forEach((connectedCTypeEl) => {
+          connectedCTypeEl.classList.add(
+            CONTENT_TYPE_HIGHLIGHTED_JS_CLASS,
+            CONTENT_TYPE_HIGHLIGHTED_CSS_CLASS,
+          );
+        });
+      }
+    };
+
+    diagramContainer.addEventListener('mouseover', onCTypeMouseover);
+
+    const onCTypeMouseout = (e: MouseEvent) => {
+      if (e.target === null) {
+        return;
+      }
+
+      const target = (e.target as Element).closest(`.${CONTENT_TYPE_JS_CLASS}`);
+
+      if (target === null) {
+        return;
+      }
+
+      if (
+        target.classList.contains(CONTENT_TYPE_JS_CLASS) === false ||
+        target.classList.contains(CONTENT_TYPE_HIGHLIGHTED_JS_CLASS) === false
+      ) {
+        return;
+      }
+
+      diagramContainer.classList.remove(CONTENT_TYPE_HIGHLIGHTED_CSS_CLASS);
+
+      target.classList.remove(
+        CONTENT_TYPE_HIGHLIGHTED_JS_CLASS,
+        CONTENT_TYPE_HIGHLIGHTED_CSS_CLASS,
+      );
+
+      const contentType = target.getAttribute('data-content-type');
+
+      if (contentType === null) {
+        return;
+      }
+
+      const connections = diagramContainer.querySelectorAll(
+        `.${CONTENT_TYPE_CONNECTION_PREFIX}${contentType}`,
+      );
+
+      if (connections.length > 0) {
+        Array.from(connections).forEach((connectionEl) => {
+          connectionEl.classList.remove(
+            CONTENT_TYPE_HIGHLIGHTED_JS_CLASS,
+            CONTENT_TYPE_HIGHLIGHTED_CSS_CLASS,
+          );
+        });
+      }
+
+      const connectedContentTypes = diagramContainer.querySelectorAll(
+        `.${CONTENT_TYPE_CONNECTED_TO_PREFIX}${contentType}`,
+      );
+
+      if (connectedContentTypes.length > 0) {
+        Array.from(connectedContentTypes).forEach((connectedCTypeEl) => {
+          connectedCTypeEl.classList.remove(
+            CONTENT_TYPE_HIGHLIGHTED_JS_CLASS,
+            CONTENT_TYPE_HIGHLIGHTED_CSS_CLASS,
+          );
+        });
+      }
+    };
+
+    diagramContainer.addEventListener('mouseout', onCTypeMouseout);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => {
       connections.forEach((connection) => {
@@ -420,6 +550,10 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
       });
 
       setPlumbInstance(undefined);
+
+      // Clean up event listeners
+      diagramContainer.removeEventListener('mouseover', onCTypeMouseover);
+      diagramContainer.removeEventListener('mouseout', onCTypeMouseout);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [diagramContainerRef, contentModel]);
@@ -486,7 +620,7 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
 
   return (
     <div
-      className={`relative border rounded-lg border-gray-300 bg-gray-200 ${className}`}
+      className={`relative border rounded-lg border-sepia-300 bg-sepia-200 ${className}`}
       ref={componentWrapEl}
     >
       <div
@@ -502,7 +636,10 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
             isFullscreen ? styles.panningContainerFullscreen : ''
           }`}
         >
-          <div ref={diagramContainerRef} className="relative">
+          <div
+            ref={diagramContainerRef}
+            className={`relative dd ${styles.diagramContainer}`}
+          >
             {contentModel.model.map((contentType, i) => (
               <DraggableContentType
                 key={contentType.sys.id}
@@ -546,6 +683,7 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
                     plumbInstance.revalidate(el);
                   });
                 }}
+                className={styles.contentType}
               />
             ))}
           </div>

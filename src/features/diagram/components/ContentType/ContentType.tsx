@@ -3,20 +3,20 @@ import * as z from 'zod';
 
 import contentTypeSchema from '@/src/features/content-model/types/contentType';
 import contentTypeFieldSchema from '@/src/features/content-model/types/contentTypeField';
+import { CONTENT_TYPE_JS_CLASS } from '@/src/features/diagram/constants';
 import {
   generateContentTypeDOMId,
   generateContentTypeFieldDOMId,
 } from '@/src/features/diagram/utilities/generateDOMId';
 
-import styles from './ContentType.module.css';
-
 export interface ContentTypeProps {
   contentType: z.infer<typeof contentTypeSchema>;
   selected?: boolean;
+  className?: string;
 }
 
 const ContentType: React.FC<ContentTypeProps> = (props) => {
-  const { contentType, selected = false } = props;
+  const { contentType, selected = false, className = '' } = props;
 
   const contentTypeName = useMemo(() => {
     if (contentType.internal === true) {
@@ -63,14 +63,15 @@ const ContentType: React.FC<ContentTypeProps> = (props) => {
         selected
           ? 'shadow border-primary-200 z-10'
           : 'shadow-sm border-white z-20'
-      }`}
+      } ${CONTENT_TYPE_JS_CLASS} ${className}`}
+      data-content-type={contentType.sys.id}
     >
       <header className="py-1">
         <h2 className="text-center p-2 font-semibold text-lg">
           {contentTypeName}
         </h2>
       </header>
-      <div className={`h-2 w-16 rounded mx-auto ${styles.headerSeparator}`} />
+      <div className="h-2 w-16 rounded mx-auto bg-primary-300" />
       <div className="mt-3">
         {contentType.fields.map((contentTypeField) => (
           <div

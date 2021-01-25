@@ -8,6 +8,23 @@
   max-height: 100vh;
 }
 
+.contentType {
+}
+
+.diagramContainer:global(.is-highlighted) .contentType {
+  opacity: 0.4;
+}
+
+.diagramContainer:global(.is-highlighted) .contentType:global(.is-highlighted) {
+  opacity: 1;
+}
+
 .stroke :global(path) {
   @apply stroke-current;
+}
+
+.stroke:global(.is-highlighted) {
+  @apply text-sepia-600;
+  position: relative;
+  z-index: 2;
 }

@@ -11,6 +11,7 @@ interface DraggableContentType extends ContentTypeProps {
   scale: number;
   onDrag: (position: z.infer<typeof contentTypePositionSchema>) => void;
   startPosition: z.infer<typeof contentTypePositionSchema>;
+  className?: string;
 }
 
 const DraggableContentType = forwardRef<HTMLDivElement, DraggableContentType>(

@@ -5,6 +5,13 @@ import * as z from 'zod';
 import DraggableContentType from '@/src/features/content-model/components/DraggableContentType/DraggableContentType';
 import contentModelSchema from '@/src/features/content-model/types/contentModel';
 import DiagramControls from '@/src/features/diagram/components/DiagramControls/DiagramControls';
+import {
+  CONTENT_TYPE_JS_CLASS,
+  CONTENT_TYPE_HIGHLIGHTED_JS_CLASS,
+  CONTENT_TYPE_HIGHLIGHTED_CSS_CLASS,
+  CONTENT_TYPE_CONNECTION_PREFIX,
+  CONTENT_TYPE_CONNECTED_TO_PREFIX,
+} from '@/src/features/diagram/constants';
 import contentModelPositionSchema from '@/src/features/diagram/types/contentModelPosition';
 import contentTypePositionSchema from '@/src/features/diagram/types/contentTypePosition';
 import {
@@ -236,8 +243,10 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
       return;
     }
 
+    const diagramContainer = diagramContainerRef.current;
+
     const instance = jsPlumb.newInstance({
-      container: diagramContainerRef.current,
+      container: diagramContainer,
       elementsDraggable: false,
       connectionsDetachable: false,
     });
@@ -318,13 +327,24 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
                 {
                   stub: 10,
                   gap: 10,
-                  cssClass: `${styles.stroke} text-gray-400`,
+                  cssClass: `${styles.stroke} text-sepia-300 ${CONTENT_TYPE_CONNECTION_PREFIX}${contentType.sys.id} ${CONTENT_TYPE_CONNECTION_PREFIX}${cTypeId}`,
                 },
               ],
             }),
           );
 
           setConnectionIds((x) => [...x, generateContentTypeDOMId(cTypeId)]);
+
+          const sourceCTypeEl = document.getElementById(
+            generateContentTypeDOMId(contentType.sys.id),
+          )!;
+
+          sourceCTypeEl.classList.add(
+            `${CONTENT_TYPE_CONNECTED_TO_PREFIX}${cTypeId}`,
+          );
+          targetEl.classList.add(
+            `${CONTENT_TYPE_CONNECTED_TO_PREFIX}${contentType.sys.id}`,
+          );
         });
       });
 
@@ -403,13 +423,24 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
                 {
                   stub: 10,
                   gap: 10,
-                  cssClass: `${styles.stroke} text-gray-400`,
+                  cssClass: `${styles.stroke} text-sepia-300 ${CONTENT_TYPE_CONNECTION_PREFIX}${contentType.sys.id} ${CONTENT_TYPE_CONNECTION_PREFIX}${cTypeId}`,
                 },
               ],
             }),
           );
 
           setConnectionIds((x) => [...x, generateContentTypeDOMId(cTypeId)]);
+
+          const sourceCTypeEl = document.getElementById(
+            generateContentTypeDOMId(contentType.sys.id),
+          )!;
+
+          sourceCTypeEl.classList.add(
+            `${CONTENT_TYPE_CONNECTED_TO_PREFIX}${cTypeId}`,
+          );
+          targetEl.classList.add(
+            `${CONTENT_TYPE_CONNECTED_TO_PREFIX}${contentType.sys.id}`,
+          );
         });
       });
     });
@@ -417,6 +448,127 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
     instance.setSuspendDrawing(false, true);
 
     setPlumbInstance(instance);
+
+    // Add hover styles
+    const onCTypeMouseover = (e: MouseEvent) => {
+      if (e.target === null) {
+        return;
+      }
+
+      const target = (e.target as Element).closest(`.${CONTENT_TYPE_JS_CLASS}`);
+
+      if (target === null) {
+        return;
+      }
+
+      if (
+        target.classList.contains(CONTENT_TYPE_JS_CLASS) === false ||
+        target.classList.contains(CONTENT_TYPE_HIGHLIGHTED_JS_CLASS) === true
+      ) {
+        return;
+      }
+
+      diagramContainer.classList.add(CONTENT_TYPE_HIGHLIGHTED_CSS_CLASS);
+
+      target.classList.add(
+        CONTENT_TYPE_HIGHLIGHTED_JS_CLASS,
+        CONTENT_TYPE_HIGHLIGHTED_CSS_CLASS,
+      );
+
+      const contentType = target.getAttribute('data-content-type');
+
+      if (contentType === null) {
+        return;
+      }
+
+      const connections = diagramContainer.querySelectorAll(
+        `.${CONTENT_TYPE_CONNECTION_PREFIX}${contentType}`,
+      );
+
+      if (connections.length > 0) {
+        Array.from(connections).forEach((connectionEl) => {
+          connectionEl.classList.add(
+            CONTENT_TYPE_HIGHLIGHTED_JS_CLASS,
+            CONTENT_TYPE_HIGHLIGHTED_CSS_CLASS,
+          );
+        });
+      }
+
+      const connectedContentTypes = diagramContainer.querySelectorAll(
+        `.${CONTENT_TYPE_CONNECTED_TO_PREFIX}${contentType}`,
+      );
+
+      if (connectedContentTypes.length > 0) {
+        Array.from(connectedContentTypes).forEach((connectedCTypeEl) => {
+          connectedCTypeEl.classList.add(
+            CONTENT_TYPE_HIGHLIGHTED_JS_CLASS,
+            CONTENT_TYPE_HIGHLIGHTED_CSS_CLASS,
+          );
+        });
+      }
+    };
+
+    diagramContainer.addEventListener('mouseover', onCTypeMouseover);
+
+    const onCTypeMouseout = (e: MouseEvent) => {
+      if (e.target === null) {
+        return;
+      }
+
+      const target = (e.target as Element).closest(`.${CONTENT_TYPE_JS_CLASS}`);
+
+      if (target === null) {
+        return;
+      }
+
+      if (
+        target.classList.contains(CONTENT_TYPE_JS_CLASS) === false ||
+        target.classList.contains(CONTENT_TYPE_HIGHLIGHTED_JS_CLASS) === false
+      ) {
+        return;
+      }
+
+      diagramContainer.classList.remove(CONTENT_TYPE_HIGHLIGHTED_CSS_CLASS);
+
+      target.classList.remove(
+        CONTENT_TYPE_HIGHLIGHTED_JS_CLASS,
+        CONTENT_TYPE_HIGHLIGHTED_CSS_CLASS,
+      );
+
+      const contentType = target.getAttribute('data-content-type');
+
+      if (contentType === null) {
+        return;
+      }
+
+      const connections = diagramContainer.querySelectorAll(
+        `.${CONTENT_TYPE_CONNECTION_PREFIX}${contentType}`,
+      );
+
+      if (connections.length > 0) {
+        Array.from(connections).forEach((connectionEl) => {
+          connectionEl.classList.remove(
+            CONTENT_TYPE_HIGHLIGHTED_JS_CLASS,
+            CONTENT_TYPE_HIGHLIGHTED_CSS_CLASS,
+          );
+        });
+      }
+
+      const connectedContentTypes = diagramContainer.querySelectorAll(
+        `.${CONTENT_TYPE_CONNECTED_TO_PREFIX}${contentType}`,
+      );
+
+      if (connectedContentTypes.length > 0) {
+        Array.from(connectedContentTypes).forEach((connectedCTypeEl) => {
+          connectedCTypeEl.classList.remove(
+            CONTENT_TYPE_HIGHLIGHTED_JS_CLASS,
+            CONTENT_TYPE_HIGHLIGHTED_CSS_CLASS,
+          );
+        });
+      }
+    };
+
+    diagramContainer.addEventListener('mouseout', onCTypeMouseout);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => {
@@ -431,6 +583,10 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
       });
 
       setPlumbInstance(undefined);
+
+      // Clean up event listeners
+      diagramContainer.removeEventListener('mouseover', onCTypeMouseover);
+      diagramContainer.removeEventListener('mouseout', onCTypeMouseout);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [diagramContainerRef, contentModel]);
@@ -497,7 +653,7 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
 
   return (
     <div
-      className="relative mt-8 border-2 border-dashed rounded-lg border-gray-300 bg-gray-200"
+      className="relative mt-8 border-2 border-dashed rounded-lg border-sepia-300 bg-sepia-200"
       ref={componentWrapEl}
     >
       <div
@@ -513,7 +669,10 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
             isFullscreen ? styles.panningContainerFullscreen : ''
           }`}
         >
-          <div ref={diagramContainerRef} className="relative">
+          <div
+            ref={diagramContainerRef}
+            className={`relative ${styles.diagramContainer}`}
+          >
             {contentModel.map((contentType, i) => (
               <DraggableContentType
                 key={contentType.sys.id}
@@ -561,6 +720,7 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
 
                   onContentTypeDrag(contentType.sys.id, position);
                 }}
+                className={styles.contentType}
               />
             ))}
           </div>
