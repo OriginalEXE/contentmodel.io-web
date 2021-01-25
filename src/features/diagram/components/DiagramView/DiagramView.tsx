@@ -323,6 +323,17 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
           );
 
           setConnectionIds((x) => [...x, generateContentTypeDOMId(cTypeId)]);
+
+          const sourceCTypeEl = document.getElementById(
+            generateContentTypeDOMId(contentType.sys.id),
+          )!;
+
+          sourceCTypeEl.classList.add(
+            `${CONTENT_TYPE_CONNECTED_TO_PREFIX}${cTypeId}`,
+          );
+          targetEl.classList.add(
+            `${CONTENT_TYPE_CONNECTED_TO_PREFIX}${contentType.sys.id}`,
+          );
         });
       });
 
@@ -408,6 +419,17 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
           );
 
           setConnectionIds((x) => [...x, generateContentTypeDOMId(cTypeId)]);
+
+          const sourceCTypeEl = document.getElementById(
+            generateContentTypeDOMId(contentType.sys.id),
+          )!;
+
+          sourceCTypeEl.classList.add(
+            `${CONTENT_TYPE_CONNECTED_TO_PREFIX}${cTypeId}`,
+          );
+          targetEl.classList.add(
+            `${CONTENT_TYPE_CONNECTED_TO_PREFIX}${contentType.sys.id}`,
+          );
         });
       });
     });
