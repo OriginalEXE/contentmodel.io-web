@@ -28,8 +28,6 @@ app.use('*', async (originalReq: any, originalRes: any, next) => {
       );
     },
     onProxyReq: (proxyReq, req) => {
-      console.log('Access token:', accessToken);
-
       if (accessToken !== null && accessToken !== '') {
         proxyReq.setHeader('Authorization', `Bearer ${accessToken}`);
       }
