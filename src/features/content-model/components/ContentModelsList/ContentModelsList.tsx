@@ -20,8 +20,8 @@ const ContentModelsList: React.FC<ContentModelsListProps> = (props) => {
           key={contentModel.id}
         >
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-          <a className="block rounded-lg focus:outline-none focus:ring-2 mb-4">
-            <article className="bg-white p-4 shadow-sm rounded-lg">
+          <a className="block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 mb-4">
+            <article className="bg-sepia-100 border-b-4 border-sepia-400 p-4 rounded-lg">
               <h2 className="text-xl font-semibold">{contentModel.title}</h2>
               {contentModel.description && (
                 <StyledDynamicContent className="mt-2">

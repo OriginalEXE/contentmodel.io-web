@@ -7,11 +7,14 @@ import { useToggleState } from 'react-stately';
 import { Item } from 'react-stately';
 
 import logo from '@/src/shared/assets/logo/logo.svg';
+import ActiveLink from '@/src/shared/components/ActiveLink/ActiveLink';
 import Avatar from '@/src/shared/components/Avatar/Avatar';
 import Button from '@/src/shared/components/Button/Button';
 import ToggleMenu from '@/src/shared/components/ToggleMenu/ToggleMenu';
 import { useStore } from '@/store/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import styles from './Header.module.css';
 
 const HeaderSmallScreens: React.FC = observer(() => {
   const store = useStore();
@@ -47,7 +50,7 @@ const HeaderSmallScreens: React.FC = observer(() => {
         </Link>
         <button
           {...buttonProps}
-          className="w-8 h-8 appearance-none inline-flex items-center justify-center focus:outline-none focus:ring-2"
+          className="w-8 h-8 appearance-none inline-flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600"
         >
           <VisuallyHidden>Toggle menu</VisuallyHidden>
           <FontAwesomeIcon
@@ -60,20 +63,28 @@ const HeaderSmallScreens: React.FC = observer(() => {
       {toggleButtonState.isSelected ? (
         <ul>
           <li className="font-semibold">
-            <Link href="/">
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <a className="no-underline px-3 py-2 block focus:outline-none focus:ring-2">
-                Browse
-              </a>
-            </Link>
+            <ActiveLink
+              href="/"
+              anchorClassName={(isActive) =>
+                `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
+                  isActive ? styles.activeSmallScreenLink : ''
+                }`
+              }
+            >
+              Browse
+            </ActiveLink>
           </li>
           <li className="font-semibold">
-            <Link href="/content-models/new">
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <a className="no-underline px-3 py-2 block focus:outline-none focus:ring-2">
-                Share content model
-              </a>
-            </Link>
+            <ActiveLink
+              href="/content-models/new"
+              anchorClassName={(isActive) =>
+                `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
+                  isActive ? styles.activeSmallScreenLink : ''
+                }`
+              }
+            >
+              Share content model
+            </ActiveLink>
           </li>
           <li className="p-3">
             <div className="border-t border-gray-300" />
@@ -123,12 +134,16 @@ const HeaderSmallScreens: React.FC = observer(() => {
             )}
           </li>
           <li className="font-semibold">
-            <Link href="/profile/content-models">
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <a className="no-underline px-3 py-2 block focus:outline-none focus:ring-2">
-                My content models
-              </a>
-            </Link>
+            <ActiveLink
+              href="/profile/content-models"
+              anchorClassName={(isActive) =>
+                `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
+                  isActive ? styles.activeSmallScreenLink : ''
+                }`
+              }
+            >
+              My content models
+            </ActiveLink>
           </li>
         </ul>
       ) : null}
@@ -152,20 +167,28 @@ const HeaderLargeScreens: React.FC = observer(() => {
 
         <ul className="flex items-center flex-grow">
           <li className="font-semibold">
-            <Link href="/">
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <a className="no-underline px-3 py-2 block focus:outline-none focus:ring-2">
-                Browse
-              </a>
-            </Link>
+            <ActiveLink
+              href="/"
+              anchorClassName={(isActive) =>
+                `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
+                  isActive ? styles.activeLink : ''
+                }`
+              }
+            >
+              Browse
+            </ActiveLink>
           </li>
           <li className="font-semibold">
-            <Link href="/content-models/new">
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <a className="no-underline px-3 py-2 block focus:outline-none focus:ring-2">
-                Share content model
-              </a>
-            </Link>
+            <ActiveLink
+              href="/content-models/new"
+              anchorClassName={(isActive) =>
+                `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
+                  isActive ? styles.activeLink : ''
+                }`
+              }
+            >
+              Share content model
+            </ActiveLink>
           </li>
           <li
             className={`${
@@ -203,7 +226,7 @@ const HeaderLargeScreens: React.FC = observer(() => {
                       router.push(key as string);
                     }}
                     aria-label="Menu"
-                    buttonClassName="w-10 h-10 appearance-none inline-flex items-center justify-center rounded-full focus:outline-none focus:ring-2"
+                    buttonClassName="w-10 h-10 appearance-none inline-flex items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600"
                     buttonLabel="Profile menu"
                     buttonRender={<Avatar {...store.me} />}
                   >
@@ -222,7 +245,7 @@ const HeaderLargeScreens: React.FC = observer(() => {
 
 const Header: React.FC = observer(() => {
   return (
-    <header className="bg-white shadow-sm relative z-50">
+    <header className="bg-sepia-100 border-b border-sepia-200 relative z-50">
       <nav className="w-full max-w-screen-2xl mx-auto px-3">
         {/* Big screens nav */}
         <HeaderLargeScreens />

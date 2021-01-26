@@ -62,8 +62,8 @@ const ToggleMenuItem: React.FC<ToggleMenuItem> = ({
     <li
       {...mergeProps(menuItemProps, focusProps)}
       ref={ref}
-      className={`font-medium text-sm hover:bg-gray-100 ${
-        isFocused ? ' bg-gray-100 outline-none' : ''
+      className={`font-medium text-sm hover:bg-seagreen-200 ${
+        isFocused ? ' bg-seagreen-300 outline-none' : ''
       }`}
     >
       <Link href={item.key as string}>
@@ -104,7 +104,7 @@ const ToggleMenuDropdown: React.FC<ToggleMenuDropdownProps> = (props) => {
       <div
         {...overlayProps}
         ref={overlayRef}
-        className="absolute top-full right-0 mt-3 w-40 bg-gray-200 border border-gray-300"
+        className="absolute top-full right-0 mt-3 w-48 bg-sepia-100 border border-seagreen-400 rounded overflow-hidden"
       >
         <DismissButton onDismiss={props.onClose} />
         <ul {...mergeProps(menuProps, props.domProps)} ref={ref}>

@@ -62,7 +62,7 @@ const ViewView: React.FC<ViewViewProps> = observer((props) => {
           ) : null}
         </div>
 
-        <div className="mt-4 w-full xl:mt-0">
+        <div className="mt-4 w-full md:mt-8 xl:mt-0">
           <DiagramView contentModel={contentModel} />
         </div>
       </main>

@@ -12,6 +12,7 @@
 }
 
 .diagramContainer:global(.is-highlighted) .contentType {
+  @apply transition-opacity;
   opacity: 0.4;
 }
 
@@ -24,7 +25,7 @@
 }
 
 .stroke:global(.is-highlighted) {
-  @apply text-sepia-600;
+  @apply text-seagreen-600;
   position: relative;
   z-index: 2;
 }

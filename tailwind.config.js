@@ -93,6 +93,12 @@ module.exports = {
   variants: {
     borderColor: ['responsive', 'focus-within', 'hover', 'focus'],
     textDecoration: ['responsive', 'hover', 'focus', 'focus-visible'],
+    extend: {
+      ringWidth: ['focus-visible'],
+      ringColor: ['focus-visible'],
+      ringOffsetWidth: ['focus-visible'],
+      ringOffsetColor: ['focus-visible'],
+    },
   },
   plugins: [],
 };
