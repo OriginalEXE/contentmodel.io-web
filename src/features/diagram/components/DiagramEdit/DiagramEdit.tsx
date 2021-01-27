@@ -653,7 +653,7 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
 
   return (
     <div
-      className="relative mt-8 border-2 border-dashed rounded-lg border-sepia-300 bg-sepia-200"
+      className="relative mt-8 border-2 border-dashed rounded-lg border-sepia-300 bg-sepia-100"
       ref={componentWrapEl}
     >
       <div

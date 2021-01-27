@@ -13,14 +13,14 @@ const ContentModelsList: React.FC<ContentModelsListProps> = (props) => {
   const { contentModels, className = '' } = props;
 
   return (
-    <div className={`lg:grid lg:grid-cols-3 lg:gap-4 ${className}`}>
+    <div className={`grid gap-4 md:grid-cols-2 lg:grid-cols-3 ${className}`}>
       {contentModels.map((contentModel) => (
         <Link
           href={`/content-models/${contentModel.slug}`}
           key={contentModel.id}
         >
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-          <a className="block rounded-lg mb-4 transform transition-transform hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 lg:mb-0">
+          <a className="block rounded-lg transform transition-transform hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 lg:mb-0">
             <article className="bg-sepia-100 border-b-4 border-sepia-400 p-4 rounded-lg">
               <h2 className="text-xl font-semibold whitespace-nowrap overflow-ellipsis overflow-hidden">
                 {contentModel.title}

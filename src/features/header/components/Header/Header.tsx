@@ -64,7 +64,7 @@ const HeaderSmallScreens: React.FC = observer(() => {
         <ul>
           <li className="font-semibold">
             <ActiveLink
-              href="/"
+              href="/browse"
               anchorClassName={(isActive) =>
                 `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
                   isActive ? styles.activeSmallScreenLink : ''
@@ -168,7 +168,7 @@ const HeaderLargeScreens: React.FC = observer(() => {
         <ul className="flex items-center flex-grow">
           <li className="font-semibold">
             <ActiveLink
-              href="/"
+              href="/browse"
               anchorClassName={(isActive) =>
                 `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
                   isActive ? styles.activeLink : ''

@@ -45,17 +45,14 @@ const PrivacyPolicyPage: React.FC<
           <p className="text-gray-900 mt-6 lg:mt-8 lg:text-l xl:text-xl">
             <b>Note:</b> In general, we will only collect the data that we
             absolutely need from you. At any time you can ask for details we
-            have on you (no matter whether you are in EU or not). We don&apos;t
-            rely on ads for our revenue so no need to whitelist the site if you
-            are using an Ad Blocker.
+            have on you (no matter whether you are in EU or not).
           </p>
           <div className={styles.content}>
             <p>
               Thank you for choosing to be part of our community at
-              contentmodel.io, owner Ante Šepić, Berlin, Germany, doing business
-              as contentmodel.io (“contentmodel.io”, “we”, “us”, or “our”). We
-              are committed to protecting your personal information and your
-              right to privacy. If you have any questions or concerns about our
+              contentmodel.io, owner Ante Šepić, Berlin, Germany. We are
+              committed to protecting your personal information and your right
+              to privacy. If you have any questions or concerns about our
               policy, or our practices with regards to your personal
               information, please contact us at hello@contentmodel.io.
             </p>
@@ -122,11 +119,10 @@ const PrivacyPolicyPage: React.FC<
             </p>
             <p>
               Social Media Login Data. We may provide you with the option to
-              register using social media account details, like your Facebook,
-              Twitter or other social media account. If you choose to register
-              in this way, we will collect the Information described in the
-              section called &quot;HOW DO WE HANDLE YOUR SOCIAL LOGINS&quot;
-              below.
+              register using social media account details, like your Google or
+              other social media account. If you choose to register in this way,
+              we will collect the Information described in the section called
+              &quot;HOW DO WE HANDLE YOUR SOCIAL LOGINS&quot; below.
             </p>
             <p>
               All personal information that you provide to us must be true,
@@ -184,7 +180,7 @@ const PrivacyPolicyPage: React.FC<
               <li>
                 To facilitate account creation and logon process. If you choose
                 to link your account with us to a third party account (such as
-                your Google or Facebook account), we use the information you
+                your Google or Contentful account), we use the information you
                 allowed us to collect from those third parties to facilitate
                 account creation and logon process for the performance of the
                 contract. See the section below headed &quot;HOW DO WE HANDLE
@@ -328,7 +324,7 @@ const PrivacyPolicyPage: React.FC<
             <ul>
               <li>
                 Allow Users to Connect to their Third-Party Accounts: Google
-                account and Facebook account
+                account and Contentful account
               </li>
               <li>Cloud Computing Services: Amazon Web Services (AWS)</li>
               <li>Communicate and Chat with Users: Mailjet</li>
@@ -363,8 +359,8 @@ const PrivacyPolicyPage: React.FC<
             </p>
             <p>
               Our Services offer you the ability to register and login using
-              your third party social media account details (like your Facebook
-              or Twitter logins). Where you choose to do this, we will receive
+              your third party social media account details (like your Google or
+              Contentful logins). Where you choose to do this, we will receive
               certain profile information about you from your social media
               provider. The profile Information we receive may vary depending on
               the social media provider concerned, but will often include your

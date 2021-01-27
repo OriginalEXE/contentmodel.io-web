@@ -87,7 +87,7 @@ const ContentModelsPage: React.FC<
                 contentmodel.io is a community-sourced, visual directory of
                 Contentful content models
               </p>
-              <Link href="/">
+              <Link href="/browse">
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                 <a
                   className={getButtonClassName({
@@ -96,6 +96,7 @@ const ContentModelsPage: React.FC<
                     className: 'mt-5 lg:mt-12',
                   })}
                 >
+                  <FontAwesomeIcon icon={['fal', 'books']} className="mr-2" />{' '}
                   Browse the library
                 </a>
               </Link>
@@ -104,27 +105,24 @@ const ContentModelsPage: React.FC<
         </section>
 
         <section className="w-full py-16 px-3">
-          <div className="max-w-5xl mx-auto">
-            <div className="w-16 h-16 flex items-center justify-center rounded-full text-3xl bg-yellow-200 transform -rotate-6">
-              <FontAwesomeIcon icon={['fal', 'users']} />
-            </div>
-            <h2 className="mt-4 text-2xl font-bold lg:text-3xl xl:text-4xl">
-              Latest content models
-              <br />
-              from our community
-            </h2>
-            {contentModels.length > 0 ? (
-              <>
-                <ContentModelsList
-                  contentModels={contentModels}
-                  className="mt-6 md:mt-12"
-                />
-                <div className="flex justify-end">
-                  <Link href="/">
+          <div className="max-w-5xl mx-auto relative">
+            <div className="relative z-10">
+              <div className="w-16 h-16 flex items-center justify-center rounded-full text-3xl bg-yellow-200 transform -rotate-6">
+                <FontAwesomeIcon icon={['fal', 'users']} />
+              </div>
+              <h2 className="mt-4 text-2xl font-bold max-w-sm lg:text-3xl xl:text-4xl">
+                Latest content models from our community
+              </h2>
+              {contentModels.length > 0 ? (
+                <>
+                  <ContentModelsList
+                    contentModels={contentModels}
+                    className="mt-6 md:mt-12"
+                  />
+                  <Link href="/browse">
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                     <a
                       className={getButtonClassName({
-                        color: 'primary',
                         size: 'lg',
                         className: 'mt-4 lg:mt-8',
                         variant: 'text',
@@ -133,27 +131,51 @@ const ContentModelsPage: React.FC<
                       Browse the full library
                     </a>
                   </Link>
+                </>
+              ) : (
+                <div className="text-center mt-4">
+                  <p className="text-lg">
+                    It looks like noone has shared their content model yet. Why
+                    not be the first?
+                  </p>
+                  <Link href="/content-models/new">
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                    <a
+                      className={getButtonClassName({
+                        color: 'primary',
+                        className: 'mt-4',
+                      })}
+                    >
+                      Share your first content model
+                    </a>
+                  </Link>
                 </div>
-              </>
-            ) : (
-              <div className="text-center mt-4">
-                <p className="text-lg">
-                  It looks like noone has shared their content model yet. Why
-                  not be the first?
-                </p>
-                <Link href="/content-models/new">
-                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                  <a
-                    className={getButtonClassName({
-                      color: 'primary',
-                      className: 'mt-4',
-                    })}
-                  >
-                    Share your first content model
-                  </a>
-                </Link>
+              )}
+            </div>
+            <div className="absolute z-0 w-3/6 h-3/6 bg-yellow-50 rounded-full -bottom-12 -left-10 transform rotate-12" />
+          </div>
+        </section>
+
+        <section className="w-full py-16 px-3">
+          <div className="max-w-5xl mx-auto relative">
+            <div className="relative z-10">
+              <div className="w-16 h-16 flex items-center justify-center rounded-full text-3xl bg-seagreen-200 transform -rotate-6">
+                <FontAwesomeIcon icon={['fal', 'shoe-prints']} />
               </div>
-            )}
+              <h2 className="mt-4 text-2xl font-bold max-w-sm lg:text-3xl xl:text-4xl">
+                How sharing works
+              </h2>
+              <div className="mt-6 md:mt-12">
+                <p className="text-base max-w-2xl lg:text-2xl">
+                  We make it super convenient to share your content model with
+                  anyone by simply giving them a URL. You can quickly import
+                  your content model from Contentful through the process of safe
+                  authentication, or by importing an export file generated by
+                  Contentful CLI.
+                </p>
+              </div>
+            </div>
+            <div className="absolute z-0 w-2/6 h-3/6 bg-seagreen-50 -bottom-8 right-8 xl:-right-12 transform -rotate-45" />
           </div>
         </section>
       </main>

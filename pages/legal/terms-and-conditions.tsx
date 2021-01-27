@@ -47,17 +47,15 @@ const TermsAndConditionsPage: React.FC<
             <p>
               These Terms of Use constitute a legally binding agreement made
               between you, whether personally or on behalf of an entity (“you”)
-              and contentmodel.io, owner Ante Šepić, Berlin, Germany, doing
-              business as contentmodel.io (“contentmodel.io”, “we”, “us”, or
-              “our”), concerning your access to and use of the
-              https://contentmodel.io website as well as any other media form,
-              media channel, mobile website or mobile application related,
-              linked, or otherwise connected thereto (collectively, the “Site”).
-              You agree that by accessing the Site, you have read, understood,
-              and agree to be bound by all of these Terms of Use. IF YOU DO NOT
-              AGREE WITH ALL OF THESE TERMS OF USE, THEN YOU ARE EXPRESSLY
-              PROHIBITED FROM USING THE SITE AND YOU MUST DISCONTINUE USE
-              IMMEDIATELY.
+              and contentmodel.io, owner Ante Šepić, Berlin, Germany, concerning
+              your access to and use of the https://contentmodel.io website as
+              well as any other media form, media channel, mobile website or
+              mobile application related, linked, or otherwise connected thereto
+              (collectively, the “Site”). You agree that by accessing the Site,
+              you have read, understood, and agree to be bound by all of these
+              Terms of Use. IF YOU DO NOT AGREE WITH ALL OF THESE TERMS OF USE,
+              THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SITE AND YOU MUST
+              DISCONTINUE USE IMMEDIATELY.
             </p>
             <p>
               Supplemental terms and conditions or documents that may be posted

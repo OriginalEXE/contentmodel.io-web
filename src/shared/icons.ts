@@ -14,6 +14,8 @@ import {
   faSparkles,
   faUserCircle,
   faUnlink,
+  faBooks,
+  faShoePrints,
 } from '@fortawesome/pro-light-svg-icons';
 
 config.autoAddCss = false;
@@ -33,4 +35,6 @@ library.add(
   faSparkles,
   faUserCircle,
   faUnlink,
+  faBooks,
+  faShoePrints,
 );

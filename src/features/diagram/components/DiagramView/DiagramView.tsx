@@ -642,7 +642,7 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
 
   return (
     <div
-      className={`relative border rounded-lg border-sepia-300 bg-sepia-200 ${className}`}
+      className={`relative border rounded-lg border-sepia-300 bg-sepia-100 ${className}`}
       ref={componentWrapEl}
     >
       <div

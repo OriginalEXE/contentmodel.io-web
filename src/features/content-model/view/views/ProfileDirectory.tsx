@@ -5,7 +5,7 @@ import ContentModelsList from '@/src/features/content-model/components/ContentMo
 import { ParsedDbContentModel } from '@/src/features/content-model/types/parsedDbContentModel';
 import Header from '@/src/features/header/components/Header/Header';
 import { getButtonClassName } from '@/src/shared/components/Button/getButtonClassName';
-import optimizeLineBreak from '@/src/typography/optimize-line-break';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface ProfileDirectoryViewProps {
   contentModels: ParsedDbContentModel[];
@@ -19,15 +19,24 @@ const ProfileDirectoryView: React.FC<ProfileDirectoryViewProps> = observer(
       <>
         <Header />
         <main className="w-full max-w-screen-2xl mx-auto px-3 mb-4 xl:flex xl:mt-12 xl:mb-8">
-          <div className="w-full max-w-xl mt-8 mx-auto flex-shrink-0">
-            <h1 className="text-2xl font-bold text-center">
-              {optimizeLineBreak('Content models shared by you')}
+          <div className="w-full max-w-5xl mt-8 mx-auto flex-shrink-0">
+            <div className="w-16 h-16 flex items-center justify-center rounded-full text-3xl bg-red-200 transform -rotate-6">
+              <FontAwesomeIcon icon={['fal', 'user']} />
+            </div>
+            <h1 className="mt-4 text-2xl font-bold max-w-sm lg:text-3xl xl:text-4xl">
+              Content models shared by you
             </h1>
             {contentModels.length > 0 ? (
-              <ContentModelsList
-                contentModels={contentModels}
-                className="mt-6 md:mt-12"
-              />
+              <>
+                <ContentModelsList
+                  contentModels={contentModels}
+                  className="mt-6 md:mt-12"
+                />
+                <p className="text-base mt-8">
+                  We are working on adding better discovery tools (search,
+                  filtering etc.)
+                </p>
+              </>
             ) : (
               <div className="text-center mt-4">
                 <p className="text-lg">

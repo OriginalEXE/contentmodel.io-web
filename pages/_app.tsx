@@ -9,6 +9,7 @@ import '@/src/shared/icons';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import '@jsplumb/browser-ui/css/jsplumbtoolkit.css';
 import '@/css/style.css';
+import Footer from '@/src/features/footer/Footer';
 import getQueryClient from '@/src/graphql/getQueryClient';
 import useScript from '@/src/use-script/useScript';
 
@@ -34,6 +35,7 @@ const App: React.FC<AppProps> = (props) => {
             />
           </Head>
           <Component {...pageProps} />
+          <Footer />
         </Hydrate>
       </QueryClientProvider>
     </SSRProvider>
