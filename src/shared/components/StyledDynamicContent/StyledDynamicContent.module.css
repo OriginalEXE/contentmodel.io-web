@@ -43,3 +43,11 @@
 .content :global(pre code) {
   @apply bg-gray-200 p-3 block overflow-x-auto my-2;
 }
+
+.content :global(blockquote) {
+  @apply block border-l-4 border-sepia-500 pl-2 py-2 my-2 italic;
+}
+
+.content :global(blockquote p) {
+  @apply my-0;
+}
