@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
     <footer className="bg-sepia-100 border-t border-sepia-200 mt-auto">
       <div className="w-full mx-auto px-3 py-6 lg:pb-12">
         <div className="max-w-5xl mx-auto flex flex-wrap justify-between">
-          <div className="w-full lg:w-3/6 lg:mt-6">
+          <div className="w-full lg:w-2/6 lg:mt-6">
             <p className="text-base">
               Created by{' '}
               <a href="https://twitter.com/antesepic" className="text-blue-500">
@@ -14,10 +14,27 @@ const Footer: React.FC = () => {
             </p>
           </div>
 
-          <nav className="mt-6 w-full flex flex-wrap lg:w-3/6 lg:mt-0">
-            <ul className="w-full mt-6 sm:w-64">
+          <nav className="mt-6 w-full flex flex-wrap lg:w-4/6 lg:mt-0">
+            <ul className="w-full mt-6 sm:w-64 sm:mr-3">
               <li className="text-base font-semibold text-sepia-900">
                 Interesting links
+              </li>
+
+              <li className="mt-2">
+                <a
+                  href="https://www.contentful.com/slack/"
+                  className="text-base text-sepia-700"
+                >
+                  Contentful community Slack
+                </a>
+              </li>
+              <li className="mt-2">
+                <a
+                  href="https://github.com/OriginalEXE/contentmodel.io-web/discussions"
+                  className="text-base text-sepia-700"
+                >
+                  Feedback, roadmap, discussions on Github
+                </a>
               </li>
               <li className="mt-2">
                 <a
