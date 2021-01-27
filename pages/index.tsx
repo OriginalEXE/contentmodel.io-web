@@ -11,7 +11,6 @@ import contentModelPositionSchema from '@/src/features/diagram/types/contentMode
 import Header from '@/src/features/header/components/Header/Header';
 import getCurrentUser from '@/src/features/user/api/getCurrentUser';
 import { getButtonClassName } from '@/src/shared/components/Button/getButtonClassName';
-import optimizeLineBreak from '@/src/typography/optimize-line-break';
 import { initializeStore, StoreSnapshotInterface } from '@/store';
 import { StoreProvider } from '@/store/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
