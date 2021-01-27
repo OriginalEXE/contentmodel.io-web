@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 
 import Button from '@/src/shared/components/Button/Button';
 import StyledDynamicContent from '@/src/shared/components/StyledDynamicContent/StyledDynamicContent';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export interface DetailsData {
   title: string;
@@ -77,9 +78,9 @@ const Details: React.FC<DetailsProps> = (props) => {
             href="https://www.markdownguide.org/cheat-sheet/"
             target="_blank"
             rel="noreferrer noopener"
-            className="underline"
+            className="text-blue-500 hover:underline focus:underline"
           >
-            Markdown
+            Markdown <FontAwesomeIcon icon={['fal', 'external-link']} />
           </a>{' '}
           supported
         </p>

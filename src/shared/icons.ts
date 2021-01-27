@@ -16,6 +16,7 @@ import {
   faUnlink,
   faBooks,
   faShoePrints,
+  faExternalLink,
 } from '@fortawesome/pro-light-svg-icons';
 
 config.autoAddCss = false;
@@ -37,4 +38,5 @@ library.add(
   faUnlink,
   faBooks,
   faShoePrints,
+  faExternalLink,
 );
