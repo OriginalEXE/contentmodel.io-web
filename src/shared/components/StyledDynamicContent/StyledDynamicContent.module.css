@@ -35,3 +35,7 @@
 .content :global(ul li) {
   @apply my-1;
 }
+
+.content :global(a) {
+  @apply text-blue-500 hover:underline focus:underline;
+}
