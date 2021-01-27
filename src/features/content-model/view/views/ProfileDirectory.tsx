@@ -38,7 +38,7 @@ const ProfileDirectoryView: React.FC<ProfileDirectoryViewProps> = observer(
                 </p>
               </>
             ) : (
-              <div className="text-center mt-4">
+              <div className="mt-6">
                 <p className="text-lg">
                   It looks like you have not shared any content models yet.
                   Today is a good day to change that!

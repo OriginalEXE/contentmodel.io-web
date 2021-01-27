@@ -2,6 +2,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import React from 'react';
 import { SSRProvider } from 'react-aria';
+import { OverlayProvider } from 'react-aria';
 import { QueryClientProvider } from 'react-query';
 import { Hydrate } from 'react-query/hydration';
 
@@ -26,16 +27,18 @@ const App: React.FC<AppProps> = (props) => {
     <SSRProvider>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <Head>
-            <title>contentmodel.io</title>
-            <meta
-              key="description"
-              name="description"
-              content="Share your content model, or get inspired"
-            />
-          </Head>
-          <Component {...pageProps} />
-          <Footer />
+          <OverlayProvider>
+            <Head>
+              <title>contentmodel.io</title>
+              <meta
+                key="description"
+                name="description"
+                content="Share your content model, or get inspired"
+              />
+            </Head>
+            <Component {...pageProps} />
+            <Footer />
+          </OverlayProvider>
         </Hydrate>
       </QueryClientProvider>
     </SSRProvider>

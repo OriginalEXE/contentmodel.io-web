@@ -133,7 +133,7 @@ const ContentModelsPage: React.FC<
                   </Link>
                 </>
               ) : (
-                <div className="text-center mt-4">
+                <div className="text-center mt-6">
                   <p className="text-lg">
                     It looks like noone has shared their content model yet. Why
                     not be the first?
