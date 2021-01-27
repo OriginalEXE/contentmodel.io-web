@@ -39,3 +39,7 @@
 .content :global(a) {
   @apply text-blue-500 hover:underline focus:underline;
 }
+
+.content :global(pre code) {
+  @apply bg-gray-200 p-3 block overflow-x-auto my-2;
+}
