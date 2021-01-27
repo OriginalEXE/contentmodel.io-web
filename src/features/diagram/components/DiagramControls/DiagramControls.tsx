@@ -79,7 +79,7 @@ const DiagramControls: React.FC<DiagramControlsProps> = (props) => {
               }}
             >
               <FontAwesomeIcon
-                icon={['fas', isFullscreen ? 'compress' : 'expand']}
+                icon={['fal', isFullscreen ? 'compress' : 'expand']}
                 fixedWidth
               />
             </button>
@@ -98,7 +98,7 @@ const DiagramControls: React.FC<DiagramControlsProps> = (props) => {
                   onScaleChange(nextZoomOutScale);
                 }}
               >
-                <FontAwesomeIcon icon={['fas', 'search-minus']} fixedWidth />
+                <FontAwesomeIcon icon={['fal', 'search-minus']} fixedWidth />
               </button>
             )}
           </Tooltip>
@@ -117,7 +117,7 @@ const DiagramControls: React.FC<DiagramControlsProps> = (props) => {
                   onScaleChange(nextZoomInScale);
                 }}
               >
-                <FontAwesomeIcon icon={['fas', 'search-plus']} fixedWidth />
+                <FontAwesomeIcon icon={['fal', 'search-plus']} fixedWidth />
               </button>
             )}
           </Tooltip>

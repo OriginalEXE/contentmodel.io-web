@@ -10,7 +10,7 @@ const Avatar: React.FC<AvatarPropsInterface> = ({ picture = '' }) => {
   if (picture === '') {
     return (
       <div className="w-full h-full flex rounded-full items-center justify-center bg-gray-300 text-gray-800 shadow-inner">
-        <FontAwesomeIcon icon={['fas', 'user']} size="lg" fixedWidth />
+        <FontAwesomeIcon icon={['fal', 'user']} size="lg" fixedWidth />
       </div>
     );
   }

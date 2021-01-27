@@ -54,7 +54,7 @@ const HeaderSmallScreens: React.FC = observer(() => {
         >
           <VisuallyHidden>Toggle menu</VisuallyHidden>
           <FontAwesomeIcon
-            icon={['fas', toggleButtonState.isSelected ? 'times' : 'bars']}
+            icon={['fal', toggleButtonState.isSelected ? 'times' : 'bars']}
             size="lg"
             fixedWidth
           />

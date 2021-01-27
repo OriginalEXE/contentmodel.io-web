@@ -178,7 +178,7 @@ const NewView: React.FC = observer(() => {
     <div className="w-full max-w-xl mx-auto">
       <div className="flex items-center justify-center flex-wrap mt-4">
         <p className="text-base text-green-700 text-center mt-2">
-          <FontAwesomeIcon icon={['fas', 'check']} className="mr-2" /> Content
+          <FontAwesomeIcon icon={['fal', 'check']} className="mr-2" /> Content
           model successfully imported.{' '}
         </p>
         <Button
@@ -200,7 +200,7 @@ const NewView: React.FC = observer(() => {
     <div className="w-full max-w-xl mx-auto">
       <div className="flex items-center justify-center flex-wrap mt-4">
         <p className="text-base text-green-700 text-center mt-2">
-          <FontAwesomeIcon icon={['fas', 'check']} className="mr-2" /> Content
+          <FontAwesomeIcon icon={['fal', 'check']} className="mr-2" /> Content
           model appearance perfected.{' '}
         </p>
         <Button
@@ -278,7 +278,7 @@ const NewView: React.FC = observer(() => {
             <div className="w-full">
               {parsedContentModel !== undefined ? (
                 <>
-                  <p className="text-base mt-6 md:mt-8">
+                  <p className="text-base max-w-xl mx-auto mt-6 md:mt-8">
                     On the diagram below, arrange your content types as you
                     would like for them to be shown to others. Note that the
                     zoom level is not important/saved, and neither is the global
@@ -321,7 +321,7 @@ const NewView: React.FC = observer(() => {
               <h2 className="text-lg font-medium">
                 You are doing great{' '}
                 <FontAwesomeIcon
-                  icon={['fas', 'sparkles']}
+                  icon={['fal', 'sparkles']}
                   className="mr-1 text-yellow-500"
                 />
                 . In this final step, you can describe your content model to
@@ -345,15 +345,15 @@ const NewView: React.FC = observer(() => {
           <div className="w-full max-w-xl mx-auto mt-4 md:mt-8">
             <p className="text-base">
               <FontAwesomeIcon
-                icon={['fas', 'sparkles']}
+                icon={['fal', 'sparkles']}
                 className="mr-1 text-yellow-500"
               />
               <FontAwesomeIcon
-                icon={['fas', 'sparkles']}
+                icon={['fal', 'sparkles']}
                 className="mr-1 text-yellow-500"
               />
               <FontAwesomeIcon
-                icon={['fas', 'sparkles']}
+                icon={['fal', 'sparkles']}
                 className="mr-1 text-yellow-500"
               />{' '}
               You are awesome, and so is your content model. Why not share it

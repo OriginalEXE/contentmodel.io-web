@@ -83,7 +83,7 @@ const ImportChoiceItem: React.FC<ImportChoiceItemProps> = (props) => {
             />
           ) : (
             <FontAwesomeIcon
-              icon={['fas', icon]}
+              icon={['fal', icon]}
               className="text-sm md:text-lg"
               fixedWidth
             />

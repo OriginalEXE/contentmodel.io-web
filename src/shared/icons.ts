@@ -1,6 +1,7 @@
 import { config, library } from '@fortawesome/fontawesome-svg-core';
 import {
   faUser,
+  faUsers,
   faBars,
   faTimes,
   faICursor,
@@ -13,12 +14,13 @@ import {
   faSparkles,
   faUserCircle,
   faUnlink,
-} from '@fortawesome/pro-solid-svg-icons';
+} from '@fortawesome/pro-light-svg-icons';
 
 config.autoAddCss = false;
 
 library.add(
   faUser,
+  faUsers,
   faBars,
   faTimes,
   faICursor,

@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { ParsedDbContentModel } from '@/src/features/content-model/types/parsedDbContentModel';
 import ProfileBadge from '@/src/features/user/components/ProfileBadge/ProfileBadge';
-import StyledDynamicContent from '@/src/shared/components/StyledDynamicContent/StyledDynamicContent';
+import MarkupToText from '@/src/shared/components/MarkupToText/MarkupToText';
 
 interface ContentModelsListProps {
   contentModels: ParsedDbContentModel[];
@@ -13,24 +13,25 @@ const ContentModelsList: React.FC<ContentModelsListProps> = (props) => {
   const { contentModels, className = '' } = props;
 
   return (
-    <div className={className}>
+    <div className={`lg:grid lg:grid-cols-3 lg:gap-4 ${className}`}>
       {contentModels.map((contentModel) => (
         <Link
           href={`/content-models/${contentModel.slug}`}
           key={contentModel.id}
         >
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-          <a className="block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 mb-4">
+          <a className="block rounded-lg mb-4 transform transition-transform hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 lg:mb-0">
             <article className="bg-sepia-100 border-b-4 border-sepia-400 p-4 rounded-lg">
-              <h2 className="text-xl font-semibold">{contentModel.title}</h2>
+              <h2 className="text-xl font-semibold whitespace-nowrap overflow-ellipsis overflow-hidden">
+                {contentModel.title}
+              </h2>
               {contentModel.description && (
-                <StyledDynamicContent className="mt-2">
-                  {contentModel.description}
-                </StyledDynamicContent>
+                <p className="mt-2 text-base whitespace-nowrap overflow-ellipsis overflow-hidden">
+                  <MarkupToText>{contentModel.description}</MarkupToText>
+                </p>
               )}
 
-              <div className="flex flex-wrap items-center mt-3">
-                <p className="text-base font-semibold mr-4 my-1">Shared by:</p>
+              <div className="flex items-center mt-3">
                 <ProfileBadge user={contentModel.user} className="my-1" />
               </div>
             </article>

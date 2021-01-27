@@ -14,7 +14,9 @@ const ProfileBadge: React.FC<ProfileBadgeProps> = (props) => {
       <div className="w-8 mr-2">
         <Avatar {...user} />
       </div>
-      <p className="text-base font-medium">{user.name}</p>
+      <p className="text-base font-medium whitespace-nowrap overflow-ellipsis overflow-hidden">
+        {user.name}
+      </p>
     </div>
   );
 };

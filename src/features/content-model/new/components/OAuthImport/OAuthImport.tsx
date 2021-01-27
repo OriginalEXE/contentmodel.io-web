@@ -192,13 +192,6 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
           {errors.spaceId ? (
             <p className="mt-2 text-sm text-red-700">Space ID is required</p>
           ) : null}
-          <p className="text-sm mt-2">
-            The management token is never passed to our servers. It is required
-            because the Delivery API does not return field validations for
-            reference fields. We use it for read access only. If you are not
-            comfortable with this, we suggest using the Copy/paste method
-            instead.
-          </p>
           {viewError !== null ? (
             <p className="mt-4 text-base text-red-700">{viewError}</p>
           ) : null}

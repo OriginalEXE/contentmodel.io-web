@@ -88,7 +88,7 @@ const EditView: React.FC<EditViewProps> = observer((props) => {
     <div className="w-full max-w-xl mx-auto">
       <div className="flex items-center justify-center flex-wrap mt-4">
         <p className="text-base text-green-700 text-center mt-2">
-          <FontAwesomeIcon icon={['fas', 'check']} className="mr-2" /> Content
+          <FontAwesomeIcon icon={['fal', 'check']} className="mr-2" /> Content
           model successfully imported.{' '}
         </p>
       </div>
@@ -99,7 +99,7 @@ const EditView: React.FC<EditViewProps> = observer((props) => {
     <div className="w-full max-w-xl mx-auto">
       <div className="flex items-center justify-center flex-wrap mt-4">
         <p className="text-base text-green-700 text-center mt-2">
-          <FontAwesomeIcon icon={['fas', 'check']} className="mr-2" /> Content
+          <FontAwesomeIcon icon={['fal', 'check']} className="mr-2" /> Content
           model appearance perfected.{' '}
         </p>
         <Button
@@ -192,15 +192,15 @@ const EditView: React.FC<EditViewProps> = observer((props) => {
           <div className="w-full max-w-xl mx-auto mt-4 md:mt-8">
             <p className="text-base">
               <FontAwesomeIcon
-                icon={['fas', 'sparkles']}
+                icon={['fal', 'sparkles']}
                 className="mr-1 text-yellow-500"
               />
               <FontAwesomeIcon
-                icon={['fas', 'sparkles']}
+                icon={['fal', 'sparkles']}
                 className="mr-1 text-yellow-500"
               />
               <FontAwesomeIcon
-                icon={['fas', 'sparkles']}
+                icon={['fal', 'sparkles']}
                 className="mr-1 text-yellow-500"
               />{' '}
               You are awesome, and so is your content model. Why not share it

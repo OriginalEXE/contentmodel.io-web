@@ -1,6 +1,7 @@
 import { createElement, ReactText } from 'react';
 import highlight from 'rehype-highlight';
 import rehype2react from 'rehype-react';
+import sanitize from 'rehype-sanitize';
 import markdown from 'remark-parse';
 import remark2rehype from 'remark-rehype';
 import unified from 'unified';
@@ -11,6 +12,7 @@ const processor = unified()
   .use(markdown)
   .use(remark2rehype)
   .use(highlight)
+  .use(sanitize)
   .use(rehype2react, {
     createElement: createElement,
   });
