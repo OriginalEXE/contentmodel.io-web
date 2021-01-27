@@ -27,7 +27,7 @@ const App: React.FC<AppProps> = (props) => {
     <SSRProvider>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <OverlayProvider>
+          <OverlayProvider className="flex flex-col min-h-screen">
             <Head>
               <title>contentmodel.io</title>
               <meta

@@ -18,7 +18,7 @@ const ProfileDirectoryView: React.FC<ProfileDirectoryViewProps> = observer(
     return (
       <>
         <Header />
-        <main className="w-full max-w-screen-2xl mx-auto px-3 mb-4 xl:flex xl:mt-12 xl:mb-8">
+        <main className="w-full max-w-screen-2xl mx-auto px-3 mb-8 xl:flex xl:mt-12">
           <div className="w-full max-w-5xl mt-8 mx-auto flex-shrink-0">
             <div className="w-16 h-16 flex items-center justify-center rounded-full text-3xl bg-red-200 transform -rotate-6">
               <FontAwesomeIcon icon={['fal', 'user']} />

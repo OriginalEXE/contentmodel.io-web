@@ -76,7 +76,7 @@ const ContentModelsPage: React.FC<
   return (
     <StoreProvider store={store}>
       <Header />
-      <main className="w-full mb-4 xl:mb-8">
+      <main className="w-full mb-8">
         <section className="w-full max-w-screen-2xl mx-auto py-16 px-3 text-center lg:py-24">
           <div className="container mx-auto px-4 max-w-2xl lg:max-w-3xl lg:grid lg:gap-2">
             <div>
