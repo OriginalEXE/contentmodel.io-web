@@ -1,5 +1,7 @@
 Frontend powering [contentmodel.io](https://contentmodel.io)
 
+Check [https://github.com/OriginalEXE/contentmodel.io-api](https://github.com/OriginalEXE/contentmodel.io-api) for the backend
+
 ### List of required environment variables:
 
 ```
