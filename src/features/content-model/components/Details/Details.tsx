@@ -46,19 +46,9 @@ const Details: React.FC<DetailsProps> = (props) => {
       {errors.title ? (
         <p className="mt-2 text-sm text-red-700">Title is required</p>
       ) : null}
-      <label className="block mt-4">
+      <label className="block mt-4 relative">
         <p className="text-lg font-semibold flex justify-between">
           Description
-          <Button
-            size="s"
-            grow={false}
-            className="ml-1"
-            onClick={() => {
-              setDescriptionPreview((preview) => !preview);
-            }}
-          >
-            {descriptionPreview ? 'Editor' : 'Preview'}
-          </Button>
         </p>
         <textarea
           name="description"
@@ -68,6 +58,16 @@ const Details: React.FC<DetailsProps> = (props) => {
               ${descriptionPreview ? 'hidden' : ''}
             `}
         />
+        <Button
+          size="s"
+          grow={false}
+          className="absolute top-0 right-0"
+          onClick={() => {
+            setDescriptionPreview((preview) => !preview);
+          }}
+        >
+          {descriptionPreview ? 'Editor' : 'Preview'}
+        </Button>
         {descriptionPreview ? (
           <StyledDynamicContent className="mt-2 p-2 rounded-lg border bg-white text-gray-900">
             {watch('description')}
