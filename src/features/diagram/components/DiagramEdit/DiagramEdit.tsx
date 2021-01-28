@@ -14,12 +14,12 @@ import {
 } from '@/src/features/diagram/constants';
 import contentModelPositionSchema from '@/src/features/diagram/types/contentModelPosition';
 import contentTypePositionSchema from '@/src/features/diagram/types/contentTypePosition';
+import connectContentTypes from '@/src/features/diagram/utilities/connectContentTypes';
 import {
   generateContentTypeDOMId,
   generateContentTypeFieldDOMId,
 } from '@/src/features/diagram/utilities/generateDOMId';
 import * as jsPlumb from '@jsplumb/browser-ui';
-import { Connection } from '@jsplumb/community-core';
 import Panzoom, { PanzoomObject } from '@panzoom/panzoom';
 
 import styles from './DiagramEdit.module.css';
@@ -251,203 +251,15 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
       connectionsDetachable: false,
     });
 
-    const connections: Connection[] = [];
-
     instance.setSuspendDrawing(true);
 
-    contentModel.forEach((contentType) => {
-      const singleReferenceFields = contentType.fields.filter(
-        (field) => field.type === 'Link',
-      );
-
-      singleReferenceFields.forEach((field) => {
-        // Get a list of all content types that this reference field possibly
-        // references
-        const linksToContentTypes: string[] = (() => {
-          if (field.linkType === 'Asset') {
-            return ['asset'];
-          }
-
-          const registeredContentTypes = contentModel.map(
-            (cType) => cType.sys.id,
-          );
-
-          if (
-            field.validations === undefined ||
-            field.validations.length === 0
-          ) {
-            return registeredContentTypes;
-          }
-
-          const linkContentTypeValidation = field.validations.find(
-            (validation) =>
-              validation.linkContentType !== undefined &&
-              validation.linkContentType.length !== 0,
-          );
-
-          if (linkContentTypeValidation === undefined) {
-            return registeredContentTypes;
-          }
-
-          return linkContentTypeValidation.linkContentType.length === 0
-            ? contentModel.map((cType) => cType.sys.id)
-            : linkContentTypeValidation.linkContentType.filter(
-                (cTypeId: string) =>
-                  registeredContentTypes.includes(cTypeId) === true,
-              );
-        })();
-
-        linksToContentTypes.forEach((cTypeId) => {
-          // Store elements into our ref for later reuse
-          const sourceElId = generateContentTypeFieldDOMId(
-            contentType.sys.id,
-            field.id,
-          );
-          const sourceEl = document.getElementById(sourceElId)!;
-          const targetElId = generateContentTypeDOMId(cTypeId);
-          const targetEl = document.getElementById(targetElId)!;
-
-          if (connectionElementsRef.current.has(sourceElId) === false) {
-            connectionElementsRef.current.set(sourceElId, sourceEl);
-          }
-
-          if (connectionElementsRef.current.has(targetElId) === false) {
-            connectionElementsRef.current.set(targetElId, targetEl);
-          }
-
-          connections.push(
-            instance.connect({
-              source: sourceEl,
-              target: targetEl,
-              detachable: false,
-              anchors: ['ContinuousLeftRight', 'Top'],
-              endpoints: ['Blank', 'Dot'],
-              connector: [
-                'Flowchart',
-                {
-                  stub: 10,
-                  gap: 10,
-                  cssClass: `${styles.stroke} text-sepia-300 ${CONTENT_TYPE_CONNECTION_PREFIX}${contentType.sys.id} ${CONTENT_TYPE_CONNECTION_PREFIX}${cTypeId}`,
-                },
-              ],
-            }),
-          );
-
-          setConnectionIds((x) => [...x, generateContentTypeDOMId(cTypeId)]);
-
-          const sourceCTypeEl = document.getElementById(
-            generateContentTypeDOMId(contentType.sys.id),
-          )!;
-
-          sourceCTypeEl.classList.add(
-            `${CONTENT_TYPE_CONNECTED_TO_PREFIX}${cTypeId}`,
-          );
-          targetEl.classList.add(
-            `${CONTENT_TYPE_CONNECTED_TO_PREFIX}${contentType.sys.id}`,
-          );
-        });
-      });
-
-      const multiReferenceFields = contentType.fields.filter(
-        (field) => field.type === 'Array' && field.items?.type === 'Link',
-      );
-
-      multiReferenceFields.forEach((field) => {
-        if (field.items === undefined) {
-          return;
-        }
-
-        // Get a list of all content types that this reference field possibly
-        // references
-        const linksToContentTypes: string[] = (() => {
-          if (field.items.linkType === 'Asset') {
-            return ['asset'];
-          }
-
-          const registeredContentTypes = contentModel.map(
-            (cType) => cType.sys.id,
-          );
-
-          if (
-            field.items.validations === undefined ||
-            field.items.validations.length === 0
-          ) {
-            return registeredContentTypes;
-          }
-
-          const linkContentTypeValidation = field.items.validations.find(
-            (validation) =>
-              validation.linkContentType !== undefined &&
-              validation.linkContentType.length !== 0,
-          );
-
-          if (linkContentTypeValidation === undefined) {
-            return registeredContentTypes;
-          }
-
-          return linkContentTypeValidation.linkContentType.length === 0
-            ? contentModel.map((cType) => cType.sys.id)
-            : linkContentTypeValidation.linkContentType.filter(
-                (cTypeId: string) =>
-                  registeredContentTypes.includes(cTypeId) === true,
-              );
-        })();
-
-        linksToContentTypes.forEach((cTypeId) => {
-          // Store elements into our ref for later reuse
-          const sourceElId = generateContentTypeFieldDOMId(
-            contentType.sys.id,
-            field.id,
-          );
-          const sourceEl = document.getElementById(sourceElId)!;
-          const targetElId = generateContentTypeDOMId(cTypeId);
-          const targetEl = document.getElementById(targetElId)!;
-
-          if (connectionElementsRef.current.has(sourceElId) === false) {
-            connectionElementsRef.current.set(sourceElId, sourceEl);
-          }
-
-          if (connectionElementsRef.current.has(targetElId) === false) {
-            connectionElementsRef.current.set(targetElId, targetEl);
-          }
-
-          connections.push(
-            instance.connect({
-              source: sourceEl,
-              target: targetEl,
-              detachable: false,
-              anchors: ['ContinuousLeftRight', 'Top'],
-              endpoints: ['Blank', 'Dot'],
-              connector: [
-                'Flowchart',
-                {
-                  stub: 10,
-                  gap: 10,
-                  cssClass: `${styles.stroke} text-sepia-300 ${CONTENT_TYPE_CONNECTION_PREFIX}${contentType.sys.id} ${CONTENT_TYPE_CONNECTION_PREFIX}${cTypeId}`,
-                },
-              ],
-            }),
-          );
-
-          setConnectionIds((x) => [...x, generateContentTypeDOMId(cTypeId)]);
-
-          const sourceCTypeEl = document.getElementById(
-            generateContentTypeDOMId(contentType.sys.id),
-          )!;
-
-          sourceCTypeEl.classList.add(
-            `${CONTENT_TYPE_CONNECTED_TO_PREFIX}${cTypeId}`,
-          );
-          targetEl.classList.add(
-            `${CONTENT_TYPE_CONNECTED_TO_PREFIX}${contentType.sys.id}`,
-          );
-        });
-      });
+    const connections = connectContentTypes({
+      contentModel,
+      jsPlumbInstance: instance,
+      connectionElementsRef,
+      styles,
+      setConnectionIds,
     });
-
-    instance.setSuspendDrawing(false, true);
-
-    setPlumbInstance(instance);
 
     // Add hover styles
     const onCTypeMouseover = (e: MouseEvent) => {
@@ -570,6 +382,13 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
 
     diagramContainer.addEventListener('mouseout', onCTypeMouseout);
 
+    // Finally, draw the connections
+    const drawTimeout = setTimeout(() => {
+      instance.setSuspendDrawing(false, true);
+    }, 300);
+
+    setPlumbInstance(instance);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => {
       connections.forEach((connection) => {
@@ -587,6 +406,8 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
       // Clean up event listeners
       diagramContainer.removeEventListener('mouseover', onCTypeMouseover);
       diagramContainer.removeEventListener('mouseout', onCTypeMouseout);
+
+      clearTimeout(drawTimeout);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [diagramContainerRef, contentModel]);
@@ -653,7 +474,7 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
 
   return (
     <div
-      className="relative mt-8 border-2 border-dashed rounded-lg border-sepia-300 bg-sepia-100"
+      className={`relative mt-8 border-2 border-dashed rounded-lg border-sepia-300 bg-sepia-100 ${styles.componentWrap}`}
       ref={componentWrapEl}
     >
       <div
