@@ -32,7 +32,7 @@ export const getServerSideProps: GetServerSideProps<{
   const [contentModelsError, contentModels] = await catchify(
     getContentModels(
       {
-        count: 3,
+        count: 6,
       },
       ctx.req.headers.cookie,
     ),

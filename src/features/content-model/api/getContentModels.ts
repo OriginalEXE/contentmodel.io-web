@@ -17,8 +17,8 @@ const getContentModels = async (
 ): Promise<GetContentModelsResult> => {
   const client = getClient(cookie, authorization);
   const query = gql`
-    query {
-      contentModels(count: 100) {
+    query($count: Int) {
+      contentModels(count: $count) {
         items {
           id
           createdAt
