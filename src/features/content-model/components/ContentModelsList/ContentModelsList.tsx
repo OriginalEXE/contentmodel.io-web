@@ -20,7 +20,7 @@ const ContentModelsList: React.FC<ContentModelsListProps> = (props) => {
           key={contentModel.id}
         >
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-          <a className="block rounded-lg transform transition-transform hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 lg:mb-0">
+          <a className="block min-w-0 rounded-lg transform transition-transform hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 lg:mb-0">
             <article className="bg-sepia-100 border-b-4 border-sepia-400 p-4 rounded-lg">
               <h2 className="text-xl font-semibold whitespace-nowrap overflow-ellipsis overflow-hidden">
                 {contentModel.title}
