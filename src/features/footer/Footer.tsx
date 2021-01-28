@@ -5,16 +5,20 @@ const Footer: React.FC = () => {
     <footer className="bg-sepia-100 border-t border-sepia-200 mt-auto">
       <div className="w-full mx-auto px-3 py-6 lg:pb-12">
         <div className="max-w-5xl mx-auto flex flex-wrap justify-between">
-          <div className="w-full lg:w-2/6 lg:mt-6">
+          <div className="w-full lg:w-4/12 lg:mt-6 lg:mr-3">
             <p className="text-base">
               Created by{' '}
               <a href="https://twitter.com/antesepic" className="text-blue-500">
                 @antesepic
               </a>{' '}
             </p>
+            <p className="text-sm mt-3">
+              contentmodel.io is a community project. Contentful GmbH is not
+              affiliated with contentmodel.io
+            </p>
           </div>
 
-          <nav className="mt-6 w-full flex flex-wrap lg:w-4/6 lg:mt-0">
+          <nav className="mt-6 w-full flex flex-wrap lg:w-7/12 lg:mt-0">
             <ul className="w-full mt-6 sm:w-64 sm:mr-3">
               <li className="text-base font-semibold text-sepia-900">
                 Interesting links
