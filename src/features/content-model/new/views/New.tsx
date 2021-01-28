@@ -29,6 +29,7 @@ import contentModelSchema from '@/src/features/content-model/types/contentModel'
 import addAssetToContentModel from '@/src/features/content-model/utilities/addAssetToContentModel';
 import contentModelPositionSchema from '@/src/features/diagram/types/contentModelPosition';
 import contentTypePositionSchema from '@/src/features/diagram/types/contentTypePosition';
+import approximateInitialContentModelPosition from '@/src/features/diagram/utilities/approximateInitialContentModelPosition';
 import Header from '@/src/features/header/components/Header/Header';
 import Button from '@/src/shared/components/Button/Button';
 import { getButtonClassName } from '@/src/shared/components/Button/getButtonClassName';
@@ -123,17 +124,9 @@ const NewView: React.FC = observer(() => {
     }
 
     const contentModel = addAssetToContentModel(parseResults.data);
-    const startingContentModelPosition = {
-      contentTypes: contentModel.reduce((prev, current, i) => {
-        return {
-          ...prev,
-          [current.sys.id]: {
-            x: i * 420,
-            y: 0,
-          },
-        };
-      }, {}),
-    };
+    const startingContentModelPosition = approximateInitialContentModelPosition(
+      contentModel,
+    );
 
     setInitialContentModelPosition(startingContentModelPosition);
     setContentModelPosition(startingContentModelPosition);
