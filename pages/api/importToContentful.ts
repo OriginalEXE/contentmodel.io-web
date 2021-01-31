@@ -67,10 +67,7 @@ export default async function importToContentful(
     contentfulImport({
       content: {
         contentTypes: contentfulContentModel
-          .filter(
-            (contentType) =>
-              contentType.sys.id.startsWith('_internal_') === false,
-          )
+          .filter((contentType) => contentType.internal !== true)
           .map((contentType) => {
             if (publish === '0') {
               return contentType;
