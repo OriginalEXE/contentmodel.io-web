@@ -1,3 +1,4 @@
+import { useSessionStorageState } from 'ahooks';
 import { observer } from 'mobx-react-lite';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
@@ -8,7 +9,11 @@ import { CONTENTFUL_WRITE_OAUTH_TOKEN_KEY } from '@/src/features/auth/contentful
 import getContentfulOrganizations from '@/src/features/content-model/api/getContentfulOrganizations';
 import getContentfulSpaces from '@/src/features/content-model/api/getContentfulSpaces';
 import { SpaceImportData } from '@/src/features/content-model/import/types/spaceImport';
-import { contentfulSpaceSchema } from '@/src/features/content-model/types/contentfulSpace';
+import { contentfulOrganizationsSchema } from '@/src/features/content-model/types/contentfulOrganization';
+import {
+  contentfulSpaceSchema,
+  contentfulSpacesSchema,
+} from '@/src/features/content-model/types/contentfulSpace';
 import Button from '@/src/shared/components/Button/Button';
 import { getButtonClassName } from '@/src/shared/components/Button/getButtonClassName';
 import { useStore } from '@/store/hooks';
@@ -36,31 +41,29 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
 
   const store = useStore();
 
-  const managementToken = useMemo(() => {
-    return sessionStorage.getItem(CONTENTFUL_WRITE_OAUTH_TOKEN_KEY) as
-      | string
-      | null;
-  }, []);
+  const [managementToken, setManagementToken] = useSessionStorageState<
+    string | undefined
+  >(CONTENTFUL_WRITE_OAUTH_TOKEN_KEY, undefined);
 
   const getContentfulSpacesQuery = useQuery(
     ['getContentfulSpaces', managementToken],
     () => {
-      if (store.me === null || store.me.contentful_token_read === null) {
+      if (store.me === null || managementToken === undefined) {
         return Promise.resolve({ items: [] });
       }
 
       return getContentfulSpaces({
-        token: store.me.contentful_token_read,
+        token: managementToken,
       });
     },
     {
-      enabled: !!store.me?.contentful_token_read,
+      enabled: !!managementToken,
     },
   );
   const getContentfulOrganizationsQuery = useQuery(
     ['getContentfulOrganizations', managementToken],
     () => {
-      if (store.me === null || managementToken === null) {
+      if (store.me === null || managementToken === undefined) {
         return Promise.resolve({ items: [] });
       }
 
@@ -88,8 +91,25 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
       return spacesGroupedByOrgsRecord;
     }
 
-    getContentfulOrganizationsQuery.data.items.forEach((org) => {
-      const spaces = getContentfulSpacesQuery.data.items.filter(
+    const organizationsParsed = contentfulOrganizationsSchema.safeParse(
+      getContentfulOrganizationsQuery.data,
+    );
+    const spacesParsed = contentfulSpacesSchema.safeParse(
+      getContentfulSpacesQuery.data,
+    );
+
+    if (
+      organizationsParsed.success === false ||
+      spacesParsed.success === false
+    ) {
+      setViewError(
+        'It looks like the read-only token that we have stored for your account is no longer valid. Revoke the access by clicking "revoke access" above, and re-do the authentication.',
+      );
+      return spacesGroupedByOrgsRecord;
+    }
+
+    organizationsParsed.data.items.forEach((org) => {
+      const spaces = spacesParsed.data.items.filter(
         (space) => space.sys.organization.sys.id === org.sys.id,
       );
 
@@ -97,14 +117,18 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
     });
 
     return spacesGroupedByOrgsRecord;
-  }, [getContentfulSpacesQuery.data, getContentfulOrganizationsQuery.data]);
+  }, [
+    getContentfulSpacesQuery.data,
+    getContentfulOrganizationsQuery.data,
+    setViewError,
+  ]);
 
   const { register, handleSubmit, errors } = useForm({
     defaultValues: oauthImportDetails,
   });
 
   const onSubmit = async (data: OAuthImportData) => {
-    if (store.me === null || managementToken === null) {
+    if (store.me === null || managementToken === undefined) {
       setViewError(
         'This state should never happen. Let us know at hello@contentmodel.io',
       );
@@ -141,7 +165,15 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
           <p className="text-base lg:text-lg">
             You have granted contentmodel.io a temporary write access to your
             Contentful account. This access is persisted for your current
-            browsing session only.
+            browsing session only. You can always{' '}
+            <button
+              className="appearance-none text-red-700 font-medium focus:underline focus:outline-none focus:text-red-800"
+              onClick={() => {
+                setManagementToken(undefined);
+              }}
+            >
+              revoke access
+            </button>
           </p>
 
           <label className="block mt-4">

@@ -1,3 +1,4 @@
+import { useSessionStorageState } from 'ahooks';
 import { useRouter } from 'next/router';
 import queryString from 'query-string';
 import { useEffect, useState } from 'react';
@@ -13,6 +14,11 @@ const ContentfulWriteOAuthView: React.FC = () => {
     'error' | 'processing' | 'success'
   >('processing');
 
+  const [, setManagementToken] = useSessionStorageState<string | undefined>(
+    CONTENTFUL_WRITE_OAUTH_TOKEN_KEY,
+    undefined,
+  );
+
   useEffect(() => {
     const parsedHash = queryString.parse(location.hash);
 
@@ -23,7 +29,7 @@ const ContentfulWriteOAuthView: React.FC = () => {
 
     const accessToken = parsedHash['access_token'].trim();
 
-    sessionStorage.setItem(CONTENTFUL_WRITE_OAUTH_TOKEN_KEY, accessToken);
+    setManagementToken(accessToken);
 
     const contentModelId = sessionStorage.getItem(
       CONTENT_MODEL_LAST_IMPORT_SLUG_KEY,

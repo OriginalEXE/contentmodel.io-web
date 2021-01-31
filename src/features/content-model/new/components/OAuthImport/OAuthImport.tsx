@@ -7,7 +7,11 @@ import * as z from 'zod';
 import getContentfulOrganizations from '@/src/features/content-model/api/getContentfulOrganizations';
 import getContentfulSpaces from '@/src/features/content-model/api/getContentfulSpaces';
 import { SpaceImportData } from '@/src/features/content-model/new/components/SpaceImport/SpaceImport';
-import { contentfulSpaceSchema } from '@/src/features/content-model/types/contentfulSpace';
+import { contentfulOrganizationsSchema } from '@/src/features/content-model/types/contentfulOrganization';
+import {
+  contentfulSpaceSchema,
+  contentfulSpacesSchema,
+} from '@/src/features/content-model/types/contentfulSpace';
 import updateUser from '@/src/features/user/api/updateUser';
 import Button from '@/src/shared/components/Button/Button';
 import { getButtonClassName } from '@/src/shared/components/Button/getButtonClassName';
@@ -93,8 +97,25 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
       return spacesGroupedByOrgsRecord;
     }
 
-    getContentfulOrganizationsQuery.data.items.forEach((org) => {
-      const spaces = getContentfulSpacesQuery.data.items.filter(
+    const organizationsParsed = contentfulOrganizationsSchema.safeParse(
+      getContentfulOrganizationsQuery.data,
+    );
+    const spacesParsed = contentfulSpacesSchema.safeParse(
+      getContentfulSpacesQuery.data,
+    );
+
+    if (
+      organizationsParsed.success === false ||
+      spacesParsed.success === false
+    ) {
+      setViewError(
+        'It looks like the read-only token that we have stored for your account is no longer valid. Revoke the access by clicking "revoke access" above, and re-do the authentication.',
+      );
+      return spacesGroupedByOrgsRecord;
+    }
+
+    organizationsParsed.data.items.forEach((org) => {
+      const spaces = spacesParsed.data.items.filter(
         (space) => space.sys.organization.sys.id === org.sys.id,
       );
 
@@ -102,7 +123,11 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
     });
 
     return spacesGroupedByOrgsRecord;
-  }, [getContentfulSpacesQuery.data, getContentfulOrganizationsQuery.data]);
+  }, [
+    getContentfulSpacesQuery.data,
+    getContentfulOrganizationsQuery.data,
+    setViewError,
+  ]);
 
   const { register, handleSubmit, errors } = useForm({
     defaultValues: oauthImportDetails,

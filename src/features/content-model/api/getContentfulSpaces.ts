@@ -1,11 +1,14 @@
 import * as z from 'zod';
 
+import { contentfulRequestError } from '@/src/features/content-model/types/contentfulRequestError';
 import { contentfulSpacesSchema } from '@/src/features/content-model/types/contentfulSpace';
 
 interface GetContentfulSpacesInput {
   token: string;
 }
-type GetContentfulSpacesResult = z.infer<typeof contentfulSpacesSchema>;
+type GetContentfulSpacesResult =
+  | z.infer<typeof contentfulSpacesSchema>
+  | z.infer<typeof contentfulRequestError>;
 
 const getContentfulSpaces = async (
   input: GetContentfulSpacesInput,
