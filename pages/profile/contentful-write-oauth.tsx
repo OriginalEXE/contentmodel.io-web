@@ -2,8 +2,9 @@ import catchify from 'catchify';
 import { getSnapshot } from 'mobx-state-tree';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
+import React from 'react';
 
-import ContentfulOAuthView from '@/src/features/auth/contentful-oauth/views/ContentfulOAuth';
+import ContentfulWriteOAuthView from '@/src/features/auth/contentful-oauth/views/ContentfulWriteOAuth';
 import getCurrentUser from '@/src/features/user/api/getCurrentUser';
 import { initializeStore, StoreSnapshotInterface } from '@/store';
 import { StoreProvider } from '@/store/hooks';
@@ -35,7 +36,7 @@ export const getServerSideProps: GetServerSideProps<{
   };
 };
 
-const ProfileContentfulOAuthPage: React.FC<
+const ProfileContentfulWriteOAuthPage: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ storeSnapshot }) => {
   const store = initializeStore(storeSnapshot);
@@ -45,9 +46,9 @@ const ProfileContentfulOAuthPage: React.FC<
       <Head>
         <title>Contentful OAuth - contentmodel.io</title>
       </Head>
-      <ContentfulOAuthView />
+      <ContentfulWriteOAuthView />
     </StoreProvider>
   );
 };
 
-export default ProfileContentfulOAuthPage;
+export default ProfileContentfulWriteOAuthPage;

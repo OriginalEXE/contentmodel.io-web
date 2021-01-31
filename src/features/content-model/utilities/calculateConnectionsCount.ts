@@ -17,7 +17,7 @@ const calculateConnectionsCount = (
       // references
       const linksToContentTypes: string[] = (() => {
         if (field.linkType === 'Asset') {
-          return ['asset'];
+          return ['_internal_asset'];
         }
 
         const registeredContentTypes = contentModel.map(
@@ -62,7 +62,7 @@ const calculateConnectionsCount = (
       // references
       const linksToContentTypes: string[] = (() => {
         if (field.items.linkType === 'Asset') {
-          return ['asset'];
+          return ['_internal_asset'];
         }
 
         const registeredContentTypes = contentModel.map(

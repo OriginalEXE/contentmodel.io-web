@@ -2,9 +2,12 @@ import { observer } from 'mobx-react-lite';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import React from 'react';
 import { useMutation } from 'react-query';
 import { useOverlayTriggerState } from 'react-stately';
 
+import deleteContentModel from '@/src/features/content-model/api/deleteContentModel';
+import ImportView from '@/src/features/content-model/import/views/Import';
 import { ParsedDbContentModel } from '@/src/features/content-model/types/parsedDbContentModel';
 import DiagramViewSSRLoading from '@/src/features/diagram/components/DiagramView/DiagramViewSSRLoading';
 import Header from '@/src/features/header/components/Header/Header';
@@ -13,8 +16,7 @@ import Button from '@/src/shared/components/Button/Button';
 import { getButtonClassName } from '@/src/shared/components/Button/getButtonClassName';
 import StyledDynamicContent from '@/src/shared/components/StyledDynamicContent/StyledDynamicContent';
 import { useStore } from '@/store/hooks';
-
-import deleteContentModel from '../../api/deleteContentModel';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const DiagramView = dynamic(
   () => import('@/src/features/diagram/components/DiagramView/DiagramView'),
@@ -43,6 +45,10 @@ const ViewView: React.FC<ViewViewProps> = observer((props) => {
 
   const deleteContentModelOverlayState = useOverlayTriggerState({});
 
+  const importContentModelOverlayState = useOverlayTriggerState({
+    defaultOpen: router.query.importType !== undefined,
+  });
+
   const deleteContentModelMutation = useMutation(deleteContentModel);
 
   return (
@@ -60,6 +66,51 @@ const ViewView: React.FC<ViewViewProps> = observer((props) => {
           <div className="flex flex-wrap items-center mt-4">
             <p className="text-base font-semibold mr-4 mb-2">Shared by:</p>
             <ProfileBadge user={contentModel.user} className="mb-2" />
+          </div>
+
+          <div className="mt-4">
+            {store.me === null ? (
+              <Link
+                href={`/api/login?redirectTo=/content-models/${contentModel.slug}?importType`}
+              >
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                <a
+                  className={getButtonClassName({
+                    color: 'primary',
+                  })}
+                >
+                  <FontAwesomeIcon
+                    icon={['fal', 'file-import']}
+                    className="mr-2"
+                  />{' '}
+                  Import to Contentful
+                </a>
+              </Link>
+            ) : (
+              <Button
+                color="primary"
+                onClick={() => {
+                  importContentModelOverlayState.open();
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={['fal', 'file-import']}
+                  className="mr-2"
+                />{' '}
+                Import to Contentful
+              </Button>
+            )}
+
+            {importContentModelOverlayState.isOpen ? (
+              <ModalDialog
+                title={`Import "${contentModel.title}"`}
+                isDismissable
+                isOpen
+                onClose={importContentModelOverlayState.close}
+              >
+                <ImportView contentModel={contentModel} />
+              </ModalDialog>
+            ) : null}
           </div>
 
           {store.me !== null && store.me.id === contentModel.user.id ? (

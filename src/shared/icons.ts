@@ -17,6 +17,8 @@ import {
   faBooks,
   faShoePrints,
   faExternalLink,
+  faFileImport,
+  faSpinnerThird,
 } from '@fortawesome/pro-light-svg-icons';
 
 config.autoAddCss = false;
@@ -39,4 +41,6 @@ library.add(
   faBooks,
   faShoePrints,
   faExternalLink,
+  faFileImport,
+  faSpinnerThird,
 );

@@ -11,7 +11,7 @@ const addAssetToContentModel = (
       name: 'Asset',
       sys: {
         type: 'ContentType',
-        id: 'asset',
+        id: '_internal_asset',
       },
       description: null,
       displayField: 'title',

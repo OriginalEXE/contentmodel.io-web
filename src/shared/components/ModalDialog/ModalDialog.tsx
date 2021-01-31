@@ -8,6 +8,8 @@ import {
   FocusScope,
 } from 'react-aria';
 
+import styles from './ModalDialog.module.css';
+
 interface ModalDialogProps {
   title: string;
   isOpen: boolean;
@@ -41,7 +43,7 @@ const ModalDialog: React.FC<ModalDialogProps> = (props) => {
             {...dialogProps}
             {...modalProps}
             ref={ref}
-            className="bg-white p-6 w-full max-w-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-sepia-500"
+            className={`relative bg-white p-6 w-full max-w-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-sepia-500 ${styles.modalBody}`}
           >
             <h3 {...titleProps} className="text-lg font-semibold">
               {title}

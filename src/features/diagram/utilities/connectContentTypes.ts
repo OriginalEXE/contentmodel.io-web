@@ -43,7 +43,7 @@ const connectContentTypesLight = ({
       // references
       const linksToContentTypes: string[] = (() => {
         if (field.linkType === 'Asset') {
-          return ['asset'];
+          return ['_internal_asset'];
         }
 
         const registeredContentTypes = contentModel.map(
@@ -142,7 +142,7 @@ const connectContentTypesLight = ({
       // references
       const linksToContentTypes: string[] = (() => {
         if (field.items.linkType === 'Asset') {
-          return ['asset'];
+          return ['_internal_asset'];
         }
 
         const registeredContentTypes = contentModel.map(
@@ -262,7 +262,7 @@ const connectContentTypesDetailed = ({
       // references
       const linksToContentTypes: string[] = (() => {
         if (field.linkType === 'Asset') {
-          return ['asset'];
+          return ['_internal_asset'];
         }
 
         const registeredContentTypes = contentModel.map(
@@ -355,7 +355,7 @@ const connectContentTypesDetailed = ({
       // references
       const linksToContentTypes: string[] = (() => {
         if (field.items.linkType === 'Asset') {
-          return ['asset'];
+          return ['_internal_asset'];
         }
 
         const registeredContentTypes = contentModel.map(

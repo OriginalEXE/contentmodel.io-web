@@ -1,5 +1,6 @@
 import catchify from 'catchify';
 import { NextApiRequest, NextApiResponse } from 'next';
+import queryString from 'query-string';
 
 import auth0 from '@/src/features/auth/auth0';
 import { getAccessToken } from '@/src/features/auth/server';
@@ -74,8 +75,6 @@ export default async function afterAuth(
     return;
   }
 
-  console.log(`Fetching from GraphQL with the following token: ${accessToken}`);
-
   const [createUserError, createdUser] = await catchify(
     createUser(
       {
@@ -101,20 +100,41 @@ export default async function afterAuth(
 
   if (createdUser.createUser.fresh === true) {
     // This is a new user
+    if (parsedState.redirectTo) {
+      const parsed = queryString.parseUrl(parsedState.redirectTo);
+      res.writeHead(302, {
+        Location: `${parsed.url}?${queryString.stringify({
+          ...parsed.query,
+          'new-user': '1',
+        })}`,
+      });
+      res.end();
+      return;
+    } else {
+      res.writeHead(302, {
+        Location: '/?new-user=1',
+      });
+      res.end();
+      return;
+    }
+  }
+
+  // An old user signing in
+  if (parsedState.redirectTo) {
+    const parsed = queryString.parseUrl(parsedState.redirectTo);
     res.writeHead(302, {
-      Location: parsedState.redirectTo
-        ? `${parsedState.redirectTo}?new-user=1`
-        : '/?new-user=1',
+      Location: `${parsed.url}?${queryString.stringify({
+        ...parsed.query,
+        'new-user': '0',
+      })}`,
+    });
+    res.end();
+    return;
+  } else {
+    res.writeHead(302, {
+      Location: '/?new-user=0',
     });
     res.end();
     return;
   }
-
-  // An old user signing in
-  res.writeHead(302, {
-    Location: parsedState.redirectTo
-      ? `${parsedState.redirectTo}?new-user=0`
-      : '/?new-user=0',
-  });
-  res.end();
 }

@@ -22,6 +22,7 @@
     "autoprefixer": "^10.2.4",
     "catchify": "^2.6.1",
     "compression": "^1.7.4",
+    "contentful-import": "^7.9.34",
     "core-js": "^3.8.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",

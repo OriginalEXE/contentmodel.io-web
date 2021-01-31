@@ -494,7 +494,10 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
                   panningContentTypesRef.current[i] = el;
                 }}
                 startPosition={
-                  contentModel.position.contentTypes[contentType.sys.id]
+                  contentModel.position.contentTypes[contentType.sys.id] ?? {
+                    x: 0,
+                    y: 0,
+                  }
                 }
                 scale={panScale}
                 contentType={contentType}
