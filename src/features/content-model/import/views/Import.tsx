@@ -15,6 +15,7 @@ import { CONTENT_MODEL_LAST_IMPORT_SLUG_KEY } from '@/src/features/content-model
 import { SpaceImportData } from '@/src/features/content-model/import/types/spaceImport';
 import { ImportDetails as ImportDetailsData } from '@/src/features/content-model/import/types/spaceImport';
 import { ParsedDbContentModel } from '@/src/features/content-model/types/parsedDbContentModel';
+import Button from '@/src/shared/components/Button/Button';
 import { getButtonClassName } from '@/src/shared/components/Button/getButtonClassName';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -22,10 +23,11 @@ type ImportViewStep = 'importChoice' | 'detailsInput' | 'success';
 
 interface ImportViewProps {
   contentModel: ParsedDbContentModel;
+  onClose: () => void;
 }
 
 const ImportView: React.FC<ImportViewProps> = observer((props) => {
-  const { contentModel } = props;
+  const { contentModel, onClose } = props;
 
   const router = useRouter();
 
@@ -172,18 +174,31 @@ const ImportView: React.FC<ImportViewProps> = observer((props) => {
             We have successfully imported the content model into your Contentful
             space.
           </p>
-          <a
-            href={`https://app.contentful.com/spaces/${spaceImportDetails.spaceId}/content_types`}
-            className={getButtonClassName({
-              color: 'primary',
-              className: 'mt-4',
-            })}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FontAwesomeIcon icon={['fal', 'external-link']} className="mr-2" />{' '}
-            Check it out
-          </a>
+          <div className="flex justify-between items-center mt-6">
+            <Button
+              variant="text"
+              onClick={() => {
+                onClose();
+              }}
+              className="mr-4"
+            >
+              Close
+            </Button>
+            <a
+              href={`https://app.contentful.com/spaces/${spaceImportDetails.spaceId}/content_types`}
+              className={getButtonClassName({
+                color: 'primary',
+              })}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FontAwesomeIcon
+                icon={['fal', 'external-link']}
+                className="mr-2"
+              />{' '}
+              Check it out
+            </a>
+          </div>
         </>
       ) : null}
       {isLoading === true ? (

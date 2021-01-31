@@ -108,7 +108,10 @@ const ViewView: React.FC<ViewViewProps> = observer((props) => {
                 isOpen
                 onClose={importContentModelOverlayState.close}
               >
-                <ImportView contentModel={contentModel} />
+                <ImportView
+                  contentModel={contentModel}
+                  onClose={importContentModelOverlayState.close}
+                />
               </ModalDialog>
             ) : null}
           </div>

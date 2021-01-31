@@ -8,6 +8,8 @@ import {
   FocusScope,
 } from 'react-aria';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import styles from './ModalDialog.module.css';
 
 interface ModalDialogProps {
@@ -18,7 +20,7 @@ interface ModalDialogProps {
 }
 
 const ModalDialog: React.FC<ModalDialogProps> = (props) => {
-  const { title, children } = props;
+  const { title, children, onClose } = props;
 
   // Handle interacting outside the dialog and pressing
   // the Escape key to close the modal.
@@ -45,10 +47,18 @@ const ModalDialog: React.FC<ModalDialogProps> = (props) => {
             ref={ref}
             className={`relative bg-white p-6 w-full max-w-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-sepia-500 ${styles.modalBody}`}
           >
-            <h3 {...titleProps} className="text-lg font-semibold">
+            <h3 {...titleProps} className="text-lg font-semibold mr-10">
               {title}
             </h3>
             <div className="mt-6">{children}</div>
+            <button
+              className="absolute top-5 right-5 appearance-none w-8 h-8 flex items-center justify-center"
+              onClick={() => {
+                onClose();
+              }}
+            >
+              <FontAwesomeIcon icon={['fal', 'times']} size="2x" />
+            </button>
           </div>
         </FocusScope>
       </div>
