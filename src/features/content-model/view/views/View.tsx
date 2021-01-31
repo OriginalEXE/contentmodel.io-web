@@ -147,7 +147,7 @@ const ViewView: React.FC<ViewViewProps> = observer((props) => {
                   onClose={deleteContentModelOverlayState.close}
                 >
                   <p>This action can&apos;t be undone.</p>
-                  <div className="flex flex-wrap mt-2">
+                  <div className="flex flex-wrap mt-6">
                     <Button
                       grow={false}
                       className="mt-2"
