@@ -40,3 +40,6 @@ dist
 
 # Next build
 .next
+
+# Used for dev purposes only
+server.js

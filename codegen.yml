@@ -1,5 +1,5 @@
 overwrite: true
-schema: 'http://localhost:5000/graphql'
+schema: '${GRAPHQL_URL}/graphql'
 config:
   avoidOptionals:
     field: true

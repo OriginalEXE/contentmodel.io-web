@@ -2,9 +2,9 @@
   "private": true,
   "scripts": {
     "start": "next start",
-    "dev": "next dev",
+    "dev": "node server.js || next dev",
     "build": "next build",
-    "generate": "graphql-codegen --config codegen.yml"
+    "generate": "graphql-codegen --config codegen.yml -r dotenv/config"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^0.16.1",
