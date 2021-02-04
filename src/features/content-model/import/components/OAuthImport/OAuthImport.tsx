@@ -7,8 +7,13 @@ import * as z from 'zod';
 
 import { CONTENTFUL_WRITE_OAUTH_TOKEN_KEY } from '@/src/features/auth/contentful-oauth/constants';
 import getContentfulOrganizations from '@/src/features/content-model/api/getContentfulOrganizations';
+import getContentfulEnvironments from '@/src/features/content-model/api/getContentfulSpaceEnvironments';
 import getContentfulSpaces from '@/src/features/content-model/api/getContentfulSpaces';
 import { SpaceImportData } from '@/src/features/content-model/import/types/spaceImport';
+import {
+  contentfulEnvironmentSchema,
+  contentfulEnvironmentsSchema,
+} from '@/src/features/content-model/types/contentfulEnvironment';
 import { contentfulOrganizationsSchema } from '@/src/features/content-model/types/contentfulOrganization';
 import {
   contentfulSpaceSchema,
@@ -18,7 +23,7 @@ import Button from '@/src/shared/components/Button/Button';
 import { getButtonClassName } from '@/src/shared/components/Button/getButtonClassName';
 import { useStore } from '@/store/hooks';
 
-type OAuthImportData = Omit<SpaceImportData, 'apiKey'>;
+type OAuthImportData = Omit<SpaceImportData, 'token'>;
 
 interface OAuthImport {
   oauthImportDetails: OAuthImportData;
@@ -44,6 +49,12 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
   const [managementToken, setManagementToken] = useSessionStorageState<
     string | undefined
   >(CONTENTFUL_WRITE_OAUTH_TOKEN_KEY, undefined);
+
+  const { register, handleSubmit, errors, watch } = useForm<OAuthImportData>({
+    defaultValues: oauthImportDetails,
+  });
+
+  const selectedSpaceId = watch('spaceId');
 
   const getContentfulSpacesQuery = useQuery(
     ['getContentfulSpaces', managementToken],
@@ -73,6 +84,22 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
     },
     {
       enabled: !!managementToken,
+    },
+  );
+  const getContentfulEnvironmentsQuery = useQuery(
+    ['getContentfulEnvironments', managementToken, selectedSpaceId],
+    () => {
+      if (store.me === null || managementToken === undefined) {
+        return Promise.resolve({ items: [] });
+      }
+
+      return getContentfulEnvironments({
+        token: managementToken,
+        spaceId: selectedSpaceId,
+      });
+    },
+    {
+      enabled: !!selectedSpaceId,
     },
   );
 
@@ -123,9 +150,32 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
     setViewError,
   ]);
 
-  const { register, handleSubmit, errors } = useForm({
-    defaultValues: oauthImportDetails,
-  });
+  const spaceEnvironments = useMemo<
+    z.infer<typeof contentfulEnvironmentSchema>[]
+  >(() => {
+    const environments: z.infer<typeof contentfulEnvironmentSchema>[] = [];
+
+    if (getContentfulEnvironmentsQuery.data === undefined) {
+      return environments;
+    }
+
+    const environmentsListParsed = contentfulEnvironmentsSchema.safeParse(
+      getContentfulEnvironmentsQuery.data,
+    );
+
+    if (environmentsListParsed.success === false) {
+      setViewError(
+        'Something went wrong while we were fetching a list of the space environments.',
+      );
+      return environments;
+    }
+
+    environmentsListParsed.data.items.forEach((environment) => {
+      environments.push(environment);
+    });
+
+    return environments;
+  }, [getContentfulEnvironmentsQuery.data, setViewError]);
 
   const onSubmit = async (data: OAuthImportData) => {
     if (store.me === null || managementToken === undefined) {
@@ -152,6 +202,7 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
 
     setOAuthImportDetails({
       spaceId: data.spaceId,
+      environmentId: data.environmentId,
       token: managementToken,
     });
 
@@ -204,12 +255,37 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
           {errors.spaceId ? (
             <p className="mt-2 text-sm text-red-700">Space ID is required</p>
           ) : null}
+
+          <label className="block mt-4">
+            <p className="text-lg font-semibold">Environment (optional)</p>
+            {getContentfulEnvironmentsQuery.data === undefined ? (
+              getContentfulEnvironmentsQuery.isLoading ? (
+                <p className="text-base">Loading the list of environments...</p>
+              ) : (
+                <p className="text-base">Select a space first</p>
+              )
+            ) : (
+              <select
+                name="environmentId"
+                ref={register()}
+                className="mt-2 rounded-lg border bg-white w-full leading-loose p-2 text-gray-900 focus:outline-none focus:ring-2"
+              >
+                <option value="">Select an environment</option>
+                {spaceEnvironments.map((environment) => (
+                  <option key={environment.sys.id} value={environment.sys.id}>
+                    {environment.name}
+                  </option>
+                ))}
+              </select>
+            )}
+          </label>
+
           {viewError !== null ? (
             <p className="mt-4 text-base text-red-700">{viewError}</p>
           ) : null}
           <footer className="mt-8 flex justify-end">
             <Button color="primary" type="submit">
-              Next step
+              Go to import details
             </Button>
           </footer>
         </form>

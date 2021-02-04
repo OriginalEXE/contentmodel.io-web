@@ -1,6 +1,7 @@
 interface ImportContentModelToContentfulInput {
   spaceId: string;
   token: string;
+  environmentId: string;
   slug: string;
   publish: boolean;
 }
@@ -15,9 +16,9 @@ const importContentModelToContentful = async (
   return fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/importToContentful?spaceId=${
       input.spaceId
-    }&token=${input.token}&slug=${input.slug}&publish=${
-      input.publish === true ? 1 : 0
-    }`,
+    }&token=${input.token}&environmentId=${input.environmentId}&slug=${
+      input.slug
+    }&publish=${input.publish === true ? 1 : 0}`,
   ).then((res) => res.json());
 };
 

@@ -12,7 +12,13 @@ export default async function importToContentful(
   req: NextApiRequest,
   res: NextApiResponse,
 ): Promise<void> {
-  const { slug: contentModelSlug, spaceId, token, publish = '0' } = req.query;
+  const {
+    slug: contentModelSlug,
+    spaceId,
+    token,
+    environmentId = '',
+    publish = '0',
+  } = req.query;
 
   if (!contentModelSlug || !spaceId || !token) {
     res.status(400);
@@ -83,6 +89,7 @@ export default async function importToContentful(
           }),
       },
       spaceId,
+      environmentId: environmentId === '' ? 'master' : environmentId,
       managementToken: token,
       contentModelOnly: true,
     }),

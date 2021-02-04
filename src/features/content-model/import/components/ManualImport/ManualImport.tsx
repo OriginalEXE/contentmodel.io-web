@@ -78,6 +78,15 @@ const SpaceImport: React.FC<SpaceImport> = (props) => {
         The management token is persisted for your current browsing session
         only.
       </p>
+      <label className="block mt-4">
+        <p className="text-lg font-semibold">Environment ID (optional)</p>
+        <input
+          name="environmentId"
+          ref={register()}
+          type="text"
+          className="mt-2 appearance-none rounded-lg border bg-white w-full leading-loose p-2 text-gray-900 focus:outline-none focus:ring-2"
+        />
+      </label>
       {viewError !== null ? (
         <p className="mt-4 text-base text-red-700">{viewError}</p>
       ) : null}

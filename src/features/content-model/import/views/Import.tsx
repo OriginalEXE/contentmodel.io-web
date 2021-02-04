@@ -66,6 +66,7 @@ const ImportView: React.FC<ImportViewProps> = observer((props) => {
     {
       spaceId: '',
       token: '',
+      environmentId: '',
     },
   );
 
@@ -185,7 +186,11 @@ const ImportView: React.FC<ImportViewProps> = observer((props) => {
               Close
             </Button>
             <a
-              href={`https://app.contentful.com/spaces/${spaceImportDetails.spaceId}/content_types`}
+              href={
+                spaceImportDetails.environmentId === ''
+                  ? `https://app.contentful.com/spaces/${spaceImportDetails.spaceId}/content_types`
+                  : `https://app.contentful.com/spaces/${spaceImportDetails.spaceId}/environments/${spaceImportDetails.environmentId}/content_types`
+              }
               className={getButtonClassName({
                 color: 'primary',
               })}
