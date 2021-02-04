@@ -1,13 +1,9 @@
 import { useForm } from 'react-hook-form';
 
+import { SpaceImportData } from '@/src/features/content-model/new/types/spaceImport';
 import Button from '@/src/shared/components/Button/Button';
 
-export interface SpaceImportData {
-  spaceId: string;
-  apiKey: string;
-}
-
-interface SpaceImport {
+interface ManualImportProps {
   spaceImportDetails: SpaceImportData;
   setSpaceImportDetails: React.Dispatch<React.SetStateAction<SpaceImportData>>;
   onChange: (value: string) => void;
@@ -16,7 +12,7 @@ interface SpaceImport {
   setViewError: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-const SpaceImport: React.FC<SpaceImport> = (props) => {
+const ManualImport: React.FC<ManualImportProps> = (props) => {
   const {
     onChange,
     validateContentModel,
@@ -34,7 +30,9 @@ const SpaceImport: React.FC<SpaceImport> = (props) => {
     setSpaceImportDetails(data);
 
     const response = await fetch(
-      `https://api.contentful.com/spaces/${data.spaceId}/environments/master/content_types?access_token=${data.apiKey}`,
+      `https://api.contentful.com/spaces/${data.spaceId}/environments/${
+        data.environmentId === '' ? 'master' : data.environmentId
+      }/content_types?access_token=${data.token}`,
     );
 
     if (response.ok === false) {
@@ -68,13 +66,13 @@ const SpaceImport: React.FC<SpaceImport> = (props) => {
       <label className="block mt-4">
         <p className="text-lg font-semibold">Management Token</p>
         <input
-          name="apiKey"
+          name="token"
           ref={register({ required: true })}
           type="password"
           className="mt-2 appearance-none rounded-lg border bg-white w-full leading-loose p-2 text-gray-900 focus:outline-none focus:ring-2"
         />
       </label>
-      {errors.apiKey ? (
+      {errors.token ? (
         <p className="mt-2 text-sm text-red-700">
           Management Token is required
         </p>
@@ -86,6 +84,15 @@ const SpaceImport: React.FC<SpaceImport> = (props) => {
         the &quot;Pull from Contentful&quot; method instead as it uses read-only
         tokens instead.
       </p>
+      <label className="block mt-4">
+        <p className="text-lg font-semibold">Environment ID (optional)</p>
+        <input
+          name="environmentId"
+          ref={register()}
+          type="text"
+          className="mt-2 appearance-none rounded-lg border bg-white w-full leading-loose p-2 text-gray-900 focus:outline-none focus:ring-2"
+        />
+      </label>
       {viewError !== null ? (
         <p className="mt-4 text-base text-red-700">{viewError}</p>
       ) : null}
@@ -98,4 +105,4 @@ const SpaceImport: React.FC<SpaceImport> = (props) => {
   );
 };
 
-export default SpaceImport;
+export default ManualImport;

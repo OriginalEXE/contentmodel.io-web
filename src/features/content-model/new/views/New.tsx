@@ -20,10 +20,9 @@ import ImportChoice, {
   importTypeChoiceSchema,
 } from '@/src/features/content-model/new/components/ImportChoice/ImportChoice';
 import JSONInput from '@/src/features/content-model/new/components/JSONInput/JSONInput';
+import ManualImport from '@/src/features/content-model/new/components/ManualImport/ManualImport';
 import OAuthImport from '@/src/features/content-model/new/components/OAuthImport/OAuthImport';
-import SpaceImport, {
-  SpaceImportData,
-} from '@/src/features/content-model/new/components/SpaceImport/SpaceImport';
+import { SpaceImportData } from '@/src/features/content-model/new/types/spaceImport';
 import parseContentModel from '@/src/features/content-model/parsing/parseContentModel';
 import contentModelSchema from '@/src/features/content-model/types/contentModel';
 import addAssetToContentModel from '@/src/features/content-model/utilities/addAssetToContentModel';
@@ -103,7 +102,8 @@ const NewView: React.FC = observer(() => {
   const [spaceImportDetails, setSpaceImportDetails] = useState<SpaceImportData>(
     {
       spaceId: '',
-      apiKey: '',
+      token: '',
+      environmentId: '',
     },
   );
 
@@ -239,7 +239,7 @@ const NewView: React.FC = observer(() => {
                 />
               ) : null}
               {importType === 'spaceimport' ? (
-                <SpaceImport
+                <ManualImport
                   spaceImportDetails={spaceImportDetails}
                   setSpaceImportDetails={setSpaceImportDetails}
                   onChange={(value) => {

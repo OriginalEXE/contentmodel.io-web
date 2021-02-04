@@ -5,8 +5,13 @@ import { useMutation, useQuery } from 'react-query';
 import * as z from 'zod';
 
 import getContentfulOrganizations from '@/src/features/content-model/api/getContentfulOrganizations';
+import getContentfulEnvironments from '@/src/features/content-model/api/getContentfulSpaceEnvironments';
 import getContentfulSpaces from '@/src/features/content-model/api/getContentfulSpaces';
-import { SpaceImportData } from '@/src/features/content-model/new/components/SpaceImport/SpaceImport';
+import { SpaceImportData } from '@/src/features/content-model/new/types/spaceImport';
+import {
+  contentfulEnvironmentSchema,
+  contentfulEnvironmentsSchema,
+} from '@/src/features/content-model/types/contentfulEnvironment';
 import { contentfulOrganizationsSchema } from '@/src/features/content-model/types/contentfulOrganization';
 import {
   contentfulSpaceSchema,
@@ -17,7 +22,7 @@ import Button from '@/src/shared/components/Button/Button';
 import { getButtonClassName } from '@/src/shared/components/Button/getButtonClassName';
 import { useStore } from '@/store/hooks';
 
-type OAuthImportData = Omit<SpaceImportData, 'apiKey'>;
+type OAuthImportData = Omit<SpaceImportData, 'token'>;
 
 interface OAuthImport {
   oauthImportDetails: OAuthImportData;
@@ -39,6 +44,12 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
   } = props;
 
   const store = useStore();
+
+  const { register, handleSubmit, errors, watch } = useForm({
+    defaultValues: oauthImportDetails,
+  });
+
+  const selectedSpaceId = watch('spaceId');
 
   const updateUserMutation = useMutation(updateUser, {
     onError: () => {
@@ -79,6 +90,26 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
     },
     {
       enabled: !!store.me?.contentful_token_read,
+    },
+  );
+  const getContentfulEnvironmentsQuery = useQuery(
+    [
+      'getContentfulEnvironments',
+      store.me?.contentful_token_read,
+      selectedSpaceId,
+    ],
+    () => {
+      if (store.me === null || store.me?.contentful_token_read === null) {
+        return Promise.resolve({ items: [] });
+      }
+
+      return getContentfulEnvironments({
+        token: store.me.contentful_token_read,
+        spaceId: selectedSpaceId,
+      });
+    },
+    {
+      enabled: !!selectedSpaceId,
     },
   );
 
@@ -129,9 +160,32 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
     setViewError,
   ]);
 
-  const { register, handleSubmit, errors } = useForm({
-    defaultValues: oauthImportDetails,
-  });
+  const spaceEnvironments = useMemo<
+    z.infer<typeof contentfulEnvironmentSchema>[]
+  >(() => {
+    const environments: z.infer<typeof contentfulEnvironmentSchema>[] = [];
+
+    if (getContentfulEnvironmentsQuery.data === undefined) {
+      return environments;
+    }
+
+    const environmentsListParsed = contentfulEnvironmentsSchema.safeParse(
+      getContentfulEnvironmentsQuery.data,
+    );
+
+    if (environmentsListParsed.success === false) {
+      setViewError(
+        'Something went wrong while we were fetching a list of the space environments.',
+      );
+      return environments;
+    }
+
+    environmentsListParsed.data.items.forEach((environment) => {
+      environments.push(environment);
+    });
+
+    return environments;
+  }, [getContentfulEnvironmentsQuery.data, setViewError]);
 
   const onSubmit = async (data: OAuthImportData) => {
     if (store.me === null || store.me.contentful_token_read === null) {
@@ -143,11 +197,14 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
 
     setOAuthImportDetails({
       spaceId: data.spaceId,
-      apiKey: '',
+      token: '',
+      environmentId: data.environmentId,
     });
 
     const response = await fetch(
-      `https://api.contentful.com/spaces/${data.spaceId}/environments/master/content_types?access_token=${store.me.contentful_token_read}`,
+      `https://api.contentful.com/spaces/${data.spaceId}/environments/${
+        data.environmentId === '' ? 'master' : data.environmentId
+      }/content_types?access_token=${store.me.contentful_token_read}`,
     );
 
     if (response.ok === false) {
@@ -217,6 +274,31 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
           {errors.spaceId ? (
             <p className="mt-2 text-sm text-red-700">Space ID is required</p>
           ) : null}
+
+          <label className="block mt-4">
+            <p className="text-lg font-semibold">Environment (optional)</p>
+            {getContentfulEnvironmentsQuery.data === undefined ? (
+              getContentfulEnvironmentsQuery.isLoading ? (
+                <p className="text-base">Loading the list of environments...</p>
+              ) : (
+                <p className="text-base">Select a space first</p>
+              )
+            ) : (
+              <select
+                name="environmentId"
+                ref={register()}
+                className="mt-2 rounded-lg border bg-white w-full leading-loose p-2 text-gray-900 focus:outline-none focus:ring-2"
+              >
+                <option value="">Select an environment</option>
+                {spaceEnvironments.map((environment) => (
+                  <option key={environment.sys.id} value={environment.sys.id}>
+                    {environment.name}
+                  </option>
+                ))}
+              </select>
+            )}
+          </label>
+
           {viewError !== null ? (
             <p className="mt-4 text-base text-red-700">{viewError}</p>
           ) : null}
