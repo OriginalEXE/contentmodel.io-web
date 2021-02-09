@@ -1,15 +1,28 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
+import ContentTypesSelection from '@/src/features/content-model/components/ContentTypesSelection/ContentTypesSelection';
 import { ImportDetails as ImportDetailsData } from '@/src/features/content-model/import/types/spaceImport';
+import { ParsedDbContentModel } from '@/src/features/content-model/types/parsedDbContentModel';
 import Button from '@/src/shared/components/Button/Button';
 
 interface ImportDetailsProps {
+  chosenContentTypes?: string[];
+  setChosenContentTypes: React.Dispatch<
+    React.SetStateAction<string[] | undefined>
+  >;
+  contentModel: ParsedDbContentModel;
   importDetails: ImportDetailsData;
   setImportDetails: React.Dispatch<React.SetStateAction<ImportDetailsData>>;
   viewError: string | null;
   onBack: () => void;
-  onImport: (details: ImportDetailsData) => void;
+  onImport: ({
+    details,
+    chosenContentTypes,
+  }: {
+    details: ImportDetailsData;
+    chosenContentTypes?: string[];
+  }) => void;
 }
 
 const ImportDetails: React.FC<ImportDetailsProps> = (props) => {
@@ -19,6 +32,9 @@ const ImportDetails: React.FC<ImportDetailsProps> = (props) => {
     viewError,
     onBack,
     onImport,
+    contentModel,
+    chosenContentTypes,
+    setChosenContentTypes,
   } = props;
 
   const { register, handleSubmit, getValues } = useForm({
@@ -27,7 +43,7 @@ const ImportDetails: React.FC<ImportDetailsProps> = (props) => {
 
   const onSubmit = (data: ImportDetailsData) => {
     setImportDetails(data);
-    onImport(data);
+    onImport({ details: data, chosenContentTypes: chosenContentTypes });
   };
 
   return (
@@ -49,6 +65,18 @@ const ImportDetails: React.FC<ImportDetailsProps> = (props) => {
         state. Check this box if you want to immediately publish the changes
         instead.
       </p>
+      <h2 className="text-lg font-medium mt-8">
+        Optionally, if you wish to exclude some content types, you can uncheck
+        them below.
+      </h2>
+      <ContentTypesSelection
+        contentModel={contentModel.model}
+        defaultChosenContentTypes={chosenContentTypes}
+        onChange={(newChosenContentTypes) => {
+          setChosenContentTypes(newChosenContentTypes);
+        }}
+        className="mt-4"
+      />
       {viewError !== null ? (
         <p className="mt-4 text-base text-red-700">{viewError}</p>
       ) : null}

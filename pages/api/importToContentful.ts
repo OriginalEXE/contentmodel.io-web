@@ -18,6 +18,7 @@ export default async function importToContentful(
     token,
     environmentId = '',
     publish = '0',
+    contentTypes,
   } = req.query;
 
   if (!contentModelSlug || !spaceId || !token) {
@@ -74,6 +75,17 @@ export default async function importToContentful(
       content: {
         contentTypes: contentfulContentModel
           .filter((contentType) => contentType.internal !== true)
+          .filter((contentType) => {
+            if (contentTypes === undefined) {
+              return true;
+            }
+
+            if (typeof contentTypes === 'string') {
+              return contentType.sys.id === contentTypes;
+            }
+
+            return contentTypes.includes(contentType.sys.id);
+          })
           .map((contentType) => {
             if (publish === '0') {
               return contentType;

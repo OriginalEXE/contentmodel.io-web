@@ -34,8 +34,11 @@ import Button from '@/src/shared/components/Button/Button';
 import { getButtonClassName } from '@/src/shared/components/Button/getButtonClassName';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import ContentTypesSelection from '../../components/ContentTypesSelection/ContentTypesSelection';
+
 type NewViewStep =
   | 'contentModelInput'
+  | 'contentTypesSelection'
   | 'appearanceInput'
   | 'detailsInput'
   | 'success';
@@ -111,6 +114,18 @@ const NewView: React.FC = observer(() => {
   const [parsedContentModel, setParsedContentModel] = useState<
     z.infer<typeof contentModelSchema>
   >();
+  const [chosenContentTypes, setChosenContentTypes] = useState<string[]>();
+  const finalContentModel = useMemo(() => {
+    if (parsedContentModel === undefined || chosenContentTypes === undefined) {
+      return parsedContentModel;
+    }
+
+    return parsedContentModel.filter(
+      (contentType) =>
+        contentType.internal === true ||
+        chosenContentTypes.includes(contentType.sys.id),
+    );
+  }, [parsedContentModel, chosenContentTypes]);
   const validateContentModel = (contentModelText: string): void => {
     const parseResults = parseContentModel(contentModelText);
 
@@ -124,15 +139,10 @@ const NewView: React.FC = observer(() => {
     }
 
     const contentModel = addAssetToContentModel(parseResults.data);
-    const startingContentModelPosition = approximateInitialContentModelPosition(
-      contentModel,
-    );
 
-    setInitialContentModelPosition(startingContentModelPosition);
-    setContentModelPosition(startingContentModelPosition);
     setParsedContentModel(contentModel);
     setViewError(null);
-    setViewStep('appearanceInput');
+    setViewStep('contentTypesSelection');
   };
 
   // Content model details
@@ -161,7 +171,7 @@ const NewView: React.FC = observer(() => {
         overrideContentModelDetails?.description ??
         contentModelDetails.description,
       version: {
-        model: JSON.stringify(parsedContentModel),
+        model: JSON.stringify(finalContentModel),
         position: JSON.stringify(contentModelPosition),
       },
     });
@@ -265,11 +275,52 @@ const NewView: React.FC = observer(() => {
             </>
           ) : null}
         </div>
+        {viewStep === 'contentTypesSelection' ? (
+          <>
+            {BackToImporting}
+            <div className="w-full max-w-xl mx-auto mt-6 md:mt-8">
+              <h2 className="text-lg font-medium">
+                Optionally, if you wish to exclude some content types, you can
+                uncheck them at this step.
+              </h2>
+              {parsedContentModel !== undefined ? (
+                <ContentTypesSelection
+                  contentModel={parsedContentModel}
+                  defaultChosenContentTypes={chosenContentTypes}
+                  onChange={(newChosenContentTypes) => {
+                    setChosenContentTypes(newChosenContentTypes);
+                  }}
+                  className="mt-8"
+                />
+              ) : null}
+              <footer className="flex justify-end mt-4 md:mt-8">
+                <Button
+                  color="primary"
+                  onClick={() => {
+                    setViewError(null);
+                    setViewStep('appearanceInput');
+
+                    const startingContentModelPosition = approximateInitialContentModelPosition(
+                      finalContentModel ?? [],
+                    );
+
+                    setInitialContentModelPosition(
+                      startingContentModelPosition,
+                    );
+                    setContentModelPosition(startingContentModelPosition);
+                  }}
+                >
+                  Go to visualization
+                </Button>
+              </footer>
+            </div>
+          </>
+        ) : null}
         {viewStep === 'appearanceInput' ? (
           <>
             {BackToImporting}
             <div className="w-full">
-              {parsedContentModel !== undefined ? (
+              {finalContentModel !== undefined ? (
                 <>
                   <p className="text-base max-w-xl mx-auto mt-6 md:mt-8">
                     On the diagram below, arrange your content types as you
@@ -282,7 +333,7 @@ const NewView: React.FC = observer(() => {
                     </b>
                   </p>
                   <DiagramEdit
-                    contentModel={parsedContentModel}
+                    contentModel={finalContentModel}
                     initialContentModelPosition={
                       contentTypePositionChanged
                         ? contentModelPosition

@@ -79,15 +79,32 @@ const ImportView: React.FC<ImportViewProps> = observer((props) => {
     setViewStep('detailsInput');
   }, []);
 
+  const [chosenContentTypes, setChosenContentTypes] = useState<string[]>();
+
   const onImport = useCallback(
-    (details: ImportDetailsData) => {
+    ({
+      details,
+      chosenContentTypes: finalChosenContentTypes,
+    }: {
+      details: ImportDetailsData;
+      chosenContentTypes?: string[];
+    }) => {
       (async () => {
+        if (
+          Array.isArray(finalChosenContentTypes) &&
+          finalChosenContentTypes.length === 0
+        ) {
+          setViewError('At least one content type has to be selected.');
+          return;
+        }
+
         setViewError(null);
         setIsLoading(true);
 
         const [importToContentfulError, importToContentful] = await catchify(
           importContentModelToContentful({
             ...spaceImportDetails,
+            contentTypes: finalChosenContentTypes,
             slug: contentModel.slug,
             publish: details.publish,
           }),
@@ -155,6 +172,9 @@ const ImportView: React.FC<ImportViewProps> = observer((props) => {
           }}
           onImport={onImport}
           viewError={viewError}
+          chosenContentTypes={chosenContentTypes}
+          setChosenContentTypes={setChosenContentTypes}
+          contentModel={contentModel}
         />
       ) : null}
       {viewStep === 'success' ? (
