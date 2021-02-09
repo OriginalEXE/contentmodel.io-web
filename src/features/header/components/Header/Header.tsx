@@ -86,6 +86,18 @@ const HeaderSmallScreens: React.FC = observer(() => {
               Share content model
             </ActiveLink>
           </li>
+          <li className="font-semibold">
+            <ActiveLink
+              href="/teams"
+              anchorClassName={(isActive) =>
+                `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
+                  isActive ? styles.activeSmallScreenLink : ''
+                }`
+              }
+            >
+              For teams
+            </ActiveLink>
+          </li>
           <li className="p-3">
             <div className="border-t border-gray-300" />
           </li>
@@ -188,6 +200,18 @@ const HeaderLargeScreens: React.FC = observer(() => {
               }
             >
               Share content model
+            </ActiveLink>
+          </li>
+          <li className="font-semibold">
+            <ActiveLink
+              href="/teams"
+              anchorClassName={(isActive) =>
+                `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
+                  isActive ? styles.activeLink : ''
+                }`
+              }
+            >
+              For teams
             </ActiveLink>
           </li>
           <li

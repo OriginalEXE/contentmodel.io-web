@@ -80,7 +80,7 @@ const ContentModelsPage: React.FC<
         <section className="w-full max-w-screen-2xl mx-auto py-16 px-3 text-center lg:py-24">
           <div className="container mx-auto px-4 max-w-2xl lg:max-w-3xl lg:grid lg:gap-2">
             <div>
-              <h1 className="font-semibold text-4xl leading-tight text-gray-900 lg:text-5xl xl:text-6xl xl:font-bold">
+              <h1 className="font-semibold text-3xl leading-tight text-gray-900 sm:text-4xl lg:text-5xl xl:text-6xl xl:font-bold">
                 Content modelling, visualized
               </h1>
               <p className="mt-5 mx-auto text-base max-w-xl text-gray-800 lg:text-2xl lg:mt-8">
