@@ -1,7 +1,9 @@
 import catchify from 'catchify';
 import { getSnapshot } from 'mobx-state-tree';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import Head from 'next/head';
 
+import Footer from '@/src/features/footer/Footer';
 import Header from '@/src/features/header/components/Header/Header';
 import getCurrentUser from '@/src/features/user/api/getCurrentUser';
 import styles from '@/src/shared/components/StyledDynamicContent/StyledDynamicContent.module.css';
@@ -36,11 +38,19 @@ const PrivacyPolicyPage: React.FC<
 
   return (
     <StoreProvider store={store}>
+      <Head>
+        <title key="title">Privacy Policy - ContentModel.io</title>
+        <meta
+          property="og:title"
+          content="Privacy Policy - ContentModel.io"
+          key="og:title"
+        />
+      </Head>
       <Header />
       <main className="w-full max-w-screen-2xl mx-auto px-3 mb-8 xl:flex xl:mt-12">
         <div className="w-full max-w-xl mt-8 mx-auto flex-shrink-0">
           <h1 className="text-2xl font-bold text-center">
-            {optimizeLineBreak('contentmodel.io Privacy Policy')}
+            {optimizeLineBreak('ContentModel.io Privacy Policy')}
           </h1>
           <p className="text-gray-900 mt-6 lg:mt-8 lg:text-l xl:text-xl">
             <b>Note:</b> In general, we will only collect the data that we
@@ -50,7 +60,7 @@ const PrivacyPolicyPage: React.FC<
           <div className={styles.content}>
             <p>
               Thank you for choosing to be part of our community at
-              contentmodel.io, owner Ante Šepić, Berlin, Germany. We are
+              ContentModel.io, owner Ante Šepić, Berlin, Germany. We are
               committed to protecting your personal information and your right
               to privacy. If you have any questions or concerns about our
               policy, or our practices with regards to your personal
@@ -538,14 +548,14 @@ const PrivacyPolicyPage: React.FC<
             <p>
               A privacy breach occurs when there is unauthorized access to or
               collection, use, disclosure or disposal of personal information.
-              You will be notified about data breaches when contentmodel.io,
+              You will be notified about data breaches when ContentModel.io,
               owner Ante Šepić, Berlin, Germany believes you are likely to be at
               risk or serious harm. For example, a data breach may be likely to
               result in serious financial harm or harm to your mental or
-              physical well-being. In the event that contentmodel.io, owner Ante
+              physical well-being. In the event that ContentModel.io, owner Ante
               Šepić, Berlin, Germany becomes aware of a security breach which
               has resulted or may result in unauthorized access, use or
-              disclosure of personal information contentmodel.io, owner Ante
+              disclosure of personal information ContentModel.io, owner Ante
               Šepić, Berlin, Germany will promptly investigate the matter and
               notify the applicable Supervisory Authority not later than 72
               hours after having become aware of it, unless the personal data
@@ -646,6 +656,7 @@ const PrivacyPolicyPage: React.FC<
           </div>
         </div>
       </main>
+      <Footer />
     </StoreProvider>
   );
 };

@@ -1,9 +1,11 @@
 import catchify from 'catchify';
 import { getSnapshot } from 'mobx-state-tree';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import Head from 'next/head';
 import Image from 'next/image';
 import { useRef } from 'react';
 
+import Footer from '@/src/features/footer/Footer';
 import Header from '@/src/features/header/components/Header/Header';
 import SubscribeWidget from '@/src/features/teams-launch/components/SubscribeWidget/SubscribeWidget';
 import getCurrentUser from '@/src/features/user/api/getCurrentUser';
@@ -47,6 +49,24 @@ const TeamsPage: React.FC<
 
   return (
     <StoreProvider store={store}>
+      <Head>
+        <title key="title">ContentModel.io for teams</title>
+        <meta
+          property="og:title"
+          content="ContentModel.io for teams"
+          key="og:title"
+        />
+        <meta
+          key="description"
+          name="description"
+          content="Visualize your content model. Understand it. Then simplify it."
+        />
+        <meta
+          property="og:description"
+          content="Visualize your content model. Understand it. Then simplify it."
+          key="og:description"
+        />
+      </Head>
       <Header />
       <main className="w-full mb-8">
         <section className="w-full max-w-screen-2xl mx-auto py-12 px-3 text-center md:py-16 lg:py-24">
@@ -190,6 +210,7 @@ const TeamsPage: React.FC<
           </div>
         </section>
       </main>
+      <Footer />
     </StoreProvider>
   );
 };

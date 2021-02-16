@@ -4,12 +4,11 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 
 import getContentModelBySlug from '@/src/features/content-model/api/getContentModelBySlug';
+import EmbedView from '@/src/features/content-model/embed/views/Embed';
 import contentModelSchema from '@/src/features/content-model/types/contentModel';
 import { ParsedDbContentModel } from '@/src/features/content-model/types/parsedDbContentModel';
-import ViewView from '@/src/features/content-model/view/views/View';
 import contentModelPositionSchema from '@/src/features/diagram/types/contentModelPosition';
 import getCurrentUser from '@/src/features/user/api/getCurrentUser';
-import { markdownToText } from '@/src/formatting/markdown';
 import { initializeStore, StoreSnapshotInterface } from '@/store';
 import { StoreProvider } from '@/store/hooks';
 
@@ -18,6 +17,7 @@ export const getServerSideProps: GetServerSideProps<{
   contentModel: ParsedDbContentModel;
 }> = async (ctx) => {
   const store = initializeStore();
+  const slug = ctx.query.slug as string;
 
   const [currentUserError, currentUser] = await catchify(
     getCurrentUser(ctx.req.headers.cookie),
@@ -28,10 +28,7 @@ export const getServerSideProps: GetServerSideProps<{
   }
 
   const [contentModelBySlugError, contentModelBySlug] = await catchify(
-    getContentModelBySlug(
-      { slug: ctx.query.slug as string },
-      ctx.req.headers.cookie,
-    ),
+    getContentModelBySlug({ slug }, ctx.req.headers.cookie),
   );
 
   if (
@@ -65,7 +62,7 @@ export const getServerSideProps: GetServerSideProps<{
   }
 };
 
-const ContentModelViewPage: React.FC<
+const ContentModelEditPage: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ storeSnapshot, contentModel }) => {
   const store = initializeStore(storeSnapshot);
@@ -76,29 +73,10 @@ const ContentModelViewPage: React.FC<
         <title key="title">
           {contentModel.title} by {contentModel.user.name} - ContentModel.io
         </title>
-        <meta
-          property="og:title"
-          content={`${contentModel.title} by ${contentModel.user.name} - ContentModel.io`}
-          key="og:title"
-        />
-        {contentModel.description !== null ? (
-          <meta
-            property="og:description"
-            content={markdownToText(contentModel.description)}
-            key="og:description"
-          />
-        ) : null}
-        {contentModel.ogMetaImage !== null ? (
-          <meta
-            property="og:image"
-            content={contentModel.ogMetaImage.src}
-            key="og:image"
-          />
-        ) : null}
       </Head>
-      <ViewView contentModel={contentModel} />
+      <EmbedView contentModel={contentModel} />
     </StoreProvider>
   );
 };
 
-export default ContentModelViewPage;
+export default ContentModelEditPage;

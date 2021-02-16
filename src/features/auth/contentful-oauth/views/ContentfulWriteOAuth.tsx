@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 
 import { CONTENTFUL_WRITE_OAUTH_TOKEN_KEY } from '@/src/features/auth/contentful-oauth/constants';
 import { CONTENT_MODEL_LAST_IMPORT_SLUG_KEY } from '@/src/features/content-model/import/constants';
+import Footer from '@/src/features/footer/Footer';
 import Header from '@/src/features/header/components/Header/Header';
 import optimizeLineBreak from '@/src/typography/optimize-line-break';
 
@@ -73,7 +74,7 @@ const ContentfulWriteOAuthView: React.FC = () => {
 
             {viewState === 'success' ? (
               <p className="text-lg">
-                Success, your contentmodel.io account now has a temporary write
+                Success, your ContentModel.io account now has a temporary write
                 access to your Contentful account (for this session only).
                 Redirecting you back...
               </p>
@@ -81,6 +82,7 @@ const ContentfulWriteOAuthView: React.FC = () => {
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 };

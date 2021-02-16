@@ -13,15 +13,15 @@ const Footer: React.FC = () => {
               </a>{' '}
             </p>
             <p className="text-sm mt-3">
-              contentmodel.io is a community project. Contentful GmbH is not
-              affiliated with contentmodel.io
+              ContentModel.io is a community project. Contentful GmbH is not
+              affiliated with ContentModel.io
             </p>
           </div>
 
           <nav className="mt-6 w-full flex flex-wrap lg:w-7/12 lg:mt-0">
             <ul className="w-full mt-6 sm:w-64 sm:mr-3">
               <li className="text-base font-semibold text-sepia-900">
-                Interesting links
+                Useful links
               </li>
 
               <li className="mt-2">

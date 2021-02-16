@@ -45,7 +45,7 @@ const HeaderSmallScreens: React.FC = observer(() => {
         <Link href="/">
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a className="flex items-center justify-center focus:outline-none">
-            <img src={logo} alt="contentmodel.io logo" width="112" />
+            <img src={logo} alt="ContentModel.io logo" width="112" />
           </a>
         </Link>
         <button
@@ -173,7 +173,7 @@ const HeaderLargeScreens: React.FC = observer(() => {
         <Link href="/">
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a className="flex items-center justify-center focus:outline-none mr-6">
-            <img src={logo} alt="contentmodel.io logo" width="112" />
+            <img src={logo} alt="ContentModel.io logo" width="112" />
           </a>
         </Link>
 

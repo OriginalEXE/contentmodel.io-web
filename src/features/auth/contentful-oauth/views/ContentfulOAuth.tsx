@@ -5,6 +5,7 @@ import queryString from 'query-string';
 import { useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
 
+import Footer from '@/src/features/footer/Footer';
 import Header from '@/src/features/header/components/Header/Header';
 import updateUser from '@/src/features/user/api/updateUser';
 import { getButtonClassName } from '@/src/shared/components/Button/getButtonClassName';
@@ -87,13 +88,14 @@ const ContentfulOAuthView: React.FC = observer(() => {
 
             {viewState === 'success' ? (
               <p className="text-lg">
-                Success, your contentmodel.io account now has read access to
+                Success, your ContentModel.io account now has read access to
                 your Contentful account. Redirecting you back...
               </p>
             ) : null}
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 });

@@ -83,7 +83,7 @@ const ContentModelEditPage: React.FC<
   return (
     <StoreProvider store={store}>
       <Head>
-        <title>Edit {contentModel.title} - contentmodel.io</title>
+        <title key="title">Edit {contentModel.title} - ContentModel.io</title>
       </Head>
       <EditView contentModel={contentModel} />
     </StoreProvider>

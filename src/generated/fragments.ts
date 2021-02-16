@@ -35,6 +35,14 @@ export type Login = {
   user: User;
 };
 
+export type ImageAsset = {
+  __typename?: 'ImageAsset';
+  src: Scalars['String'];
+  path: Scalars['String'];
+  width: Scalars['Float'];
+  height: Scalars['Float'];
+};
+
 export type ContentModel = {
   __typename?: 'ContentModel';
   id: Scalars['ID'];
@@ -48,6 +56,9 @@ export type ContentModel = {
   user: User;
   model: Scalars['String'];
   position: Scalars['String'];
+  ogMetaImage: Maybe<ImageAsset>;
+  image: Maybe<ImageAsset>;
+  imageNoConnections: Maybe<ImageAsset>;
 };
 
 export type PaginationInfo = {

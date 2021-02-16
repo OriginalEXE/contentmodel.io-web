@@ -10,6 +10,7 @@ import deleteContentModel from '@/src/features/content-model/api/deleteContentMo
 import ImportView from '@/src/features/content-model/import/views/Import';
 import { ParsedDbContentModel } from '@/src/features/content-model/types/parsedDbContentModel';
 import DiagramViewSSRLoading from '@/src/features/diagram/components/DiagramView/DiagramViewSSRLoading';
+import Footer from '@/src/features/footer/Footer';
 import Header from '@/src/features/header/components/Header/Header';
 import ProfileBadge from '@/src/features/user/components/ProfileBadge/ProfileBadge';
 import Button from '@/src/shared/components/Button/Button';
@@ -182,6 +183,7 @@ const ViewView: React.FC<ViewViewProps> = observer((props) => {
           <DiagramView contentModel={contentModel} />
         </div>
       </main>
+      <Footer />
     </>
   );
 });

@@ -214,7 +214,7 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
       {managementToken ? (
         <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
           <p className="text-base lg:text-lg">
-            You have granted contentmodel.io a temporary write access to your
+            You have granted ContentModel.io a temporary write access to your
             Contentful account. This access is persisted for your current
             browsing session only. You can always{' '}
             <button
@@ -293,7 +293,7 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
         <div className="mt-8">
           <p className="text-base lg:text-lg">
             Click on the button below to connect your Contentful account with
-            contentmodel.io - this will give contentmodel.io a temporary write
+            ContentModel.io - this will give ContentModel.io a temporary write
             access to your Contentful spaces
           </p>
           <a

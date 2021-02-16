@@ -10,7 +10,6 @@ import '@/src/shared/icons';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import '@jsplumb/browser-ui/css/jsplumbtoolkit.css';
 import '@/css/style.css';
-import Footer from '@/src/features/footer/Footer';
 import getQueryClient from '@/src/graphql/getQueryClient';
 import useScript from '@/src/use-script/useScript';
 
@@ -29,15 +28,29 @@ const App: React.FC<AppProps> = (props) => {
         <Hydrate state={pageProps.dehydratedState}>
           <OverlayProvider className="flex flex-col min-h-screen">
             <Head>
-              <title>contentmodel.io</title>
+              <title key="title">ContentModel.io</title>
+              <meta
+                property="og:title"
+                content="ContentModel.io"
+                key="og:title"
+              />
               <meta
                 key="description"
                 name="description"
-                content="Share your content model, or get inspired"
+                content="ContentModel.io is a community-sourced, visual directory of Contentful content models"
+              />
+              <meta
+                property="og:description"
+                content="ContentModel.io is a community-sourced, visual directory of Contentful content models"
+                key="og:description"
+              />
+              <meta
+                property="og:image"
+                content="/og-meta-image.png"
+                key="og:image"
               />
             </Head>
             <Component {...pageProps} />
-            <Footer />
           </OverlayProvider>
         </Hydrate>
       </QueryClientProvider>

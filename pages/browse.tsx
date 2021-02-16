@@ -68,7 +68,7 @@ const BrowsePage: React.FC<
   return (
     <StoreProvider store={store}>
       <Head>
-        <title>My content models - contentmodel.io</title>
+        <title>My content models - ContentModel.io</title>
       </Head>
       <BrowseView contentModels={contentModels} />
     </StoreProvider>

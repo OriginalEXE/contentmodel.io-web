@@ -8,6 +8,7 @@ import ContentModelsList from '@/src/features/content-model/components/ContentMo
 import contentModelSchema from '@/src/features/content-model/types/contentModel';
 import { ParsedDbContentModel } from '@/src/features/content-model/types/parsedDbContentModel';
 import contentModelPositionSchema from '@/src/features/diagram/types/contentModelPosition';
+import Footer from '@/src/features/footer/Footer';
 import Header from '@/src/features/header/components/Header/Header';
 import getCurrentUser from '@/src/features/user/api/getCurrentUser';
 import { getButtonClassName } from '@/src/shared/components/Button/getButtonClassName';
@@ -84,7 +85,7 @@ const ContentModelsPage: React.FC<
                 Content modelling, visualized
               </h1>
               <p className="mt-5 mx-auto text-base max-w-xl text-gray-800 lg:text-2xl lg:mt-8">
-                contentmodel.io is a community-sourced, visual directory of
+                ContentModel.io is a community-sourced, visual directory of
                 Contentful content models
               </p>
               <Link href="/browse">
@@ -179,6 +180,7 @@ const ContentModelsPage: React.FC<
           </div>
         </section>
       </main>
+      <Footer />
     </StoreProvider>
   );
 };

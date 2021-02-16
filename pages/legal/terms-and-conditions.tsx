@@ -1,7 +1,9 @@
 import catchify from 'catchify';
 import { getSnapshot } from 'mobx-state-tree';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import Head from 'next/head';
 
+import Footer from '@/src/features/footer/Footer';
 import Header from '@/src/features/header/components/Header/Header';
 import getCurrentUser from '@/src/features/user/api/getCurrentUser';
 import styles from '@/src/shared/components/StyledDynamicContent/StyledDynamicContent.module.css';
@@ -36,18 +38,26 @@ const TermsAndConditionsPage: React.FC<
 
   return (
     <StoreProvider store={store}>
+      <Head>
+        <title key="title">Terms and Conditions - ContentModel.io</title>
+        <meta
+          property="og:title"
+          content="Terms and Conditions - ContentModel.io"
+          key="og:title"
+        />
+      </Head>
       <Header />
       <main className="w-full max-w-screen-2xl mx-auto px-3 mb-8 xl:flex xl:mt-12">
         <div className="w-full max-w-xl mt-8 mx-auto flex-shrink-0">
           <h1 className="text-2xl font-bold text-center">
-            {optimizeLineBreak('contentmodel.io Terms and Conditions')}
+            {optimizeLineBreak('ContentModel.io Terms and Conditions')}
           </h1>
           <div className={`${styles.content} mt-6 lg:mt-8`}>
             <h2>AGREEMENT TO TERMS</h2>
             <p>
               These Terms of Use constitute a legally binding agreement made
               between you, whether personally or on behalf of an entity (“you”)
-              and contentmodel.io, owner Ante Šepić, Berlin, Germany, concerning
+              and ContentModel.io, owner Ante Šepić, Berlin, Germany, concerning
               your access to and use of the https://contentmodel.io website as
               well as any other media form, media channel, mobile website or
               mobile application related, linked, or otherwise connected thereto
@@ -804,6 +814,7 @@ const TermsAndConditionsPage: React.FC<
           </div>
         </div>
       </main>
+      <Footer />
     </StoreProvider>
   );
 };

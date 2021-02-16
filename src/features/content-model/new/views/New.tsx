@@ -29,6 +29,7 @@ import addAssetToContentModel from '@/src/features/content-model/utilities/addAs
 import contentModelPositionSchema from '@/src/features/diagram/types/contentModelPosition';
 import contentTypePositionSchema from '@/src/features/diagram/types/contentTypePosition';
 import approximateInitialContentModelPosition from '@/src/features/diagram/utilities/approximateInitialContentModelPosition';
+import Footer from '@/src/features/footer/Footer';
 import Header from '@/src/features/header/components/Header/Header';
 import Button from '@/src/shared/components/Button/Button';
 import { getButtonClassName } from '@/src/shared/components/Button/getButtonClassName';
@@ -432,6 +433,7 @@ const NewView: React.FC = observer(() => {
           </div>
         ) : null}
       </main>
+      <Footer />
     </>
   );
 });

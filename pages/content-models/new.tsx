@@ -46,7 +46,7 @@ const NewPage: React.FC<
   return (
     <StoreProvider store={store}>
       <Head>
-        <title>Share content model - contentmodel.io</title>
+        <title key="title">Share content model - ContentModel.io</title>
       </Head>
       <NewView />
     </StoreProvider>

@@ -26,11 +26,22 @@ const DIAGRAM_INITIAL_DRAW_PADDING = 40;
 
 interface DiagramViewProps {
   contentModel: ParsedDbContentModel;
+  fillViewport?: boolean;
+  showControls?: boolean;
+  animatedAppearance?: boolean;
+  drawConnections?: boolean;
   className?: string;
 }
 
 const DiagramView: React.FC<DiagramViewProps> = (props) => {
-  const { contentModel, className = '' } = props;
+  const {
+    contentModel,
+    fillViewport = false,
+    showControls = true,
+    animatedAppearance = true,
+    drawConnections = true,
+    className = '',
+  } = props;
 
   // Topmost container ref
   const componentWrapEl = useRef<HTMLDivElement>(null);
@@ -40,6 +51,9 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
 
   // Toggled on when initial drawing is finished
   const [initialDrawingFinished, setInitialDrawingFinished] = useState(false);
+
+  // Toggled when initial plumbing is done
+  const [initialPlumbingFinished, setInitialPlumbingFinished] = useState(false);
 
   // Fullscreen
   const [isFullscreen, { toggleFull }] = useFullscreen(componentWrapEl);
@@ -56,7 +70,12 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
   const [isInitialPan, setIsInitialPan] = useState(true);
 
   const calculateCentralPanValues = ():
-    | { scale: number; position: { x: number; y: number } }
+    | {
+        scale: number;
+        position: { x: number; y: number };
+        totalContentTypesWidth: number;
+        totalContentTypesHeight: number;
+      }
     | undefined => {
     if (
       panningContainerRef.current === null ||
@@ -133,6 +152,8 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
           topOffsetZeroDistance +
           DIAGRAM_INITIAL_DRAW_PADDING / 2,
       },
+      totalContentTypesWidth,
+      totalContentTypesHeight,
     };
   };
 
@@ -160,6 +181,10 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
         startY = centralPanValues.position.y;
 
         startPanScale = centralPanValues.scale;
+
+        (window as any).contentmodelio = {
+          dimensions: centralPanValues,
+        };
       }
 
       setPanScale(startPanScale);
@@ -373,7 +398,13 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
 
     // Finally, draw the connections
     const drawTimeout = setTimeout(() => {
+      if (drawConnections === false) {
+        setInitialPlumbingFinished(true);
+        return;
+      }
+
       instance.setSuspendDrawing(false, true);
+      setInitialPlumbingFinished(true);
     }, 300);
 
     setPlumbInstance(instance);
@@ -463,11 +494,17 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
 
   return (
     <div
-      className={`relative border rounded-lg border-sepia-300 bg-sepia-100 ${className}`}
+      className={`relative bg-sepia-100 ${
+        fillViewport === true ? '' : 'border border-sepia-300 rounded-lg'
+      } ${
+        initialPlumbingFinished === true ? 'is-fully-drawn' : ''
+      } ${className}`}
       ref={componentWrapEl}
     >
       <div
-        className={`transition-opacity delay-100 overflow-hidden ${
+        className={`overflow-hidden ${
+          animatedAppearance === true ? 'transition-opacity delay-100' : ''
+        } ${
           initialDrawingFinished
             ? 'opacity-100 pointer-events-auto'
             : 'opacity-0 pointer-events-none'
@@ -476,7 +513,9 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
         <div
           ref={panningContainerRef}
           className={`${styles.panningContainer} ${
-            isFullscreen ? styles.panningContainerFullscreen : ''
+            isFullscreen === true || fillViewport === true
+              ? styles.panningContainerFullscreen
+              : ''
           }`}
         >
           <div
@@ -534,22 +573,24 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
             ))}
           </div>
         </div>
-        <DiagramControls
-          scale={panScale}
-          onScaleChange={(newScale) => {
-            if (panZoomInstance.current === undefined) {
-              return;
-            }
+        {showControls === true ? (
+          <DiagramControls
+            scale={panScale}
+            onScaleChange={(newScale) => {
+              if (panZoomInstance.current === undefined) {
+                return;
+              }
 
-            setPanScale(newScale);
-            setPanChanged(true);
-            panZoomInstance.current.zoom(newScale, { animate: true });
-          }}
-          onReset={resetDiagramPosition}
-          showReset={panChanged}
-          isFullscreen={isFullscreen}
-          toggleFull={toggleFull}
-        />
+              setPanScale(newScale);
+              setPanChanged(true);
+              panZoomInstance.current.zoom(newScale, { animate: true });
+            }}
+            onReset={resetDiagramPosition}
+            showReset={panChanged}
+            isFullscreen={isFullscreen}
+            toggleFull={toggleFull}
+          />
+        ) : null}
       </div>
     </div>
   );

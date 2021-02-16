@@ -17,6 +17,7 @@ import Details, {
 import { ParsedDbContentModel } from '@/src/features/content-model/types/parsedDbContentModel';
 import contentModelPositionSchema from '@/src/features/diagram/types/contentModelPosition';
 import contentTypePositionSchema from '@/src/features/diagram/types/contentTypePosition';
+import Footer from '@/src/features/footer/Footer';
 import Header from '@/src/features/header/components/Header/Header';
 import Button from '@/src/shared/components/Button/Button';
 import { getButtonClassName } from '@/src/shared/components/Button/getButtonClassName';
@@ -235,6 +236,7 @@ const EditView: React.FC<EditViewProps> = observer((props) => {
           </div>
         ) : null}
       </main>
+      <Footer />
     </>
   );
 });

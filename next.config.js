@@ -30,13 +30,9 @@ module.exports = withImages(
       websocketPort: 3001,
     },
     reactStrictMode: true,
-    async rewrites() {
-      return [
-        {
-          source: '/share/:id',
-          destination: '/api/share',
-        },
-      ];
+    images: {
+      loader: 'cloudinary',
+      path: 'https://res.cloudinary.com/contentmodelio/image/upload/',
     },
   }),
 );

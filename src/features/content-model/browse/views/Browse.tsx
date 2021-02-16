@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import ContentModelsList from '@/src/features/content-model/components/ContentModelsList/ContentModelsList';
 import { ParsedDbContentModel } from '@/src/features/content-model/types/parsedDbContentModel';
+import Footer from '@/src/features/footer/Footer';
 import Header from '@/src/features/header/components/Header/Header';
 import { getButtonClassName } from '@/src/shared/components/Button/getButtonClassName';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -57,6 +58,7 @@ const BrowseView: React.FC<BrowseViewProps> = observer((props) => {
           )}
         </div>
       </main>
+      <Footer />
     </>
   );
 });

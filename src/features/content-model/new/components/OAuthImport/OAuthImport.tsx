@@ -226,7 +226,7 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
       {store.me?.contentful_token_read ? (
         <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
           <p className="text-base lg:text-lg">
-            You have granted contentmodel.io a read-only access to your
+            You have granted ContentModel.io a read-only access to your
             Contentful account. You can always{' '}
             <button
               className="appearance-none text-red-700 font-medium focus:underline focus:outline-none focus:text-red-800"
@@ -312,7 +312,7 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
         <div className="mt-8">
           <p className="text-base lg:text-lg">
             Click on the button below to connect your Contentful account with
-            contentmodel.io - this will give contentmodel.io a read-only access
+            ContentModel.io - this will give ContentModel.io a read-only access
             to your Contentful spaces
           </p>
           <a

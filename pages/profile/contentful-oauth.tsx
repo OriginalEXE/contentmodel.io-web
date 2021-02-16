@@ -43,7 +43,7 @@ const ProfileContentfulOAuthPage: React.FC<
   return (
     <StoreProvider store={store}>
       <Head>
-        <title>Contentful OAuth - contentmodel.io</title>
+        <title>Contentful OAuth - ContentModel.io</title>
       </Head>
       <ContentfulOAuthView />
     </StoreProvider>

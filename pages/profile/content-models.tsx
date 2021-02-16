@@ -75,7 +75,7 @@ const ProfileContentModelsPage: React.FC<
   return (
     <StoreProvider store={store}>
       <Head>
-        <title>My content models - contentmodel.io</title>
+        <title>My content models - ContentModel.io</title>
       </Head>
       <ProfileDirectoryView contentModels={contentModels} />
     </StoreProvider>

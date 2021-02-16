@@ -34,6 +34,24 @@ const getContentModels = async (
           }
           model
           position
+          ogMetaImage {
+            src
+            path
+            width
+            height
+          }
+          image {
+            src
+            path
+            width
+            height
+          }
+          imageNoConnections {
+            src
+            path
+            width
+            height
+          }
         }
       }
     }
