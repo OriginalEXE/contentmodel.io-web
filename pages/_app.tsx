@@ -46,7 +46,7 @@ const App: React.FC<AppProps> = (props) => {
               />
               <meta
                 property="og:image"
-                content="/og-meta-image.png"
+                content="https://res.cloudinary.com/contentmodelio/image/upload/v1613593969/app/marketing/og-meta-image_qoxffo.png"
                 key="og:image"
               />
             </Head>

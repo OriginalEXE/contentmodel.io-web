@@ -88,7 +88,7 @@ const TeamsPage: React.FC<
                 }}
               >
                 <Image
-                  src={contentModelScreenshot}
+                  src="v1613594141/app/marketing/screenshots/content-model_j0elop.png"
                   alt="Content model screenshot"
                   width={1568}
                   height={857}
@@ -106,7 +106,7 @@ const TeamsPage: React.FC<
           </h2>
           <div className="max-w-lg mx-auto mt-4 md:mt-8 rounded-lg border border-seagreen-300 overflow-hidden">
             <Image
-              src={testimonial1}
+              src="v1613594132/app/marketing/social-proof/twitter-testimonial_hssrx4.png"
               alt="Twitter testimonial"
               width={1062}
               height={521}
