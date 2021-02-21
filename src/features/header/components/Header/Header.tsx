@@ -83,7 +83,7 @@ const HeaderSmallScreens: React.FC = observer(() => {
                 }`
               }
             >
-              Share content model
+              Visualize your content model
             </ActiveLink>
           </li>
           <li className="font-semibold">
@@ -122,7 +122,7 @@ const HeaderSmallScreens: React.FC = observer(() => {
                     router.push('/api/signUp');
                   }}
                 >
-                  Create an account
+                  Sign up
                 </Button>
               </div>
             ) : (
@@ -199,7 +199,7 @@ const HeaderLargeScreens: React.FC = observer(() => {
                 }`
               }
             >
-              Share content model
+              Visualize your content model
             </ActiveLink>
           </li>
           <li className="font-semibold">
@@ -222,9 +222,10 @@ const HeaderLargeScreens: React.FC = observer(() => {
             {store.me === null ? (
               <div>
                 <Button
+                  variant="text"
                   size="s"
                   grow={false}
-                  className="mr-2"
+                  className="mr-4"
                   onClick={() => {
                     router.push('/api/login');
                   }}
@@ -239,7 +240,7 @@ const HeaderLargeScreens: React.FC = observer(() => {
                     router.push('/api/signUp');
                   }}
                 >
-                  Create an account
+                  Sign up
                 </Button>
               </div>
             ) : (

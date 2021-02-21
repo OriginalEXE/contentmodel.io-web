@@ -8,7 +8,7 @@ export default async function signUp(
 ): Promise<void> {
   try {
     await auth0.handleLogin(req, res, {
-      authParams: {
+      authorizationParams: {
         screen_hint: 'signup',
       },
     });

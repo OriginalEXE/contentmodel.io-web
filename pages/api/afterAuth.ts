@@ -5,41 +5,12 @@ import queryString from 'query-string';
 import auth0 from '@/src/features/auth/auth0';
 import { getAccessToken } from '@/src/features/auth/server';
 import createUser from '@/src/features/user/api/createUser';
-import {
-  setCookies,
-  parseCookies,
-} from '@auth0/nextjs-auth0/dist/utils/cookies';
-import { decodeState } from '@auth0/nextjs-auth0/dist/utils/state';
 
 export default async function afterAuth(
   req: NextApiRequest,
   res: NextApiResponse,
 ): Promise<void> {
-  // Custom logout implementation due to not being able to customize redirect url
-  // when logging out with auth0.handleLogout(req, res);
-  const logoutAndRedirectToFail = (): void => {
-    setCookies(req, res, [
-      {
-        name: 'a0:state',
-        value: '',
-        maxAge: -1,
-      },
-      {
-        name: 'a0:session',
-        value: '',
-        maxAge: -1,
-        path: '/',
-      },
-    ]);
-
-    // Was not able to create a user in the db
-    res.writeHead(302, {
-      Location: '/?error=failed-to-login',
-    });
-    res.end();
-  };
-
-  const session = await auth0.getSession(req);
+  const session = await auth0.getSession(req, res);
 
   if (session === null || session === undefined) {
     res.writeHead(302, {
@@ -90,18 +61,16 @@ export default async function afterAuth(
   if (createUserError !== null) {
     // Was not able to create a user in the db
     console.error(createUserError);
-    logoutAndRedirectToFail();
+    auth0.handleLogout(req, res, {
+      returnTo: '/?error=failed-to-login',
+    });
     return;
   }
 
-  const cookies = parseCookies(req);
-  const auth0state = cookies['a0:state'];
-  const parsedState = decodeState(auth0state);
-
   if (createdUser.createUser.fresh === true) {
     // This is a new user
-    if (parsedState.redirectTo) {
-      const parsed = queryString.parseUrl(parsedState.redirectTo);
+    if (req.query.redirectTo) {
+      const parsed = queryString.parseUrl(req.query.redirectTo as string);
       res.writeHead(302, {
         Location: `${parsed.url}?${queryString.stringify({
           ...parsed.query,
@@ -120,8 +89,8 @@ export default async function afterAuth(
   }
 
   // An old user signing in
-  if (parsedState.redirectTo) {
-    const parsed = queryString.parseUrl(parsedState.redirectTo);
+  if (req.query.redirectTo) {
+    const parsed = queryString.parseUrl(req.query.redirectTo as string);
     res.writeHead(302, {
       Location: `${parsed.url}?${queryString.stringify({
         ...parsed.query,

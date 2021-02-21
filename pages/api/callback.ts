@@ -7,7 +7,7 @@ export default async function callback(
   res: NextApiResponse,
 ): Promise<void> {
   try {
-    await auth0.handleCallback(req, res, { redirectTo: '/api/afterAuth' });
+    await auth0.handleCallback(req, res);
   } catch (error) {
     console.error(error);
     res.writeHead(302, {

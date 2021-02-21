@@ -7,6 +7,10 @@ export default async function login(
   res: NextApiResponse,
 ): Promise<void> {
   try {
+    req.query.returnTo = `/api/afterAuth?redirectTo=${
+      req.query.redirectTo || '/'
+    }`;
+
     await auth0.handleLogin(req, res);
   } catch (error) {
     console.error(error);

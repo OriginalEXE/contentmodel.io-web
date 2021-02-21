@@ -12,7 +12,7 @@ import {
   generateContentTypeFieldDOMId,
 } from '@/src/features/diagram/utilities/generateDOMId';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-import { Connection } from '@jsplumb/community-core';
+import { Connection } from '@jsplumb/core';
 
 // For use with complex content models, draws less connections
 const connectContentTypesLight = ({
@@ -103,14 +103,14 @@ const connectContentTypesLight = ({
             detachable: false,
             anchors: ['Top', 'Top'],
             endpoints: ['Blank', 'Dot'],
-            connector: [
-              'Flowchart',
-              {
+            connector: {
+              type: 'Flowchart',
+              options: {
                 stub: 10,
                 gap: 10,
                 cssClass: `${styles.stroke} text-sepia-300 ${CONTENT_TYPE_CONNECTION_PREFIX}${contentType.sys.id} ${CONTENT_TYPE_CONNECTION_PREFIX}${cTypeId}`,
               },
-            ],
+            },
           }),
         );
 
@@ -205,14 +205,14 @@ const connectContentTypesLight = ({
             detachable: false,
             anchors: ['Top', 'Top'],
             endpoints: ['Blank', 'Dot'],
-            connector: [
-              'Flowchart',
-              {
+            connector: {
+              type: 'Flowchart',
+              options: {
                 stub: 10,
                 gap: 10,
                 cssClass: `${styles.stroke} text-sepia-300 ${CONTENT_TYPE_CONNECTION_PREFIX}${contentType.sys.id} ${CONTENT_TYPE_CONNECTION_PREFIX}${cTypeId}`,
               },
-            ],
+            },
           }),
         );
 
@@ -316,14 +316,14 @@ const connectContentTypesDetailed = ({
             detachable: false,
             anchors: ['ContinuousLeftRight', 'Top'],
             endpoints: ['Blank', 'Dot'],
-            connector: [
-              'Flowchart',
-              {
+            connector: {
+              type: 'Flowchart',
+              options: {
                 stub: 10,
                 gap: 10,
                 cssClass: `${styles.stroke} text-sepia-300 ${CONTENT_TYPE_CONNECTION_PREFIX}${contentType.sys.id} ${CONTENT_TYPE_CONNECTION_PREFIX}${cTypeId}`,
               },
-            ],
+            },
           }),
         );
 
@@ -412,14 +412,14 @@ const connectContentTypesDetailed = ({
             detachable: false,
             anchors: ['ContinuousLeftRight', 'Top'],
             endpoints: ['Blank', 'Dot'],
-            connector: [
-              'Flowchart',
-              {
+            connector: {
+              type: 'Flowchart',
+              options: {
                 stub: 10,
                 gap: 10,
                 cssClass: `${styles.stroke} text-sepia-300 ${CONTENT_TYPE_CONNECTION_PREFIX}${contentType.sys.id} ${CONTENT_TYPE_CONNECTION_PREFIX}${cTypeId}`,
               },
-            ],
+            },
           }),
         );
 
