@@ -56,6 +56,7 @@ export type ContentModel = {
   user: User;
   model: Scalars['String'];
   position: Scalars['String'];
+  visibility: Scalars['String'];
   ogMetaImage: Maybe<ImageAsset>;
   image: Maybe<ImageAsset>;
   imageNoConnections: Maybe<ImageAsset>;
@@ -83,6 +84,7 @@ export type Query = {
 
 
 export type QueryContentModelsArgs = {
+  visibility: Maybe<Scalars['String']>;
   search?: Maybe<Scalars['String']>;
   user?: Maybe<Scalars['String']>;
   page?: Maybe<Scalars['Int']>;
@@ -91,6 +93,7 @@ export type QueryContentModelsArgs = {
 
 
 export type QueryContentModelBySlugArgs = {
+  secret?: Maybe<Scalars['String']>;
   slug: Scalars['String'];
 };
 
@@ -142,6 +145,7 @@ export type UpdateUserInput = {
 export type CreateContentModelInput = {
   title: Scalars['String'];
   description: Scalars['String'];
+  visibility?: Maybe<Scalars['String']>;
   version: CreateContentModelVersionInput;
 };
 
@@ -154,6 +158,7 @@ export type UpdateContentModelInput = {
   id: Scalars['String'];
   title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
+  visibility?: Maybe<Scalars['String']>;
   version?: Maybe<UpdateContentModelVersionInput>;
 };
 

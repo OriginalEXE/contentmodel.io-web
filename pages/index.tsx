@@ -33,6 +33,7 @@ export const getServerSideProps: GetServerSideProps<{
   const [contentModelsError, contentModels] = await catchify(
     getContentModels(
       {
+        visibility: 'PUBLIC',
         count: 6,
       },
       ctx.req.headers.cookie,

@@ -21,12 +21,14 @@ const createContentModel = async (
       $title: String!
       $description: String!
       $version: CreateContentModelVersionInput!
+      $visibility: String!
     ) {
       createContentModel(
         createContentModel: {
           title: $title
           description: $description
           version: $version
+          visibility: $visibility
         }
       ) {
         slug

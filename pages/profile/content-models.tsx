@@ -34,7 +34,10 @@ export const getServerSideProps: GetServerSideProps<{
   }
 
   const [contentModelsError, contentModels] = await catchify(
-    getContentModels({ user: currentUser.me.id }, ctx.req.headers.cookie),
+    getContentModels(
+      { user: currentUser.me.id, visibility: null },
+      ctx.req.headers.cookie,
+    ),
   );
 
   let parsedContentModels: (ParsedDbContentModel | null)[] = [];

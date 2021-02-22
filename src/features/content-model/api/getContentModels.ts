@@ -17,8 +17,8 @@ const getContentModels = async (
 ): Promise<GetContentModelsResult> => {
   const client = getClient(cookie, authorization);
   const query = gql`
-    query($count: Int, $user: String) {
-      contentModels(count: $count, user: $user) {
+    query($count: Int, $user: String, $visibility: String) {
+      contentModels(count: $count, user: $user, visibility: $visibility) {
         items {
           id
           createdAt
@@ -27,6 +27,7 @@ const getContentModels = async (
           slug
           title
           description
+          visibility
           user {
             id
             name

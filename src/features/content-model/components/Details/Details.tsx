@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export interface DetailsData {
   title: string;
   description: string;
+  visibility: string;
 }
 
 interface DetailsProps {
@@ -87,6 +88,92 @@ const Details: React.FC<DetailsProps> = (props) => {
       </label>
       {errors.description ? (
         <p className="mt-2 text-sm text-red-700">Description is required</p>
+      ) : null}
+      <div className="mt-4">
+        <p className="text-lg font-semibold">
+          Visibility{' '}
+          <span className="inline-block ml-2 rounded bg-seagreen-200 px-2 py-1 text-sm font-semibold text-seagreen-800">
+            NEW
+          </span>
+        </p>
+        <div className="p-2 border rounded-lg mt-2">
+          <div className="flex items-start">
+            <div className="flex items-center justify-center w-6 h-6">
+              <input
+                name="visibility"
+                id="visibility-public"
+                ref={register({ required: true })}
+                type="radio"
+                value="PUBLIC"
+              />
+            </div>
+            <label htmlFor="visibility-public" className="block ml-1 w-full">
+              <p className="text-base font-semibold">
+                <FontAwesomeIcon
+                  icon={['fal', 'users']}
+                  fixedWidth
+                  className="mr-1"
+                />{' '}
+                Public
+              </p>
+              <p className="text-base text-gray-600">
+                Listed in the public library, visible by anyone
+              </p>
+            </label>
+          </div>
+
+          <div className="flex items-start mt-4">
+            <div className="flex items-center justify-center w-6 h-6">
+              <input
+                name="visibility"
+                id="visibility-unlisted"
+                ref={register({ required: true })}
+                type="radio"
+                value="UNLISTED"
+              />
+            </div>
+            <label htmlFor="visibility-unlisted" className="block ml-1 w-full">
+              <p className="text-base font-semibold">
+                <FontAwesomeIcon
+                  icon={['fal', 'eye-slash']}
+                  fixedWidth
+                  className="mr-1"
+                />{' '}
+                Unlisted
+              </p>
+              <p className="text-base text-gray-600">
+                Not listed in the public library, visible by anyone who has a
+                link
+              </p>
+            </label>
+          </div>
+
+          <div className="flex items-start mt-4">
+            <div className="flex items-center justify-center w-6 h-6">
+              <input
+                name="visibility"
+                id="visibility-private"
+                ref={register({ required: true })}
+                type="radio"
+                value="PRIVATE"
+              />
+            </div>
+            <label htmlFor="visibility-private" className="block ml-1 w-full">
+              <p className="text-base font-semibold">
+                <FontAwesomeIcon
+                  icon={['fal', 'lock']}
+                  fixedWidth
+                  className="mr-1"
+                />{' '}
+                Private
+              </p>
+              <p className="text-base text-gray-600">Visible only to you</p>
+            </label>
+          </div>
+        </div>
+      </div>
+      {errors.visibility ? (
+        <p className="mt-2 text-sm text-red-700">Visibility is required</p>
       ) : null}
       {viewError !== null ? (
         <p className="mt-4 text-base text-red-700">{viewError}</p>

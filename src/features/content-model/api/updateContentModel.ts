@@ -22,6 +22,7 @@ const updateContentModel = async (
       $title: String
       $description: String
       $version: UpdateContentModelVersionInput
+      $visibility: String
     ) {
       updateContentModel(
         updateContentModel: {
@@ -29,6 +30,7 @@ const updateContentModel = async (
           title: $title
           description: $description
           version: $version
+          visibility: $visibility
         }
       ) {
         slug

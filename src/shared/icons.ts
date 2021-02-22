@@ -21,6 +21,7 @@ import {
   faSpinnerThird,
   faLock,
   faProjectDiagram,
+  faEyeSlash,
 } from '@fortawesome/pro-light-svg-icons';
 
 config.autoAddCss = false;
@@ -47,4 +48,5 @@ library.add(
   faSpinnerThird,
   faLock,
   faProjectDiagram,
+  faEyeSlash,
 );

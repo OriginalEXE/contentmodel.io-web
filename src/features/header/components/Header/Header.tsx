@@ -83,7 +83,7 @@ const HeaderSmallScreens: React.FC = observer(() => {
                 }`
               }
             >
-              Visualize your content model
+              Visualize content model
             </ActiveLink>
           </li>
           <li className="font-semibold">
@@ -199,7 +199,7 @@ const HeaderLargeScreens: React.FC = observer(() => {
                 }`
               }
             >
-              Visualize your content model
+              Visualize content model
             </ActiveLink>
           </li>
           <li className="font-semibold">

@@ -150,6 +150,7 @@ const NewView: React.FC = observer(() => {
   const [contentModelDetails, setContentModelDetails] = useState<DetailsData>({
     title: '',
     description: '',
+    visibility: 'PUBLIC',
   });
 
   // Created content model
@@ -171,6 +172,9 @@ const NewView: React.FC = observer(() => {
       description:
         overrideContentModelDetails?.description ??
         contentModelDetails.description,
+      visibility:
+        overrideContentModelDetails?.visibility ??
+        contentModelDetails.visibility,
       version: {
         model: JSON.stringify(finalContentModel),
         position: JSON.stringify(contentModelPosition),

@@ -63,6 +63,7 @@ const EditView: React.FC<EditViewProps> = observer((props) => {
   const [contentModelDetails, setContentModelDetails] = useState<DetailsData>({
     title: contentModel.title,
     description: contentModel.description,
+    visibility: contentModel.visibility,
   });
 
   // Update content model
@@ -78,6 +79,9 @@ const EditView: React.FC<EditViewProps> = observer((props) => {
       description:
         overrideContentModelDetails?.description ??
         contentModelDetails.description,
+      visibility:
+        overrideContentModelDetails?.visibility ??
+        contentModelDetails.visibility,
       version: {
         model: JSON.stringify(contentModel.model),
         position: JSON.stringify(contentModelPosition),

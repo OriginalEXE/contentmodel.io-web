@@ -18,6 +18,7 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async (ctx) => {
   const store = initializeStore();
   const slug = ctx.query.slug as string;
+  const secret = (ctx.query.secret as string) || '';
 
   const [currentUserError, currentUser] = await catchify(
     getCurrentUser(ctx.req.headers.cookie),
@@ -28,7 +29,7 @@ export const getServerSideProps: GetServerSideProps<{
   }
 
   const [contentModelBySlugError, contentModelBySlug] = await catchify(
-    getContentModelBySlug({ slug }, ctx.req.headers.cookie),
+    getContentModelBySlug({ slug, secret }, ctx.req.headers.cookie),
   );
 
   if (
