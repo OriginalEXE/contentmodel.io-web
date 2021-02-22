@@ -12,8 +12,6 @@ import getCurrentUser from '@/src/features/user/api/getCurrentUser';
 import scrollToEl from '@/src/scrolling/scrollToEl';
 import contentModelsDirectory from '@/src/shared/assets/illustrations/content-models-directory.svg';
 import visualizeContentModel from '@/src/shared/assets/illustrations/visualize-content-model.svg';
-import contentModelScreenshot from '@/src/shared/assets/screenshots/content-model.png';
-import testimonial1 from '@/src/shared/assets/social-proof/twitter-testimonial.png';
 import Button from '@/src/shared/components/Button/Button';
 import optimizeLineBreak from '@/src/typography/optimize-line-break';
 import { initializeStore, StoreSnapshotInterface } from '@/store';
