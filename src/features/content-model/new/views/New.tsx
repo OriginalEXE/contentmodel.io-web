@@ -232,7 +232,7 @@ const NewView: React.FC = observer(() => {
       <main className="w-full max-w-screen-2xl mx-auto px-3 pb-8">
         <div className="w-full max-w-xl mt-12 mx-auto">
           <h1 className="text-2xl font-bold text-center md:text-4xl">
-            Share your content model
+            Visualize content model
           </h1>
           {viewStep === 'contentModelInput' ? (
             <>
