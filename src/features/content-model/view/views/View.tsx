@@ -59,7 +59,7 @@ const ViewView: React.FC<ViewViewProps> = observer((props) => {
         <div className="w-full max-w-xl mt-8 mx-auto flex-shrink-0 xl:w-84 xl:mr-4">
           <h1 className="text-2xl font-bold">{contentModel.title}</h1>
           {contentModel.description && (
-            <StyledDynamicContent className="mt-2">
+            <StyledDynamicContent className="mt-2 break-words">
               {contentModel.description}
             </StyledDynamicContent>
           )}
