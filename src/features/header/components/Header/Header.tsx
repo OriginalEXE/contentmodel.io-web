@@ -10,6 +10,7 @@ import logo from '@/src/shared/assets/logo/logo.svg';
 import ActiveLink from '@/src/shared/components/ActiveLink/ActiveLink';
 import Avatar from '@/src/shared/components/Avatar/Avatar';
 import Button from '@/src/shared/components/Button/Button';
+import { getButtonClassName } from '@/src/shared/components/Button/getButtonClassName';
 import ToggleMenu from '@/src/shared/components/ToggleMenu/ToggleMenu';
 import { useStore } from '@/store/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -76,18 +77,6 @@ const HeaderSmallScreens: React.FC = observer(() => {
           </li>
           <li className="font-semibold">
             <ActiveLink
-              href="/content-models/new"
-              anchorClassName={(isActive) =>
-                `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
-                  isActive ? styles.activeSmallScreenLink : ''
-                }`
-              }
-            >
-              Visualize content model
-            </ActiveLink>
-          </li>
-          <li className="font-semibold">
-            <ActiveLink
               href="/teams"
               anchorClassName={(isActive) =>
                 `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
@@ -101,22 +90,35 @@ const HeaderSmallScreens: React.FC = observer(() => {
           <li className="p-3">
             <div className="border-t border-gray-300" />
           </li>
+          <li className="font-semibold mt-4 ml-2">
+            <Link href="/content-models/new">
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+              <a
+                className={getButtonClassName({
+                  color: 'primary',
+                  size: 's',
+                })}
+              >
+                Visualize content model
+              </a>
+            </Link>
+          </li>
           <li className="p-3 flex items-center">
             {store.me === null ? (
               <div>
-                <p>Why not share your content model with others?</p>
                 <Button
+                  variant="text"
                   size="s"
-                  className="mt-3 mr-2"
+                  className="mt-3 mr-4"
                   onClick={() => {
                     router.push('/api/login');
                   }}
                 >
-                  Sign in
+                  Log in
                 </Button>
                 <Button
+                  variant="text"
                   size="s"
-                  color="primary"
                   className="mt-3 mr-2"
                   onClick={() => {
                     router.push('/api/signUp');
@@ -126,7 +128,7 @@ const HeaderSmallScreens: React.FC = observer(() => {
                 </Button>
               </div>
             ) : (
-              <div className="w-full flex justify-between items-center flex-wrap">
+              <div className="w-full flex justify-between items-center flex-wrap mt-3">
                 <div className="flex items-center mr-2 mb-2">
                   <div className="w-10 h-10 mr-3">
                     <Avatar {...store.me} />
@@ -145,18 +147,20 @@ const HeaderSmallScreens: React.FC = observer(() => {
               </div>
             )}
           </li>
-          <li className="font-semibold">
-            <ActiveLink
-              href="/profile/content-models"
-              anchorClassName={(isActive) =>
-                `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
-                  isActive ? styles.activeSmallScreenLink : ''
-                }`
-              }
-            >
-              My content models
-            </ActiveLink>
-          </li>
+          {store.me !== null ? (
+            <li className="font-semibold">
+              <ActiveLink
+                href="/profile/content-models"
+                anchorClassName={(isActive) =>
+                  `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
+                    isActive ? styles.activeSmallScreenLink : ''
+                  }`
+                }
+              >
+                My content models
+              </ActiveLink>
+            </li>
+          ) : null}
         </ul>
       ) : null}
     </div>
@@ -192,18 +196,6 @@ const HeaderLargeScreens: React.FC = observer(() => {
           </li>
           <li className="font-semibold">
             <ActiveLink
-              href="/content-models/new"
-              anchorClassName={(isActive) =>
-                `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
-                  isActive ? styles.activeLink : ''
-                }`
-              }
-            >
-              Visualize content model
-            </ActiveLink>
-          </li>
-          <li className="font-semibold">
-            <ActiveLink
               href="/teams"
               anchorClassName={(isActive) =>
                 `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
@@ -214,10 +206,23 @@ const HeaderLargeScreens: React.FC = observer(() => {
               For teams
             </ActiveLink>
           </li>
+          <li className="font-semibold ml-auto">
+            <Link href="/content-models/new">
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+              <a
+                className={getButtonClassName({
+                  color: 'primary',
+                  size: 's',
+                })}
+              >
+                Visualize content model
+              </a>
+            </Link>
+          </li>
           <li
             className={`${
               store.me === null ? 'py-3' : 'py-2'
-            } flex items-center ml-auto`}
+            } flex items-center ml-6`}
           >
             {store.me === null ? (
               <div>
@@ -225,17 +230,17 @@ const HeaderLargeScreens: React.FC = observer(() => {
                   variant="text"
                   size="s"
                   grow={false}
-                  className="mr-4"
+                  className="mr-6"
                   onClick={() => {
                     router.push('/api/login');
                   }}
                 >
-                  Sign in
+                  Log in
                 </Button>
                 <Button
+                  variant="text"
                   size="s"
                   grow={false}
-                  color="primary"
                   onClick={() => {
                     router.push('/api/signUp');
                   }}

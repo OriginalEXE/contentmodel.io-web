@@ -11,3 +11,13 @@
 .activeSmallScreenLink {
   @apply text-seagreen-600;
 }
+
+.importantLink {
+  background-image: linear-gradient(
+    theme('colors.yellow.300'),
+    theme('colors.yellow.300')
+  );
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: calc(100% - 2rem) 3px;
+}
