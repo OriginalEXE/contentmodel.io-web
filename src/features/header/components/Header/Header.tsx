@@ -148,18 +148,32 @@ const HeaderSmallScreens: React.FC = observer(() => {
             )}
           </li>
           {store.me !== null ? (
-            <li className="font-semibold">
-              <ActiveLink
-                href="/profile/content-models"
-                anchorClassName={(isActive) =>
-                  `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
-                    isActive ? styles.activeSmallScreenLink : ''
-                  }`
-                }
-              >
-                My content models
-              </ActiveLink>
-            </li>
+            <>
+              <li className="font-semibold">
+                <ActiveLink
+                  href="/profile/content-models"
+                  anchorClassName={(isActive) =>
+                    `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
+                      isActive ? styles.activeSmallScreenLink : ''
+                    }`
+                  }
+                >
+                  My content models
+                </ActiveLink>
+              </li>
+              <li className="font-semibold">
+                <ActiveLink
+                  href="/profile"
+                  anchorClassName={(isActive) =>
+                    `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
+                      isActive ? styles.activeSmallScreenLink : ''
+                    }`
+                  }
+                >
+                  My profile
+                </ActiveLink>
+              </li>
+            </>
           ) : null}
         </ul>
       ) : null}
@@ -261,6 +275,7 @@ const HeaderLargeScreens: React.FC = observer(() => {
                     buttonRender={<Avatar {...store.me} />}
                   >
                     <Item key="/profile/content-models">My content models</Item>
+                    <Item key="/profile">My profile</Item>
                     <Item key="/api/logout">Sign out</Item>
                   </ToggleMenu>
                 </div>

@@ -3,7 +3,7 @@ import { gql } from 'graphql-request';
 import { User } from '@/src/generated/fragments';
 import getClient from '@/src/graphql/getClient';
 
-type GetCurrentUserResult = {
+export type GetCurrentUserResult = {
   me: Pick<User, 'id' | 'name' | 'picture' | 'contentful_token_read'>;
 };
 

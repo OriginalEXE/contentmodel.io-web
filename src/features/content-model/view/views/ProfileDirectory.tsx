@@ -25,7 +25,7 @@ const ProfileDirectoryView: React.FC<ProfileDirectoryViewProps> = observer(
               <FontAwesomeIcon icon={['fal', 'user']} />
             </div>
             <h1 className="mt-4 text-2xl font-bold max-w-sm lg:text-3xl xl:text-4xl">
-              Content models shared by you
+              My content models
             </h1>
             {contentModels.length > 0 ? (
               <>

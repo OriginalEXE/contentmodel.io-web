@@ -16,6 +16,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonPropsInterface>(
       },
       htmlAttributes = {},
       variant = 'contained',
+      disabled = false,
     },
     ref,
   ) => {
@@ -28,9 +29,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonPropsInterface>(
           size,
           grow,
           variant,
+          disabled,
         })}
         type={type}
         onClick={onClick}
+        disabled={disabled}
         {...htmlAttributes}
       >
         {children}

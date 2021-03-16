@@ -10,6 +10,7 @@ export interface ButtonPropsInterface {
     [name: string]: string;
   };
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  disabled?: boolean;
 }
 
 export interface GetButtonClassNameInputInterface {
@@ -18,6 +19,7 @@ export interface GetButtonClassNameInputInterface {
   size?: ButtonPropsInterface['size'];
   grow?: ButtonPropsInterface['grow'];
   variant?: ButtonPropsInterface['variant'];
+  disabled?: ButtonPropsInterface['disabled'];
 }
 
 export const getButtonClassName = ({
@@ -26,6 +28,7 @@ export const getButtonClassName = ({
   size = 'regular',
   grow = true,
   variant = 'contained',
+  disabled = false,
 }: GetButtonClassNameInputInterface = {}): string => {
   let colorClasses = '';
 
@@ -99,5 +102,7 @@ export const getButtonClassName = ({
       break;
   }
 
-  return `inline-block font-medium appearance-none transition-colors duration-150 ease-in-out focus:outline-none focus-visible:underline ${colorClasses} ${sizeClasses} ${className} rounded-md`;
+  return `inline-block font-medium appearance-none transition-colors duration-150 ease-in-out focus:outline-none focus-visible:underline ${colorClasses} ${sizeClasses} ${className} rounded-md ${
+    disabled ? 'opacity-70' : ''
+  }`;
 };

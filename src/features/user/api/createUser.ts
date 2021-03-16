@@ -3,7 +3,11 @@ import { gql } from 'graphql-request';
 import { CreateUserInput, Login } from '@/src/generated/fragments';
 import getClient from '@/src/graphql/getClient';
 
-type CreateUserResult = { createUser: Pick<Login, 'createdAt' | 'fresh'> };
+type CreateUserResult = {
+  createUser: Pick<Login, 'createdAt' | 'fresh'> & {
+    user: Pick<Login['user'], 'name'>;
+  };
+};
 
 const createUser = async (
   input: CreateUserInput,
@@ -18,6 +22,9 @@ const createUser = async (
       ) {
         createdAt
         fresh
+        user {
+          name
+        }
       }
     }
   `;

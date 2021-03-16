@@ -1,6 +1,7 @@
 import catchify from 'catchify';
 import { NextApiRequest, NextApiResponse } from 'next';
 import queryString from 'query-string';
+import isEmail from 'validator/lib/isEmail';
 
 import auth0 from '@/src/features/auth/auth0';
 import { getAccessToken } from '@/src/features/auth/server';
@@ -67,43 +68,46 @@ export default async function afterAuth(
     return;
   }
 
+  const redirectTo =
+    typeof req.query.redirectTo === 'string'
+      ? req.query.redirectTo || '/'
+      : '/';
+
   if (createdUser.createUser.fresh === true) {
     // This is a new user
-    if (req.query.redirectTo) {
-      const parsed = queryString.parseUrl(req.query.redirectTo as string);
+
+    // Here we check if user has an email set as their name (happens when
+    // non-social auth is used), and if so redirect them to the profile
+    // settings page
+    if (isEmail(createdUser.createUser.user.name) === true) {
+      res.writeHead(302, {
+        Location: `/profile?${queryString.stringify({
+          redirectTo: redirectTo,
+          'new-user': '1',
+        })}`,
+      });
+    } else {
+      const parsed = queryString.parseUrl(redirectTo as string);
       res.writeHead(302, {
         Location: `${parsed.url}?${queryString.stringify({
           ...parsed.query,
           'new-user': '1',
         })}`,
       });
-      res.end();
-      return;
-    } else {
-      res.writeHead(302, {
-        Location: '/?new-user=1',
-      });
-      res.end();
-      return;
     }
+
+    res.end();
+    return;
   }
 
   // An old user signing in
-  if (req.query.redirectTo) {
-    const parsed = queryString.parseUrl(req.query.redirectTo as string);
-    res.writeHead(302, {
-      Location: `${parsed.url}?${queryString.stringify({
-        ...parsed.query,
-        'new-user': '0',
-      })}`,
-    });
-    res.end();
-    return;
-  } else {
-    res.writeHead(302, {
-      Location: '/?new-user=0',
-    });
-    res.end();
-    return;
-  }
+  const parsed = queryString.parseUrl(redirectTo as string);
+  res.writeHead(302, {
+    Location: `${parsed.url}?${queryString.stringify({
+      ...parsed.query,
+      'new-user': '0',
+    })}`,
+  });
+  res.end();
+  return;
 }

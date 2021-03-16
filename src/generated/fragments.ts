@@ -140,6 +140,7 @@ export type CreateUserInput = {
 export type UpdateUserInput = {
   id: Scalars['String'];
   contentful_token_read?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
 };
 
 export type CreateContentModelInput = {

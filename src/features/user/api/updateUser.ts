@@ -14,9 +14,17 @@ const updateUser = async (
 ): Promise<UpdateUserResult> => {
   const client = getClient(cookie, authorization);
   const mutation = gql`
-    mutation UpdateUser($id: String!, $contentful_token_read: String) {
+    mutation UpdateUser(
+      $id: String!
+      $name: String
+      $contentful_token_read: String
+    ) {
       updateUser(
-        updateUser: { id: $id, contentful_token_read: $contentful_token_read }
+        updateUser: {
+          id: $id
+          name: $name
+          contentful_token_read: $contentful_token_read
+        }
       ) {
         id
         name
