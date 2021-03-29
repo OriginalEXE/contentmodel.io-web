@@ -62,7 +62,7 @@ const ToggleMenuItem: React.FC<ToggleMenuItem> = ({
     <li
       {...mergeProps(menuItemProps, focusProps)}
       ref={ref}
-      className={`font-medium text-sm hover:bg-seagreen-200 ${
+      className={`font-medium text-sm ${
         isFocused ? ' bg-seagreen-300 outline-none' : ''
       }`}
     >
@@ -128,7 +128,7 @@ interface ToggleMenuProps extends MenuTriggerProps {
   buttonClassName: string;
   buttonRender: ReactNode;
   buttonLabel: string;
-  children: CollectionChildren<ReactElement>;
+  children: any;
   onAction: (key: ReactText) => void;
 }
 
@@ -141,7 +141,7 @@ const ToggleMenu: React.FC<ToggleMenuProps> = (props) => {
   const { buttonProps } = useButton(menuTriggerProps, ref);
 
   return (
-    <nav className="relative">
+    <nav className="relative z-10">
       <div className="flex justify-between items-center">
         <button {...buttonProps} ref={ref} className={props.buttonClassName}>
           <VisuallyHidden>{props.buttonLabel}</VisuallyHidden>

@@ -2,9 +2,9 @@ import { observer } from 'mobx-react-lite';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { ReactText } from 'react';
 import { useMutation } from 'react-query';
-import { useOverlayTriggerState } from 'react-stately';
+import { Item, useOverlayTriggerState } from 'react-stately';
 
 import deleteContentModel from '@/src/features/content-model/api/deleteContentModel';
 import ImportView from '@/src/features/content-model/import/views/Import';
@@ -16,6 +16,7 @@ import ProfileBadge from '@/src/features/user/components/ProfileBadge/ProfileBad
 import Button from '@/src/shared/components/Button/Button';
 import { getButtonClassName } from '@/src/shared/components/Button/getButtonClassName';
 import StyledDynamicContent from '@/src/shared/components/StyledDynamicContent/StyledDynamicContent';
+import ToggleMenu from '@/src/shared/components/ToggleMenu/ToggleMenu';
 import { useStore } from '@/store/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -69,7 +70,7 @@ const ViewView: React.FC<ViewViewProps> = observer((props) => {
             <ProfileBadge user={contentModel.user} className="mb-2" />
           </div>
 
-          <div className="mt-4">
+          <div className="pt-2 flex flex-wrap">
             {store.me === null ? (
               <Link
                 href={`/api/login?redirectTo=/content-models/${contentModel.slug}?importType`}
@@ -78,6 +79,7 @@ const ViewView: React.FC<ViewViewProps> = observer((props) => {
                 <a
                   className={getButtonClassName({
                     color: 'primary',
+                    className: 'mt-2 mr-2',
                   })}
                 >
                   <FontAwesomeIcon
@@ -93,6 +95,7 @@ const ViewView: React.FC<ViewViewProps> = observer((props) => {
                 onClick={() => {
                   importContentModelOverlayState.open();
                 }}
+                className="mt-2 mr-2"
               >
                 <FontAwesomeIcon
                   icon={['fal', 'file-import']}
@@ -115,6 +118,39 @@ const ViewView: React.FC<ViewViewProps> = observer((props) => {
                 />
               </ModalDialog>
             ) : null}
+
+            <ToggleMenu
+              onAction={(key: ReactText) => {
+                window.open(key as string, '_blank');
+              }}
+              aria-label="Menu"
+              buttonClassName={getButtonClassName({
+                color: 'clear',
+                className: 'mt-2',
+              })}
+              buttonLabel="Profile menu"
+              buttonRender={
+                <>
+                  <FontAwesomeIcon
+                    icon={['fal', 'file-export']}
+                    className="mr-2"
+                  />{' '}
+                  Export as ...
+                </>
+              }
+            >
+              {contentModel.image ? (
+                <Item key={contentModel.image.src}>Image</Item>
+              ) : null}
+              {contentModel.imageNoConnections ? (
+                <Item key={contentModel.imageNoConnections.src}>
+                  Image (no connection lines)
+                </Item>
+              ) : null}
+              <Item key={`/api/exportAsJSON?slug=${contentModel.slug}`}>
+                JSON
+              </Item>
+            </ToggleMenu>
           </div>
 
           {store.me !== null && store.me.id === contentModel.user.id ? (

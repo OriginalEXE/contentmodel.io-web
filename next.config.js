@@ -1,38 +1,17 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const withImages = require('next-images');
-const withTM = require('next-transpile-modules')([
-  // '@codemirror/basic-setup',
-  // '@codemirror/autocomplete',
-  // '@codemirror/closebrackets',
-  // '@codemirror/commands',
-  // '@codemirror/comment',
-  // '@codemirror/fold',
-  // '@codemirror/gutter',
-  // '@codemirror/highlight',
-  // '@codemirror/history',
-  // '@codemirror/language',
-  // '@codemirror/lint',
-  // '@codemirror/matchbrackets',
-  // '@codemirror/panel',
-  // '@codemirror/rangeset',
-  // '@codemirror/rectangular-selection',
-  // '@codemirror/search',
-  // '@codemirror/state',
-  // '@codemirror/text',
-  // '@codemirror/tooltip',
-  // '@codemirror/view',
-  // '@codemirror/lang-json',
-]);
 
-module.exports = withImages(
-  withTM({
-    inlineImageLimit: 1024,
-    onDemandEntries: {
-      websocketPort: 3001,
-    },
-    reactStrictMode: true,
-    images: {
-      loader: 'cloudinary',
-      path: 'https://res.cloudinary.com/contentmodelio/image/upload/',
-    },
-  }),
-);
+module.exports = withImages({
+  inlineImageLimit: 1024,
+  onDemandEntries: {
+    websocketPort: 3001,
+  },
+  reactStrictMode: true,
+  images: {
+    loader: 'cloudinary',
+    path: 'https://res.cloudinary.com/contentmodelio/image/upload/',
+  },
+  future: {
+    webpack5: true,
+  },
+});

@@ -22,6 +22,7 @@ import {
   faLock,
   faProjectDiagram,
   faEyeSlash,
+  faFileExport,
 } from '@fortawesome/pro-light-svg-icons';
 
 config.autoAddCss = false;
@@ -49,4 +50,5 @@ library.add(
   faLock,
   faProjectDiagram,
   faEyeSlash,
+  faFileExport,
 );

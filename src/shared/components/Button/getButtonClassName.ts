@@ -1,7 +1,7 @@
 export interface ButtonPropsInterface {
   children: any;
   className?: string;
-  color?: 'primary' | 'danger' | 'default';
+  color?: 'primary' | 'clear' | 'danger' | 'default';
   variant?: 'text' | 'contained';
   size?: 'regular' | 's' | 'lg';
   grow?: boolean;
@@ -51,6 +51,10 @@ export const getButtonClassName = ({
       case 'primary':
         colorClasses =
           'text-primary-700 bg-primary-300 hover:bg-primary-400 focus:bg-primary-400';
+        break;
+      case 'clear':
+        colorClasses =
+          'text-pinkGray-900 bg:transparent hover:text-pinkGray-900 hover:bg-pinkGray-200 focus:text-pinkGray-900 focus:bg-pinkGray-200';
         break;
       case 'danger':
         colorClasses =
