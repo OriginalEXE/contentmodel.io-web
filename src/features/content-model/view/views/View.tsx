@@ -53,172 +53,172 @@ const ViewView: React.FC<ViewViewProps> = observer((props) => {
 
   const deleteContentModelMutation = useMutation(deleteContentModel);
 
+  const contentModelActions = () => {
+    return (
+      <div className="pt-2 flex flex-wrap items-start xl:pt-0">
+        {store.me === null ? (
+          <Link
+            href={`/api/login?redirectTo=/content-models/${contentModel.slug}?importType`}
+          >
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+            <a
+              className={getButtonClassName({
+                color: 'clear',
+                className: 'mt-2 mr-2',
+                size: 's',
+              })}
+            >
+              <FontAwesomeIcon icon={['fal', 'file-import']} className="mr-2" />{' '}
+              Import to Contentful
+            </a>
+          </Link>
+        ) : (
+          <Button
+            color="clear"
+            onClick={() => {
+              importContentModelOverlayState.open();
+            }}
+            className="mt-2 mr-2"
+            size="s"
+          >
+            <FontAwesomeIcon icon={['fal', 'file-import']} className="mr-2" />{' '}
+            Import to Contentful
+          </Button>
+        )}
+
+        {importContentModelOverlayState.isOpen ? (
+          <ModalDialog
+            title={`Import "${contentModel.title}"`}
+            isDismissable
+            isOpen
+            onClose={importContentModelOverlayState.close}
+          >
+            <ImportView
+              contentModel={contentModel}
+              onClose={importContentModelOverlayState.close}
+            />
+          </ModalDialog>
+        ) : null}
+
+        <ToggleMenu
+          onAction={(key: ReactText) => {
+            window.open(key as string, '_blank');
+          }}
+          aria-label="Menu"
+          buttonClassName={getButtonClassName({
+            color: 'clear',
+            className: 'mt-2',
+            size: 's',
+          })}
+          buttonLabel="Profile menu"
+          buttonRender={
+            <>
+              <FontAwesomeIcon icon={['fal', 'file-export']} className="mr-2" />{' '}
+              Export as ...
+            </>
+          }
+          dropdownAlign="left"
+        >
+          {contentModel.image ? (
+            <Item key={contentModel.image.src}>Image</Item>
+          ) : null}
+          {contentModel.imageNoConnections ? (
+            <Item key={contentModel.imageNoConnections.src}>
+              Image (no connection lines)
+            </Item>
+          ) : null}
+          <Item key={`/api/exportAsJSON?slug=${contentModel.slug}`}>JSON</Item>
+        </ToggleMenu>
+      </div>
+    );
+  };
+
   return (
     <>
       <Header />
-      <main className="w-full max-w-screen-2xl mx-auto px-3 mb-8 xl:flex xl:mt-12">
-        <div className="w-full max-w-xl mt-8 mx-auto flex-shrink-0 xl:w-84 xl:mr-4">
+      <main className="w-full max-w-screen-2xl mx-auto px-3 mb-8 mt-12">
+        <div className="w-full max-w-xl mx-auto flex-shrink-0">
           <h1 className="text-2xl font-bold">{contentModel.title}</h1>
-          {contentModel.description && (
-            <StyledDynamicContent className="mt-2 break-words">
-              {contentModel.description}
-            </StyledDynamicContent>
-          )}
 
-          <div className="flex flex-wrap items-center mt-4">
-            <p className="text-base font-semibold mr-4 mb-2">Shared by:</p>
-            <ProfileBadge user={contentModel.user} className="mb-2" />
+          <div className="flex flex-wrap items-center mt-2">
+            <ProfileBadge user={contentModel.user} className="mb-4" />
           </div>
 
-          <div className="pt-2 flex flex-wrap">
-            {store.me === null ? (
-              <Link
-                href={`/api/login?redirectTo=/content-models/${contentModel.slug}?importType`}
-              >
-                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a
-                  className={getButtonClassName({
-                    color: 'primary',
-                    className: 'mt-2 mr-2',
-                  })}
-                >
-                  <FontAwesomeIcon
-                    icon={['fal', 'file-import']}
-                    className="mr-2"
-                  />{' '}
-                  Import to Contentful
-                </a>
-              </Link>
-            ) : (
-              <Button
-                color="primary"
-                onClick={() => {
-                  importContentModelOverlayState.open();
-                }}
-                className="mt-2 mr-2"
-              >
-                <FontAwesomeIcon
-                  icon={['fal', 'file-import']}
-                  className="mr-2"
-                />{' '}
-                Import to Contentful
-              </Button>
-            )}
-
-            {importContentModelOverlayState.isOpen ? (
-              <ModalDialog
-                title={`Import "${contentModel.title}"`}
-                isDismissable
-                isOpen
-                onClose={importContentModelOverlayState.close}
-              >
-                <ImportView
-                  contentModel={contentModel}
-                  onClose={importContentModelOverlayState.close}
-                />
-              </ModalDialog>
-            ) : null}
-
-            <ToggleMenu
-              onAction={(key: ReactText) => {
-                window.open(key as string, '_blank');
-              }}
-              aria-label="Menu"
-              buttonClassName={getButtonClassName({
-                color: 'clear',
-                className: 'mt-2',
-              })}
-              buttonLabel="Profile menu"
-              buttonRender={
-                <>
-                  <FontAwesomeIcon
-                    icon={['fal', 'file-export']}
-                    className="mr-2"
-                  />{' '}
-                  Export as ...
-                </>
-              }
-              dropdownAlign="left"
-            >
-              {contentModel.image ? (
-                <Item key={contentModel.image.src}>Image</Item>
-              ) : null}
-              {contentModel.imageNoConnections ? (
-                <Item key={contentModel.imageNoConnections.src}>
-                  Image (no connection lines)
-                </Item>
-              ) : null}
-              <Item key={`/api/exportAsJSON?slug=${contentModel.slug}`}>
-                JSON
-              </Item>
-            </ToggleMenu>
-          </div>
-
-          {store.me !== null && store.me.id === contentModel.user.id ? (
-            <div className="flex flex-wrap items-center">
-              <Link href={`/content-models/${contentModel.slug}/edit`}>
-                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a
-                  className={getButtonClassName({
-                    size: 's',
-                    className: 'mt-2',
-                  })}
-                >
-                  Edit
-                </a>
-              </Link>
-              <Button
-                color="danger"
-                variant="text"
-                className="mt-2 ml-4"
-                onClick={() => {
-                  deleteContentModelOverlayState.open();
-                }}
-              >
-                Delete
-              </Button>
-              {deleteContentModelOverlayState.isOpen ? (
-                <ModalDialog
-                  title={`Delete "${contentModel.title}"?`}
-                  isDismissable
-                  isOpen
-                  onClose={deleteContentModelOverlayState.close}
-                >
-                  <p>This action can&apos;t be undone.</p>
-                  <div className="flex flex-wrap mt-6">
-                    <Button
-                      grow={false}
-                      className="mt-2"
-                      onClick={() => {
-                        deleteContentModelOverlayState.close();
-                      }}
-                    >
-                      Cancel
-                    </Button>
-                    <Button
-                      color="danger"
-                      grow={false}
-                      className="mt-2 ml-4"
-                      onClick={() => {
-                        deleteContentModelMutation.mutate({
-                          id: contentModel.id,
-                        });
-
-                        router.push('/profile/content-models');
-                      }}
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </ModalDialog>
-              ) : null}
-            </div>
-          ) : null}
+          {contentModelActions()}
         </div>
 
         <div className="mt-4 w-full md:mt-8 xl:mt-0">
-          <DiagramView contentModel={contentModel} />
+          <DiagramView contentModel={contentModel} className="xl:mt-8" />
         </div>
+
+        {contentModel.description && (
+          <StyledDynamicContent className="mt-8 mx-auto max-w-xl break-words xl:mt-12">
+            {contentModel.description}
+          </StyledDynamicContent>
+        )}
+
+        {store.me !== null && store.me.id === contentModel.user.id ? (
+          <div className="flex flex-wrap items-center mx-auto max-w-xl border-t pt-2 mt-8">
+            <Link href={`/content-models/${contentModel.slug}/edit`}>
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+              <a
+                className={getButtonClassName({
+                  className: 'mt-2',
+                  variant: 'text',
+                  size: 's',
+                })}
+              >
+                Edit
+              </a>
+            </Link>
+            <Button
+              color="danger"
+              variant="text"
+              className="mt-2 ml-4"
+              size="s"
+              onClick={() => {
+                deleteContentModelOverlayState.open();
+              }}
+            >
+              Delete
+            </Button>
+            {deleteContentModelOverlayState.isOpen ? (
+              <ModalDialog
+                title={`Delete "${contentModel.title}"?`}
+                isDismissable
+                isOpen
+                onClose={deleteContentModelOverlayState.close}
+              >
+                <p>This action can&apos;t be undone.</p>
+                <div className="flex flex-wrap mt-6">
+                  <Button
+                    grow={false}
+                    className="mt-2"
+                    onClick={() => {
+                      deleteContentModelOverlayState.close();
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    color="danger"
+                    grow={false}
+                    className="mt-2 ml-4"
+                    onClick={() => {
+                      deleteContentModelMutation.mutate({
+                        id: contentModel.id,
+                      });
+
+                      router.push('/profile/content-models');
+                    }}
+                  >
+                    Delete
+                  </Button>
+                </div>
+              </ModalDialog>
+            ) : null}
+          </div>
+        ) : null}
       </main>
       <Footer />
     </>

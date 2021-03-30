@@ -95,7 +95,7 @@ const HeaderSmallScreens: React.FC = observer(() => {
               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a
                 className={getButtonClassName({
-                  color: 'primary',
+                  color: 'secondary',
                   size: 's',
                 })}
               >
@@ -225,7 +225,7 @@ const HeaderLargeScreens: React.FC = observer(() => {
               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a
                 className={getButtonClassName({
-                  color: 'primary',
+                  color: 'secondary',
                   size: 's',
                 })}
               >

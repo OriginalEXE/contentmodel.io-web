@@ -1,7 +1,7 @@
 export interface ButtonPropsInterface {
   children: any;
   className?: string;
-  color?: 'primary' | 'clear' | 'danger' | 'default';
+  color?: 'primary' | 'secondary' | 'clear' | 'danger' | 'default';
   variant?: 'text' | 'contained';
   size?: 'regular' | 's' | 'lg';
   grow?: boolean;
@@ -50,19 +50,23 @@ export const getButtonClassName = ({
     switch (color) {
       case 'primary':
         colorClasses =
-          'text-primary-700 bg-primary-300 hover:bg-primary-400 focus:bg-primary-400';
+          'text-primary-700 bg-primary-300 border border-transparent hover:bg-primary-400 focus:bg-primary-400';
+        break;
+      case 'secondary':
+        colorClasses =
+          'text-seagreen-800 bg-seagreen-300 border border-transparent hover:bg-seagreen-400 focus:bg-seagreen-400';
         break;
       case 'clear':
         colorClasses =
-          'text-pinkGray-900 bg:transparent hover:text-pinkGray-900 hover:bg-pinkGray-200 focus:text-pinkGray-900 focus:bg-pinkGray-200';
+          'text-pinkGray-900 bg:transparent border border-pinkGray-400 hover:text-pinkGray-900 hover:bg-pinkGray-200 focus:text-pinkGray-900 focus:bg-pinkGray-200';
         break;
       case 'danger':
         colorClasses =
-          'text-white bg-red-600 hover:bg-red-700 focus:bg-red-700';
+          'text-white bg-red-600 border border-transparent hover:bg-red-700 focus:bg-red-700';
         break;
       default:
         colorClasses =
-          'text-pinkGray-900 bg-pinkGray-100 hover:text-pinkGray-900 hover:bg-pinkGray-200 focus:text-pinkGray-900 focus:bg-pinkGray-200';
+          'text-pinkGray-900 bg-pinkGray-100 border border-transparent hover:text-pinkGray-900 hover:bg-pinkGray-200 focus:text-pinkGray-900 focus:bg-pinkGray-200';
         break;
     }
   }
