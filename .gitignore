@@ -43,3 +43,6 @@ dist
 
 # Used for dev purposes only
 server.js
+
+# Ignore .npmrc
+.npmrc
