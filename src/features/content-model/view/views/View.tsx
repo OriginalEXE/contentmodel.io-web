@@ -138,6 +138,7 @@ const ViewView: React.FC<ViewViewProps> = observer((props) => {
                   Export as ...
                 </>
               }
+              dropdownAlign="left"
             >
               {contentModel.image ? (
                 <Item key={contentModel.image.src}>Image</Item>

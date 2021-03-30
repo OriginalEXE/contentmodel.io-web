@@ -79,11 +79,13 @@ interface ToggleMenuDropdownProps {
   onClose: () => void;
   onAction: (key: ReactText) => void;
   domProps: HTMLAttributes<HTMLElement>;
+  dropdownAlign?: 'left' | 'right';
   autoFocus: FocusStrategy;
 }
 
 const ToggleMenuDropdown: React.FC<ToggleMenuDropdownProps> = (props) => {
   const state = useTreeState({ ...props, selectionMode: 'none' });
+  const { dropdownAlign = 'right' } = props;
 
   const ref = useRef(null);
   const { menuProps } = useMenu(props, state, ref);
@@ -104,7 +106,7 @@ const ToggleMenuDropdown: React.FC<ToggleMenuDropdownProps> = (props) => {
       <div
         {...overlayProps}
         ref={overlayRef}
-        className="absolute top-full right-0 mt-3 w-48 bg-sepia-100 border border-seagreen-400 rounded overflow-hidden"
+        className={`absolute top-full ${dropdownAlign}-0 mt-3 w-48 bg-sepia-100 border border-seagreen-400 rounded overflow-hidden`}
       >
         <DismissButton onDismiss={props.onClose} />
         <ul {...mergeProps(menuProps, props.domProps)} ref={ref}>
@@ -129,6 +131,7 @@ interface ToggleMenuProps extends MenuTriggerProps {
   buttonRender: ReactNode;
   buttonLabel: string;
   children: any;
+  dropdownAlign?: 'left' | 'right';
   onAction: (key: ReactText) => void;
 }
 
