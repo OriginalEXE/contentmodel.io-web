@@ -92,7 +92,14 @@ module.exports = {
   },
   variants: {
     borderColor: ['responsive', 'focus-within', 'hover', 'focus'],
-    textDecoration: ['responsive', 'hover', 'focus', 'focus-visible'],
+    textDecoration: [
+      'responsive',
+      'hover',
+      'focus',
+      'focus-visible',
+      'group-hover',
+      'group-focus',
+    ],
     extend: {
       ringWidth: ['focus-visible'],
       ringColor: ['focus-visible'],

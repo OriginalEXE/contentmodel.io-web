@@ -23,7 +23,9 @@ import {
   faProjectDiagram,
   faEyeSlash,
   faFileExport,
+  faStar,
 } from '@fortawesome/pro-light-svg-icons';
+import { faStar as faStartFull } from '@fortawesome/pro-solid-svg-icons';
 
 config.autoAddCss = false;
 
@@ -51,4 +53,6 @@ library.add(
   faProjectDiagram,
   faEyeSlash,
   faFileExport,
+  faStar,
+  faStartFull,
 );

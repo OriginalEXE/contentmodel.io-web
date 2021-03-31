@@ -6,9 +6,7 @@ export interface ButtonPropsInterface {
   size?: 'regular' | 's' | 'lg';
   grow?: boolean;
   type?: 'button' | 'submit';
-  htmlAttributes?: {
-    [name: string]: string;
-  };
+  htmlAttributes?: any;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
 }

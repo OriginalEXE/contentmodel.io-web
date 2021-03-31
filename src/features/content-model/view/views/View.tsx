@@ -2,11 +2,13 @@ import { observer } from 'mobx-react-lite';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { ReactText } from 'react';
+import React, { ReactText, RefObject, useState } from 'react';
 import { useMutation } from 'react-query';
 import { Item, useOverlayTriggerState } from 'react-stately';
 
 import deleteContentModel from '@/src/features/content-model/api/deleteContentModel';
+import starContentModel from '@/src/features/content-model/api/starContentModel';
+import unstarContentModel from '@/src/features/content-model/api/unstarContentModel';
 import ImportView from '@/src/features/content-model/import/views/Import';
 import { ParsedDbContentModel } from '@/src/features/content-model/types/parsedDbContentModel';
 import DiagramViewSSRLoading from '@/src/features/diagram/components/DiagramView/DiagramViewSSRLoading';
@@ -17,6 +19,7 @@ import Button from '@/src/shared/components/Button/Button';
 import { getButtonClassName } from '@/src/shared/components/Button/getButtonClassName';
 import StyledDynamicContent from '@/src/shared/components/StyledDynamicContent/StyledDynamicContent';
 import ToggleMenu from '@/src/shared/components/ToggleMenu/ToggleMenu';
+import Tooltip from '@/src/shared/components/Tooltip/Tooltip';
 import { useStore } from '@/store/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -52,6 +55,24 @@ const ViewView: React.FC<ViewViewProps> = observer((props) => {
   });
 
   const deleteContentModelMutation = useMutation(deleteContentModel);
+
+  // (Un)Starring the content model
+  const [starsCount, setStarsCount] = useState(contentModel.stars);
+  const [isStarred, setIsStarred] = useState(contentModel.starred);
+
+  const starContentModelMutation = useMutation(starContentModel, {
+    onMutate: () => {
+      setStarsCount((x) => (x += 1));
+      setIsStarred(true);
+    },
+  });
+
+  const unstarContentModelMutation = useMutation(unstarContentModel, {
+    onMutate: () => {
+      setStarsCount((x) => (x -= 1));
+      setIsStarred(false);
+    },
+  });
 
   const contentModelActions = () => {
     return (
@@ -107,7 +128,7 @@ const ViewView: React.FC<ViewViewProps> = observer((props) => {
           aria-label="Menu"
           buttonClassName={getButtonClassName({
             color: 'clear',
-            className: 'mt-2',
+            className: 'mt-2 mr-2',
             size: 's',
           })}
           buttonLabel="Profile menu"
@@ -129,6 +150,54 @@ const ViewView: React.FC<ViewViewProps> = observer((props) => {
           ) : null}
           <Item key={`/api/exportAsJSON?slug=${contentModel.slug}`}>JSON</Item>
         </ToggleMenu>
+
+        <div className="relative sm:ml-auto">
+          <Tooltip tooltip={isStarred ? 'Unstar' : 'Star'}>
+            {(ref, props) => (
+              <Button
+                color="clear"
+                className="mt-2 ml-auto"
+                size="s"
+                ref={ref as RefObject<HTMLButtonElement>}
+                htmlAttributes={props}
+                onClick={() => {
+                  if (store.me === null) {
+                    router.push(
+                      `/api/login?redirectTo=/content-models/${contentModel.slug}`,
+                    );
+                    return;
+                  }
+
+                  isStarred === true
+                    ? unstarContentModelMutation.mutate({
+                        id: contentModel.id,
+                      })
+                    : starContentModelMutation.mutate({ id: contentModel.id });
+                }}
+              >
+                <div className="inline-block relative">
+                  <FontAwesomeIcon
+                    icon={['fas', 'star']}
+                    className={`left-0 top-1/2 transform -translate-y-1/2 absolute transition-all ease-in-out duration-75 ${
+                      isStarred === true
+                        ? 'opacity-100 scale-100 delay-75'
+                        : 'opacity-0 scale-150'
+                    }`}
+                  />
+                  <FontAwesomeIcon
+                    icon={['fal', 'star']}
+                    className={`mr-2 transform transition-all ease-in-out duration-75 ${
+                      isStarred === true
+                        ? 'opacity-0 scale-50'
+                        : 'opacity-100 scale-100'
+                    }`}
+                  />
+                </div>{' '}
+                {starsCount}
+              </Button>
+            )}
+          </Tooltip>
+        </div>
       </div>
     );
   };

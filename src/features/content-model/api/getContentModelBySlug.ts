@@ -32,6 +32,8 @@ const getContentModelBySlug = async (
         }
         model
         position
+        stars
+        starred
         ogMetaImage {
           src
           path

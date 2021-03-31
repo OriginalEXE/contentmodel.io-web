@@ -60,6 +60,8 @@ export type ContentModel = {
   ogMetaImage: Maybe<ImageAsset>;
   image: Maybe<ImageAsset>;
   imageNoConnections: Maybe<ImageAsset>;
+  stars: Scalars['Float'];
+  starred: Scalars['Boolean'];
 };
 
 export type PaginationInfo = {
@@ -104,6 +106,8 @@ export type Mutation = {
   createContentModel: ContentModel;
   updateContentModel: ContentModel;
   deleteContentModel: ContentModel;
+  starContentModel: ContentModel;
+  unstarContentModel: ContentModel;
 };
 
 
@@ -129,6 +133,16 @@ export type MutationUpdateContentModelArgs = {
 
 export type MutationDeleteContentModelArgs = {
   deleteContentModel: DeleteContentModelInput;
+};
+
+
+export type MutationStarContentModelArgs = {
+  starContentModel: StarContentModelInput;
+};
+
+
+export type MutationUnstarContentModelArgs = {
+  unstarContentModel: UnstarContentModelInput;
 };
 
 export type CreateUserInput = {
@@ -169,5 +183,13 @@ export type UpdateContentModelVersionInput = {
 };
 
 export type DeleteContentModelInput = {
+  id: Scalars['String'];
+};
+
+export type StarContentModelInput = {
+  id: Scalars['String'];
+};
+
+export type UnstarContentModelInput = {
   id: Scalars['String'];
 };

@@ -32,9 +32,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonPropsInterface>(
           disabled,
         })}
         type={type}
-        onClick={onClick}
         disabled={disabled}
         {...htmlAttributes}
+        onClick={onClick}
       >
         {children}
       </button>
