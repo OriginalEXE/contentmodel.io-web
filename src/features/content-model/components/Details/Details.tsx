@@ -180,7 +180,7 @@ const Details: React.FC<DetailsProps> = (props) => {
       ) : null}
       <footer className="mt-8 flex justify-end">
         <Button color="primary" type="submit">
-          Save and publish
+          Save and visualize
         </Button>
       </footer>
     </form>
