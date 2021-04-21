@@ -37,10 +37,12 @@ export const getButtonClassName = ({
           'text-primary-600 hover:text-primary-700 focus:text-primary-700';
         break;
       case 'danger':
-        colorClasses = 'text-red-600 hover:text-red-700 focus:text-red-700';
+        colorClasses =
+          'text-red-600 hover:text-red-700 dark:text-red-400 focus:text-red-700 dark:text-red-400';
         break;
       default:
-        colorClasses = 'text-gray-800 hover:text-gray-900 focus:text-gray-900';
+        colorClasses =
+          'text-gray-800 dark:text-white hover:text-gray-900 dark:text-white focus:text-gray-900 dark:text-white';
         break;
     }
   } else {
@@ -56,11 +58,11 @@ export const getButtonClassName = ({
         break;
       case 'clear':
         colorClasses =
-          'text-pinkGray-900 bg:transparent border border-pinkGray-400 hover:text-pinkGray-900 hover:bg-pinkGray-200 focus:text-pinkGray-900 focus:bg-pinkGray-200';
+          'text-pinkGray-900 dark:text-pinkGray-100 bg:transparent border border-pinkGray-400 hover:text-pinkGray-900 hover:bg-pinkGray-200 dark:hover:bg-pinkGray-600 focus:text-pinkGray-900 focus:bg-pinkGray-200 dark:focus:bg-pinkGray-600';
         break;
       case 'danger':
         colorClasses =
-          'text-white bg-red-600 border border-transparent hover:bg-red-700 focus:bg-red-700';
+          'text-white bg-red-600 dark:bg-red-500 border border-transparent hover:bg-red-700 dark:hover:bg-red-700 focus:bg-red-700 dark:focus:bg-red-700';
         break;
       default:
         colorClasses =

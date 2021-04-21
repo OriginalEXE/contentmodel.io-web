@@ -47,12 +47,14 @@ const JSONInput: React.FC<JSONInputProps> = (props) => {
 
   return (
     <>
-      <div className="p-4 mt-8 bg-white rounded-lg focus-within:ring-2">
+      <div className="p-4 mt-8 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg focus-within:ring-2">
         <h3 className="text-lg font-semibold">Content Model JSON:</h3>
         <div ref={editorRef} className={`mt-4 ${styles.editorWrap}`} />
       </div>
       {viewError !== null ? (
-        <p className="mt-4 text-base text-red-700">{viewError}</p>
+        <p className="mt-4 text-base text-red-700 dark:text-red-400">
+          {viewError}
+        </p>
       ) : null}
       <footer className="mt-8 flex justify-end">
         <Button

@@ -37,7 +37,7 @@ export default class MyDocument extends Document {
           />
           <meta name="theme-color" content="#ffffff" />
         </Head>
-        <body className="antialiased text-gray-900 font-sans">
+        <body className="antialiased font-sans">
           <Main />
           <NextScript />
         </body>

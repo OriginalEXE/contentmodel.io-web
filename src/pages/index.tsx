@@ -82,10 +82,10 @@ const ContentModelsPage: React.FC<
         <section className="w-full max-w-screen-2xl mx-auto py-16 px-3 text-center lg:py-24">
           <div className="container mx-auto px-4 max-w-2xl lg:max-w-3xl lg:grid lg:gap-2">
             <div>
-              <h1 className="font-semibold text-3xl leading-tight text-gray-900 sm:text-4xl lg:text-5xl xl:text-6xl xl:font-bold">
+              <h1 className="font-semibold text-3xl leading-tight text-gray-900 dark:text-white sm:text-4xl lg:text-5xl xl:text-6xl xl:font-bold">
                 Content modeling, visualized
               </h1>
-              <p className="mt-5 mx-auto text-base max-w-xl text-gray-800 lg:text-2xl lg:mt-8">
+              <p className="mt-5 mx-auto text-base max-w-xl text-gray-800 dark:text-white lg:text-2xl lg:mt-8">
                 ContentModel.io draws a diagram of your content model so that
                 you can more easily understand it
               </p>
@@ -112,7 +112,7 @@ const ContentModelsPage: React.FC<
         <section className="w-full py-16 px-3">
           <div className="max-w-5xl mx-auto relative">
             <div className="relative z-10">
-              <div className="w-16 h-16 flex items-center justify-center rounded-full text-3xl bg-yellow-200 transform -rotate-6">
+              <div className="w-16 h-16 flex items-center justify-center rounded-full text-3xl bg-yellow-200 text-gray-900 transform -rotate-6">
                 <FontAwesomeIcon icon={['fal', 'users']} />
               </div>
               <h2 className="mt-4 text-2xl font-bold max-w-sm lg:text-3xl xl:text-4xl">
@@ -157,14 +157,14 @@ const ContentModelsPage: React.FC<
                 </div>
               )}
             </div>
-            <div className="absolute z-0 w-3/6 h-3/6 bg-yellow-50 rounded-full -bottom-12 -left-10 transform rotate-12" />
+            <div className="absolute z-0 w-3/6 h-3/6 bg-yellow-50 dark:bg-opacity-0 rounded-full -bottom-12 -left-10 transform rotate-12" />
           </div>
         </section>
 
         <section className="w-full py-16 px-3">
           <div className="max-w-5xl mx-auto relative">
             <div className="relative z-10">
-              <div className="w-16 h-16 flex items-center justify-center rounded-full text-3xl bg-seagreen-200 transform -rotate-6">
+              <div className="w-16 h-16 flex items-center justify-center rounded-full text-3xl bg-seagreen-200 text-gray-900 transform -rotate-6">
                 <FontAwesomeIcon icon={['fal', 'shoe-prints']} />
               </div>
               <h2 className="mt-4 text-2xl font-bold max-w-md lg:text-3xl xl:text-4xl">
@@ -180,7 +180,7 @@ const ContentModelsPage: React.FC<
                 </p>
               </div>
             </div>
-            <div className="absolute z-0 w-2/6 h-3/6 bg-seagreen-50 -bottom-8 right-8 xl:-right-12 transform -rotate-45" />
+            <div className="absolute z-0 w-2/6 h-3/6 bg-seagreen-50 dark:bg-opacity-0 -bottom-8 right-8 xl:-right-12 transform -rotate-45" />
           </div>
         </section>
       </main>

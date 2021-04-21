@@ -1,4 +1,5 @@
 module.exports = {
+  darkMode: 'class',
   future: {
     removeDeprecatedGapUtilities: true,
     purgeLayersByDefault: true,
@@ -87,11 +88,12 @@ module.exports = {
         'oxford-blue': '#0B132B',
         'space-cadet': '#1C2541',
         'mimi-pink': '#EFCFE3',
+        'schoenwald-mint': '#198b71',
       },
     },
   },
   variants: {
-    borderColor: ['responsive', 'focus-within', 'hover', 'focus'],
+    borderColor: ['responsive', 'focus-within', 'hover', 'focus', 'dark'],
     textDecoration: [
       'responsive',
       'hover',

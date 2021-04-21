@@ -474,7 +474,7 @@ const DiagramEdit: React.FC<DiagramEditProps> = (props) => {
 
   return (
     <div
-      className={`relative mt-8 border-2 border-dashed rounded-lg border-sepia-300 bg-sepia-100 ${styles.componentWrap}`}
+      className={`relative mt-8 border-2 border-dashed rounded-lg border-sepia-300 dark:border-gray-900 bg-sepia-100 dark:bg-gray-800 ${styles.componentWrap}`}
       ref={componentWrapEl}
     >
       <div

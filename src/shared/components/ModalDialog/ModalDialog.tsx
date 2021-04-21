@@ -37,7 +37,7 @@ const ModalDialog: React.FC<ModalDialogProps> = (props) => {
 
   return (
     <OverlayContainer>
-      <div className="fixed z-50 top-0 left-0 right-0 bottom-0 bg-primary-900 bg-opacity-70 flex items-center justify-center">
+      <div className="fixed z-50 top-0 left-0 right-0 bottom-0 bg-primary-900 dark:bg-gray-900 bg-opacity-70 dark:bg-opacity-80 flex items-center justify-center">
         {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
         <FocusScope contain restoreFocus autoFocus>
           <div
@@ -45,7 +45,7 @@ const ModalDialog: React.FC<ModalDialogProps> = (props) => {
             {...dialogProps}
             {...modalProps}
             ref={ref}
-            className={`relative bg-white p-6 w-full max-w-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-sepia-500 ${styles.modalBody}`}
+            className={`relative bg-white dark:bg-gray-700 p-6 w-full max-w-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-sepia-500 ${styles.modalBody}`}
           >
             <h3 {...titleProps} className="text-lg font-semibold mr-10">
               {title}

@@ -21,6 +21,7 @@ import Footer from '@/src/features/footer/Footer';
 import Header from '@/src/features/header/components/Header/Header';
 import Button from '@/src/shared/components/Button/Button';
 import { getButtonClassName } from '@/src/shared/components/Button/getButtonClassName';
+import { getInputClassName } from '@/src/shared/components/Input/getInputClassName';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type EditViewStep = 'appearanceInput' | 'detailsInput' | 'success';
@@ -92,7 +93,7 @@ const EditView: React.FC<EditViewProps> = observer((props) => {
   const BackToImporting = (
     <div className="w-full max-w-xl mx-auto">
       <div className="flex items-center justify-center flex-wrap mt-4">
-        <p className="text-base text-green-700 text-center mt-2">
+        <p className="text-base text-green-700 dark:text-green-400 text-center mt-2">
           <FontAwesomeIcon icon={['fal', 'check']} className="mr-2" /> Content
           model successfully imported.{' '}
         </p>
@@ -103,7 +104,7 @@ const EditView: React.FC<EditViewProps> = observer((props) => {
   const BackToAppearance = (
     <div className="w-full max-w-xl mx-auto">
       <div className="flex items-center justify-center flex-wrap mt-4">
-        <p className="text-base text-green-700 text-center mt-2">
+        <p className="text-base text-green-700 dark:text-green-400 text-center mt-2">
           <FontAwesomeIcon icon={['fal', 'check']} className="mr-2" /> Content
           model appearance perfected.{' '}
         </p>
@@ -216,7 +217,7 @@ const EditView: React.FC<EditViewProps> = observer((props) => {
             </p>
             <input
               type="text"
-              className="mt-2 appearance-none rounded-lg border bg-white w-full leading-loose p-2 text-gray-900 focus:outline-none focus:ring-2"
+              className={`mt-2 ${getInputClassName()}`}
               readOnly
               value={`${process.env.NEXT_PUBLIC_BASE_URL}/content-models/${contentModel.slug}`}
             />

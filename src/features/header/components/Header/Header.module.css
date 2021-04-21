@@ -8,10 +8,6 @@
   background-size: calc(100% - 2rem) 3px;
 }
 
-.activeSmallScreenLink {
-  @apply text-seagreen-600;
-}
-
 .importantLink {
   background-image: linear-gradient(
     theme('colors.yellow.300'),

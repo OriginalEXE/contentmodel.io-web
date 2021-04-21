@@ -29,7 +29,7 @@
 }
 
 .stroke:global(.is-highlighted) {
-  @apply text-seagreen-600;
+  @apply text-seagreen-600 dark:text-schoenwald-mint;
   position: relative;
   z-index: 2;
 }

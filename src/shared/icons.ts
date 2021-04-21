@@ -24,8 +24,12 @@ import {
   faEyeSlash,
   faFileExport,
   faStar,
+  faMoon,
 } from '@fortawesome/pro-light-svg-icons';
-import { faStar as faStartFull } from '@fortawesome/pro-solid-svg-icons';
+import {
+  faStar as faStartFull,
+  faMoon as faMoonFull,
+} from '@fortawesome/pro-solid-svg-icons';
 
 config.autoAddCss = false;
 
@@ -55,4 +59,6 @@ library.add(
   faFileExport,
   faStar,
   faStartFull,
+  faMoon,
+  faMoonFull,
 );

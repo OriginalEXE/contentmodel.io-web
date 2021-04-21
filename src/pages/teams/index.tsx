@@ -70,12 +70,12 @@ const TeamsPage: React.FC<
         <section className="w-full max-w-screen-2xl mx-auto py-12 px-3 text-center md:py-16 lg:py-24">
           <div className="container mx-auto px-4 max-w-2xl lg:max-w-3xl lg:grid lg:gap-2">
             <div>
-              <h1 className="font-bold text-3xl text-gray-900 sm:text-4xl lg:leading-tight xl:text-6xl">
+              <h1 className="font-bold text-3xl text-gray-900 dark:text-white sm:text-4xl lg:leading-tight xl:text-6xl">
                 {optimizeLineBreak(
                   'Visualize your content model. Understand it. Then simplify it.',
                 )}
               </h1>
-              <p className="mt-5 mx-auto text-base max-w-xl text-gray-800 lg:text-2xl lg:mt-8">
+              <p className="mt-5 mx-auto text-base max-w-xl text-gray-800 dark:text-white lg:text-2xl lg:mt-8">
                 We turn even your most complex content models into easily
                 digestible diagrams
               </p>
@@ -102,7 +102,7 @@ const TeamsPage: React.FC<
           <h2 className="mt-4 text-2xl font-bold text-center lg:text-3xl xl:text-4xl">
             What others are saying
           </h2>
-          <div className="max-w-lg mx-auto mt-4 md:mt-8 rounded-lg border border-seagreen-300 overflow-hidden">
+          <div className="max-w-lg mx-auto mt-4 md:mt-8 rounded-lg border border-seagreen-300 bg-white overflow-hidden">
             <Image
               src="v1613594132/app/marketing/social-proof/twitter-testimonial_hssrx4.png"
               alt="Twitter testimonial"
@@ -133,7 +133,7 @@ const TeamsPage: React.FC<
         <section className="w-full py-12 px-3 md:py-16">
           <div className="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center">
             <div className="w-full order-2 md:order-1 md:w-1/2">
-              <div className="w-16 h-16 flex items-center justify-center rounded-full text-3xl bg-primary-200 transform -rotate-6">
+              <div className="w-16 h-16 flex items-center justify-center rounded-full text-3xl bg-primary-200 text-gray-900 transform -rotate-6">
                 <FontAwesomeIcon icon={['fal', 'project-diagram']} />
               </div>
               <h2 className="mt-4 text-2xl font-bold max-w-md lg:text-3xl xl:text-4xl">
@@ -164,7 +164,7 @@ const TeamsPage: React.FC<
         <section className="w-full py-12 px-3 md:py-16">
           <div className="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center">
             <div className="w-full order-2 md:order-1 md:w-1/2">
-              <div className="w-16 h-16 flex items-center justify-center rounded-full text-3xl bg-seagreen-200 transform -rotate-6">
+              <div className="w-16 h-16 flex items-center justify-center rounded-full text-3xl bg-seagreen-200 text-gray-900 transform -rotate-6">
                 <FontAwesomeIcon icon={['fal', 'lock']} />
               </div>
               <h2 className="mt-4 text-2xl font-bold max-w-sm lg:text-3xl xl:text-4xl">

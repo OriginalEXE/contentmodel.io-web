@@ -63,3 +63,12 @@
 .cm-wrap.cm-focused {
   outline: none !important;
 }
+
+.cm-wrap .cm-activeLine {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.cm-wrap .cm-gutters {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}

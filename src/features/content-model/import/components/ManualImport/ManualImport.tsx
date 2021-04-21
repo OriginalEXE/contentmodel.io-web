@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 
 import { SpaceImportData } from '@/src/features/content-model/import/types/spaceImport';
 import Button from '@/src/shared/components/Button/Button';
+import { getInputClassName } from '@/src/shared/components/Input/getInputClassName';
 
 interface SpaceImport {
   spaceImportDetails: SpaceImportData;
@@ -22,7 +23,12 @@ const SpaceImport: React.FC<SpaceImport> = (props) => {
     onNextStep,
   } = props;
 
-  const { register, handleSubmit, errors } = useForm({
+  const {
+    register,
+    handleSubmit,
+
+    formState: { errors },
+  } = useForm({
     defaultValues: spaceImportDetails,
   });
 
@@ -51,26 +57,26 @@ const SpaceImport: React.FC<SpaceImport> = (props) => {
       <label className="block">
         <p className="text-lg font-semibold">Space ID</p>
         <input
-          name="spaceId"
-          ref={register({ required: true })}
+          {...register('spaceId', { required: true })}
           type="text"
-          className="mt-2 appearance-none rounded-lg border bg-white w-full leading-loose p-2 text-gray-900 focus:outline-none focus:ring-2"
+          className={`mt-2 ${getInputClassName()}`}
         />
       </label>
       {errors.spaceId ? (
-        <p className="mt-2 text-sm text-red-700">Space ID is required</p>
+        <p className="mt-2 text-sm text-red-700 dark:text-red-400">
+          Space ID is required
+        </p>
       ) : null}
       <label className="block mt-4">
         <p className="text-lg font-semibold">Management Token</p>
         <input
-          name="token"
-          ref={register({ required: true })}
+          {...register('token', { required: true })}
           type="password"
-          className="mt-2 appearance-none rounded-lg border bg-white w-full leading-loose p-2 text-gray-900 focus:outline-none focus:ring-2"
+          className={`mt-2 ${getInputClassName()}`}
         />
       </label>
       {errors.token ? (
-        <p className="mt-2 text-sm text-red-700">
+        <p className="mt-2 text-sm text-red-700 dark:text-red-400">
           Management Token is required
         </p>
       ) : null}
@@ -81,14 +87,15 @@ const SpaceImport: React.FC<SpaceImport> = (props) => {
       <label className="block mt-4">
         <p className="text-lg font-semibold">Environment ID (optional)</p>
         <input
-          name="environmentId"
-          ref={register()}
+          {...register('environmentId')}
           type="text"
-          className="mt-2 appearance-none rounded-lg border bg-white w-full leading-loose p-2 text-gray-900 focus:outline-none focus:ring-2"
+          className={`mt-2 ${getInputClassName()}`}
         />
       </label>
       {viewError !== null ? (
-        <p className="mt-4 text-base text-red-700">{viewError}</p>
+        <p className="mt-4 text-base text-red-700 dark:text-red-400">
+          {viewError}
+        </p>
       ) : null}
       <footer className="mt-8 flex justify-end">
         <Button color="primary" type="submit">

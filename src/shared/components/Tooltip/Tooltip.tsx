@@ -47,7 +47,7 @@ const Tooltip: React.FC<TooltipProps> = (props) => {
       {state.isOpen ? (
         <div
           {...mergeProps(tooltipParams, tooltipProps)}
-          className={`absolute w-32 bg-gray-300 rounded-lg px-3 py-1 text-base text-center ${alignClasses}`}
+          className={`absolute w-32 bg-gray-300 dark:bg-gray-700 dark:text-gray-200 rounded-lg px-3 py-1 text-base text-center ${alignClasses}`}
         >
           {tooltip}
         </div>

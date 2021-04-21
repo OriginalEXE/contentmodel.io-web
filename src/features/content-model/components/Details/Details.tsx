@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import Button from '@/src/shared/components/Button/Button';
+import { getInputClassName } from '@/src/shared/components/Input/getInputClassName';
 import StyledDynamicContent from '@/src/shared/components/StyledDynamicContent/StyledDynamicContent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -22,7 +23,13 @@ interface DetailsProps {
 const Details: React.FC<DetailsProps> = (props) => {
   const { details, onChange, onSubmit, viewError } = props;
 
-  const { register, handleSubmit, errors, watch } = useForm({
+  const {
+    register,
+    handleSubmit,
+    watch,
+
+    formState: { errors },
+  } = useForm({
     defaultValues: details,
   });
 
@@ -38,24 +45,24 @@ const Details: React.FC<DetailsProps> = (props) => {
       <label className="block">
         <p className="text-lg font-semibold">Title</p>
         <input
-          name="title"
-          ref={register({ required: true })}
+          {...register('title', { required: true })}
           type="text"
-          className="mt-2 appearance-none rounded-lg border bg-white w-full leading-loose p-2 text-gray-900 focus:outline-none focus:ring-2"
+          className={`mt-2 ${getInputClassName()}`}
         />
       </label>
       {errors.title ? (
-        <p className="mt-2 text-sm text-red-700">Title is required</p>
+        <p className="mt-2 text-sm text-red-700 dark:text-red-400">
+          Title is required
+        </p>
       ) : null}
       <label className="block mt-4 relative">
         <p className="text-lg font-semibold flex justify-between">
           Description
         </p>
         <textarea
-          name="description"
-          ref={register({ required: true })}
+          {...register('description', { required: true })}
           rows={8}
-          className={`mt-2 appearance-none rounded-lg border bg-white w-full leading-loose p-2 text-gray-900 focus:outline-none focus:ring-2
+          className={`mt-2 ${getInputClassName({ type: 'textarea' })}
               ${descriptionPreview ? 'hidden' : ''}
             `}
         />
@@ -70,7 +77,7 @@ const Details: React.FC<DetailsProps> = (props) => {
           {descriptionPreview ? 'Editor' : 'Preview'}
         </Button>
         {descriptionPreview ? (
-          <StyledDynamicContent className="mt-2 p-2 rounded-lg border bg-white text-gray-900">
+          <StyledDynamicContent className="mt-2 p-2 rounded-lg border dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
             {watch('description')}
           </StyledDynamicContent>
         ) : null}
@@ -79,7 +86,7 @@ const Details: React.FC<DetailsProps> = (props) => {
             href="https://www.markdownguide.org/cheat-sheet/"
             target="_blank"
             rel="noreferrer noopener"
-            className="text-blue-500 hover:underline focus:underline"
+            className="text-blue-500 dark:text-blue-400 hover:underline focus:underline"
           >
             Markdown <FontAwesomeIcon icon={['fal', 'external-link']} />
           </a>{' '}
@@ -87,22 +94,18 @@ const Details: React.FC<DetailsProps> = (props) => {
         </p>
       </label>
       {errors.description ? (
-        <p className="mt-2 text-sm text-red-700">Description is required</p>
+        <p className="mt-2 text-sm text-red-700 dark:text-red-400">
+          Description is required
+        </p>
       ) : null}
       <div className="mt-4">
-        <p className="text-lg font-semibold">
-          Visibility{' '}
-          <span className="inline-block ml-2 rounded bg-seagreen-200 px-2 py-1 text-sm font-semibold text-seagreen-800">
-            NEW
-          </span>
-        </p>
-        <div className="p-2 border rounded-lg mt-2">
+        <p className="text-lg font-semibold">Visibility</p>
+        <div className="p-2 border dark:border-gray-500 rounded-lg mt-2">
           <div className="flex items-start">
             <div className="flex items-center justify-center w-6 h-6">
               <input
-                name="visibility"
+                {...register('visibility', { required: true })}
                 id="visibility-public"
-                ref={register({ required: true })}
                 type="radio"
                 value="PUBLIC"
               />
@@ -116,7 +119,7 @@ const Details: React.FC<DetailsProps> = (props) => {
                 />{' '}
                 Public
               </p>
-              <p className="text-base text-gray-600">
+              <p className="text-base text-gray-600 dark:text-gray-400">
                 Listed in the public library, visible by anyone
               </p>
             </label>
@@ -125,9 +128,8 @@ const Details: React.FC<DetailsProps> = (props) => {
           <div className="flex items-start mt-4">
             <div className="flex items-center justify-center w-6 h-6">
               <input
-                name="visibility"
+                {...register('visibility', { required: true })}
                 id="visibility-unlisted"
-                ref={register({ required: true })}
                 type="radio"
                 value="UNLISTED"
               />
@@ -141,7 +143,7 @@ const Details: React.FC<DetailsProps> = (props) => {
                 />{' '}
                 Unlisted
               </p>
-              <p className="text-base text-gray-600">
+              <p className="text-base text-gray-600 dark:text-gray-400">
                 Not listed in the public library, visible by anyone who has a
                 link
               </p>
@@ -151,9 +153,8 @@ const Details: React.FC<DetailsProps> = (props) => {
           <div className="flex items-start mt-4">
             <div className="flex items-center justify-center w-6 h-6">
               <input
-                name="visibility"
+                {...register('visibility', { required: true })}
                 id="visibility-private"
-                ref={register({ required: true })}
                 type="radio"
                 value="PRIVATE"
               />
@@ -167,16 +168,22 @@ const Details: React.FC<DetailsProps> = (props) => {
                 />{' '}
                 Private
               </p>
-              <p className="text-base text-gray-600">Visible only to you</p>
+              <p className="text-base text-gray-600 dark:text-gray-400">
+                Visible only to you
+              </p>
             </label>
           </div>
         </div>
       </div>
       {errors.visibility ? (
-        <p className="mt-2 text-sm text-red-700">Visibility is required</p>
+        <p className="mt-2 text-sm text-red-700 dark:text-red-400">
+          Visibility is required
+        </p>
       ) : null}
       {viewError !== null ? (
-        <p className="mt-4 text-base text-red-700">{viewError}</p>
+        <p className="mt-4 text-base text-red-700 dark:text-red-400">
+          {viewError}
+        </p>
       ) : null}
       <footer className="mt-8 flex justify-end">
         <Button color="primary" type="submit">

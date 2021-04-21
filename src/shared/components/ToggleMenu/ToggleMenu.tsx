@@ -68,7 +68,9 @@ const ToggleMenuItem: React.FC<ToggleMenuItem> = ({
     >
       <Link href={item.key as string}>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-        <a className="block px-3 py-2 no-underline">{item.rendered}</a>
+        <a className="block px-3 py-2 no-underline text-gray-900">
+          {item.rendered}
+        </a>
       </Link>
     </li>
   );

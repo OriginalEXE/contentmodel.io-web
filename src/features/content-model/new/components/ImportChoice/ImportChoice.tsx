@@ -53,7 +53,7 @@ const ImportChoiceItem: React.FC<ImportChoiceItemProps> = (props) => {
       className={`relative rounded-lg p-4 border-b-4 text-center cursor-pointer ${
         isSelected
           ? 'bg-green-300 border-green-700'
-          : 'bg-sepia-100 border-sepia-300'
+          : 'bg-sepia-100 border-sepia-300 dark:border-gray-700 dark:bg-gray-800'
       } ${isFocusVisible ? 'ring-2 ring-green-900' : ''} ${className}`}
     >
       <VisuallyHidden>
@@ -61,12 +61,14 @@ const ImportChoiceItem: React.FC<ImportChoiceItemProps> = (props) => {
       </VisuallyHidden>
       <h3
         className={`font-semibold text-base md:text-lg ${
-          isSelected ? 'text-green-900' : 'text-sepia-800'
+          isSelected ? 'text-green-900' : 'text-sepia-800 dark:text-gray-200'
         }`}
       >
         {title}
       </h3>
-      <p className="text-base mt-2">{description}</p>
+      <p className={`text-base mt-2 ${isSelected ? 'dark:text-gray-700' : ''}`}>
+        {description}
+      </p>
       {isSelected ? (
         <div
           className={`absolute -right-1 -top-2 rotate-12 transform w-8 h-8 flex items-center justify-center rounded-full text-green-50 md:-right-3 md:-top-4 md:w-12 md:h-12 ${
@@ -92,7 +94,7 @@ const ImportChoiceItem: React.FC<ImportChoiceItemProps> = (props) => {
       ) : null}
       {recommended && !isSelected ? (
         <div className="absolute -right-1 -top-2 rotate-12 transform flex flex-col items-center justify-center md:-right-3 md:-top-2">
-          <p className="text-sm mb-2 rounded bg-primary-300 px-2">
+          <p className="text-sm mb-2 rounded bg-primary-300 dark:bg-gray-900 px-2">
             Recommended
           </p>
         </div>

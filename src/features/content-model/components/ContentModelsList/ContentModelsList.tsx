@@ -7,6 +7,8 @@ import ProfileBadge from '@/src/features/user/components/ProfileBadge/ProfileBad
 import MarkdownToText from '@/src/shared/components/MarkdownToText/MarkdownToText';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import styles from './ContentModelsList.module.css';
+
 interface ContentModelsListProps {
   contentModels: ParsedDbContentModel[];
   className?: string;
@@ -26,7 +28,9 @@ const ContentModelsList: React.FC<ContentModelsListProps> = (props) => {
           <a className="block min-w-0 rounded-lg focus:outline-none lg:mb-0 group">
             <article>
               {contentModel.image !== null ? (
-                <div className="bg-sepia-100 p-4 border border-sepia-300 rounded-lg mb-4">
+                <div
+                  className={`bg-sepia-100 p-4 border border-sepia-300 rounded-lg mb-4 ${styles.imageContainer}`}
+                >
                   <div className="relative w-full h-52">
                     <Image
                       src={contentModel.image.path}

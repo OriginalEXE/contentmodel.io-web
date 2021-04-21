@@ -52,7 +52,7 @@ const PrivacyPolicyPage: React.FC<
           <h1 className="text-2xl font-bold text-center">
             {optimizeLineBreak('ContentModel.io Privacy Policy')}
           </h1>
-          <p className="text-gray-900 mt-6 lg:mt-8 lg:text-l xl:text-xl">
+          <p className="text-gray-900 dark:text-white mt-6 lg:mt-8 lg:text-l xl:text-xl">
             <b>Note:</b> In general, we will only collect the data that we
             absolutely need from you. At any time you can ask for details we
             have on you (no matter whether you are in EU or not).

@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite';
+import { useDarkMode } from 'next-dark-mode';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ReactText, useEffect, useRef } from 'react';
@@ -6,6 +7,7 @@ import { VisuallyHidden, useToggleButton } from 'react-aria';
 import { useToggleState } from 'react-stately';
 import { Item } from 'react-stately';
 
+import logoDark from '@/src/shared/assets/logo/logo-dark.svg';
 import logo from '@/src/shared/assets/logo/logo.svg';
 import ActiveLink from '@/src/shared/components/ActiveLink/ActiveLink';
 import Avatar from '@/src/shared/components/Avatar/Avatar';
@@ -28,6 +30,8 @@ const HeaderSmallScreens: React.FC = observer(() => {
     toggleButtonRef,
   );
 
+  const { darkModeActive, switchToLightMode, switchToDarkMode } = useDarkMode();
+
   useEffect(() => {
     const closeMobileMenuOnRouteChange = () => {
       toggleButtonState.setSelected(false);
@@ -46,20 +50,41 @@ const HeaderSmallScreens: React.FC = observer(() => {
         <Link href="/">
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a className="flex items-center justify-center focus:outline-none">
-            <img src={logo} alt="ContentModel.io logo" width="112" />
+            <img
+              src={darkModeActive === true ? logoDark : logo}
+              alt="ContentModel.io logo"
+              width="112"
+            />
           </a>
         </Link>
-        <button
-          {...buttonProps}
-          className="w-8 h-8 appearance-none inline-flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600"
-        >
-          <VisuallyHidden>Toggle menu</VisuallyHidden>
-          <FontAwesomeIcon
-            icon={['fal', toggleButtonState.isSelected ? 'times' : 'bars']}
-            size="lg"
-            fixedWidth
-          />
-        </button>
+        <div className="flex items-center">
+          <Button
+            variant="text"
+            grow={false}
+            onClick={() => {
+              darkModeActive === true
+                ? switchToLightMode()
+                : switchToDarkMode();
+            }}
+            className="px-2 mr-2"
+          >
+            <FontAwesomeIcon
+              icon={darkModeActive === true ? ['fas', 'moon'] : ['fal', 'moon']}
+              className={darkModeActive === true ? 'text-yellow-300' : ''}
+            />
+          </Button>
+          <button
+            {...buttonProps}
+            className="w-8 h-8 appearance-none inline-flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600"
+          >
+            <VisuallyHidden>Toggle menu</VisuallyHidden>
+            <FontAwesomeIcon
+              icon={['fal', toggleButtonState.isSelected ? 'times' : 'bars']}
+              size="lg"
+              fixedWidth
+            />
+          </button>
+        </div>
       </div>
       {toggleButtonState.isSelected ? (
         <ul>
@@ -68,7 +93,7 @@ const HeaderSmallScreens: React.FC = observer(() => {
               href="/browse"
               anchorClassName={(isActive) =>
                 `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
-                  isActive ? styles.activeSmallScreenLink : ''
+                  isActive ? 'text-seagreen-600 dark:text-seagreen-400' : ''
                 }`
               }
             >
@@ -80,7 +105,7 @@ const HeaderSmallScreens: React.FC = observer(() => {
               href="/teams"
               anchorClassName={(isActive) =>
                 `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
-                  isActive ? styles.activeSmallScreenLink : ''
+                  isActive ? 'text-seagreen-600 dark:text-seagreen-400' : ''
                 }`
               }
             >
@@ -154,7 +179,7 @@ const HeaderSmallScreens: React.FC = observer(() => {
                   href="/profile/content-models"
                   anchorClassName={(isActive) =>
                     `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
-                      isActive ? styles.activeSmallScreenLink : ''
+                      isActive ? 'text-seagreen-600 dark:text-seagreen-400' : ''
                     }`
                   }
                 >
@@ -166,7 +191,7 @@ const HeaderSmallScreens: React.FC = observer(() => {
                   href="/profile"
                   anchorClassName={(isActive) =>
                     `no-underline px-3 py-2 block focus:outline-none focus-visible:ring-2 focus-visible:ring-seagreen-600 ${
-                      isActive ? styles.activeSmallScreenLink : ''
+                      isActive ? 'text-seagreen-600 dark:text-seagreen-400' : ''
                     }`
                   }
                 >
@@ -184,6 +209,7 @@ const HeaderSmallScreens: React.FC = observer(() => {
 const HeaderLargeScreens: React.FC = observer(() => {
   const store = useStore();
   const router = useRouter();
+  const { darkModeActive, switchToDarkMode, switchToLightMode } = useDarkMode();
 
   return (
     <div className="hidden md:block">
@@ -191,7 +217,11 @@ const HeaderLargeScreens: React.FC = observer(() => {
         <Link href="/">
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a className="flex items-center justify-center focus:outline-none mr-6">
-            <img src={logo} alt="ContentModel.io logo" width="112" />
+            <img
+              src={darkModeActive === true ? logoDark : logo}
+              alt="ContentModel.io logo"
+              width="112"
+            />
           </a>
         </Link>
 
@@ -255,11 +285,31 @@ const HeaderLargeScreens: React.FC = observer(() => {
                   variant="text"
                   size="s"
                   grow={false}
+                  className="mr-6"
                   onClick={() => {
                     router.push('/api/signUp');
                   }}
                 >
                   Sign up
+                </Button>
+                <Button
+                  variant="text"
+                  grow={false}
+                  onClick={() => {
+                    darkModeActive === true
+                      ? switchToLightMode()
+                      : switchToDarkMode();
+                  }}
+                  className="px-1"
+                >
+                  <FontAwesomeIcon
+                    icon={
+                      darkModeActive === true
+                        ? ['fas', 'moon']
+                        : ['fal', 'moon']
+                    }
+                    className={darkModeActive === true ? 'text-yellow-300' : ''}
+                  />
                 </Button>
               </div>
             ) : (
@@ -290,7 +340,7 @@ const HeaderLargeScreens: React.FC = observer(() => {
 
 const Header: React.FC = observer(() => {
   return (
-    <header className="bg-sepia-100 border-b border-sepia-200 relative z-50">
+    <header className="bg-sepia-100 dark:bg-gray-800 border-b border-sepia-200 dark:border-gray-900 relative z-50">
       <nav className="w-full max-w-screen-2xl mx-auto px-3">
         {/* Big screens nav */}
         <HeaderLargeScreens />

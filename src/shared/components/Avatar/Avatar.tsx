@@ -9,7 +9,7 @@ interface AvatarPropsInterface {
 const Avatar: React.FC<AvatarPropsInterface> = ({ picture = '' }) => {
   if (picture === '') {
     return (
-      <div className="w-full h-full flex rounded-full items-center justify-center bg-gray-300 text-gray-800 shadow-inner">
+      <div className="w-full h-full flex rounded-full items-center justify-center bg-gray-300 text-gray-800 dark:text-white shadow-inner">
         <FontAwesomeIcon icon={['fal', 'user']} size="lg" fixedWidth />
       </div>
     );

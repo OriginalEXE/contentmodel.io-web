@@ -494,8 +494,10 @@ const DiagramView: React.FC<DiagramViewProps> = (props) => {
 
   return (
     <div
-      className={`relative bg-sepia-100 ${
-        fillViewport === true ? '' : 'border border-sepia-300 rounded-lg'
+      className={`relative bg-sepia-100 dark:bg-gray-800 ${
+        fillViewport === true
+          ? ''
+          : 'border border-sepia-300 dark:border-gray-900 rounded-lg'
       } ${
         initialPlumbingFinished === true ? 'is-fully-drawn' : ''
       } ${className}`}

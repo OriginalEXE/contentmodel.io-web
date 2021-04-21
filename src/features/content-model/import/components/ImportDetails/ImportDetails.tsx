@@ -51,10 +51,9 @@ const ImportDetails: React.FC<ImportDetailsProps> = (props) => {
       <label className="flex items-center">
         <p className="text-lg font-semibold order-2">Publish on import</p>
         <input
-          name="publish"
-          ref={register()}
+          {...register('publish')}
           type="checkbox"
-          className="border bg-white mr-2 p-2 text-gray-900 focus:outline-none focus:ring-2"
+          className="mr-2"
           onChange={() => {
             setImportDetails(getValues());
           }}
@@ -78,7 +77,9 @@ const ImportDetails: React.FC<ImportDetailsProps> = (props) => {
         className="mt-4"
       />
       {viewError !== null ? (
-        <p className="mt-4 text-base text-red-700">{viewError}</p>
+        <p className="mt-4 text-base text-red-700 dark:text-red-400">
+          {viewError}
+        </p>
       ) : null}
       <footer className="mt-8 flex justify-between">
         <Button

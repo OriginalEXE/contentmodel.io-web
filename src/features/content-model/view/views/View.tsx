@@ -227,7 +227,7 @@ const ViewView: React.FC<ViewViewProps> = observer((props) => {
         )}
 
         {store.me !== null && store.me.id === contentModel.user.id ? (
-          <div className="flex flex-wrap items-center mx-auto max-w-xl border-t pt-2 mt-8">
+          <div className="flex flex-wrap items-center mx-auto max-w-xl border-t dark:border-gray-500 pt-2 mt-8">
             <Link href={`/content-models/${contentModel.slug}/edit`}>
               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a

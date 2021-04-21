@@ -1,3 +1,4 @@
+import withDarkMode, { useDarkMode } from 'next-dark-mode';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import React from 'react';
@@ -22,40 +23,44 @@ const App: React.FC<AppProps> = (props) => {
     'data-domain': typeof window === 'undefined' ? '' : window.location.host,
   });
 
+  const { darkModeActive } = useDarkMode();
+
   return (
-    <SSRProvider>
-      <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
-          <OverlayProvider className="flex flex-col min-h-screen">
-            <Head>
-              <title key="title">ContentModel.io</title>
-              <meta
-                property="og:title"
-                content="ContentModel.io"
-                key="og:title"
-              />
-              <meta
-                key="description"
-                name="description"
-                content="ContentModel.io is a community-sourced, visual directory of Contentful content models"
-              />
-              <meta
-                property="og:description"
-                content="ContentModel.io is a community-sourced, visual directory of Contentful content models"
-                key="og:description"
-              />
-              <meta
-                property="og:image"
-                content="https://res.cloudinary.com/contentmodelio/image/upload/v1613593969/app/marketing/og-meta-image_qoxffo.png"
-                key="og:image"
-              />
-            </Head>
-            <Component {...pageProps} />
-          </OverlayProvider>
-        </Hydrate>
-      </QueryClientProvider>
-    </SSRProvider>
+    <div className={darkModeActive ? 'dark' : 'light'}>
+      <SSRProvider>
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={pageProps?.dehydratedState}>
+            <OverlayProvider className="flex flex-col min-h-screen text-gray-900 dark:text-white dark:bg-gray-700">
+              <Head>
+                <title key="title">ContentModel.io</title>
+                <meta
+                  property="og:title"
+                  content="ContentModel.io"
+                  key="og:title"
+                />
+                <meta
+                  key="description"
+                  name="description"
+                  content="ContentModel.io is a community-sourced, visual directory of Contentful content models"
+                />
+                <meta
+                  property="og:description"
+                  content="ContentModel.io is a community-sourced, visual directory of Contentful content models"
+                  key="og:description"
+                />
+                <meta
+                  property="og:image"
+                  content="https://res.cloudinary.com/contentmodelio/image/upload/v1613593969/app/marketing/og-meta-image_qoxffo.png"
+                  key="og:image"
+                />
+              </Head>
+              <Component {...pageProps} />
+            </OverlayProvider>
+          </Hydrate>
+        </QueryClientProvider>
+      </SSRProvider>
+    </div>
   );
 };
 
-export default App;
+export default withDarkMode(App);

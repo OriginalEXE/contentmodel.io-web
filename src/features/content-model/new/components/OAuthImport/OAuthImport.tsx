@@ -20,6 +20,7 @@ import {
 import updateUser from '@/src/features/user/api/updateUser';
 import Button from '@/src/shared/components/Button/Button';
 import { getButtonClassName } from '@/src/shared/components/Button/getButtonClassName';
+import { getInputClassName } from '@/src/shared/components/Input/getInputClassName';
 import { useStore } from '@/store/hooks';
 
 type OAuthImportData = Omit<SpaceImportData, 'token'>;
@@ -45,7 +46,13 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
 
   const store = useStore();
 
-  const { register, handleSubmit, errors, watch } = useForm({
+  const {
+    register,
+    handleSubmit,
+    watch,
+
+    formState: { errors },
+  } = useForm({
     defaultValues: oauthImportDetails,
   });
 
@@ -229,7 +236,7 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
             You have granted ContentModel.io a read-only access to your
             Contentful account. You can always{' '}
             <button
-              className="appearance-none text-red-700 font-medium focus:underline focus:outline-none focus:text-red-800"
+              className="appearance-none text-red-700 dark:text-red-400 font-medium focus:underline focus:outline-none focus:text-red-800"
               onClick={() => {
                 if (store.me?.id === undefined) {
                   return;
@@ -250,9 +257,8 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
             <p className="text-lg font-semibold">Space to import from</p>
             {Object.keys(spacesGroupedByOrgs).length > 0 ? (
               <select
-                name="spaceId"
-                ref={register({ required: true })}
-                className="mt-2 rounded-lg border bg-white w-full leading-loose p-2 text-gray-900 focus:outline-none focus:ring-2"
+                {...register('spaceId', { required: true })}
+                className={`mt-2 ${getInputClassName()}`}
               >
                 <option value="">Select a space</option>
                 {Object.keys(spacesGroupedByOrgs).map((orgName) => (
@@ -272,7 +278,9 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
             )}
           </label>
           {errors.spaceId ? (
-            <p className="mt-2 text-sm text-red-700">Space ID is required</p>
+            <p className="mt-2 text-sm text-red-700 dark:text-red-400">
+              Space ID is required
+            </p>
           ) : null}
 
           <label className="block mt-4">
@@ -285,9 +293,8 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
               )
             ) : (
               <select
-                name="environmentId"
-                ref={register()}
-                className="mt-2 rounded-lg border bg-white w-full leading-loose p-2 text-gray-900 focus:outline-none focus:ring-2"
+                {...register('environmentId')}
+                className={`mt-2 ${getInputClassName()}`}
               >
                 <option value="">Select an environment</option>
                 {spaceEnvironments.map((environment) => (
@@ -300,7 +307,9 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
           </label>
 
           {viewError !== null ? (
-            <p className="mt-4 text-base text-red-700">{viewError}</p>
+            <p className="mt-4 text-base text-red-700 dark:text-red-400">
+              {viewError}
+            </p>
           ) : null}
           <footer className="mt-8 flex justify-end">
             <Button color="primary" type="submit">
