@@ -341,7 +341,10 @@ const HeaderLargeScreens: React.FC = observer(() => {
 const Header: React.FC = observer(() => {
   return (
     <header className="bg-sepia-100 dark:bg-gray-800 border-b border-sepia-200 dark:border-gray-900 relative z-50">
-      <nav className="w-full max-w-screen-2xl mx-auto px-3">
+      <nav
+        className="w-full max-w-screen-2xl mx-auto px-3"
+        aria-label="header navigation"
+      >
         {/* Big screens nav */}
         <HeaderLargeScreens />
 
