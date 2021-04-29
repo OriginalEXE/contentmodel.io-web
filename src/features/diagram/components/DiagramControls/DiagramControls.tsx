@@ -94,6 +94,7 @@ const DiagramControls: React.FC<DiagramControlsProps> = (props) => {
             {(ref, props) => (
               <button
                 ref={ref as RefObject<HTMLButtonElement>}
+                aria-label="zoom out"
                 {...props}
                 className="appearance-none flex w-8 h-8 items-center justify-center text-white bg-primary-500 hover:bg-primary-600 focus:bg-primary-700 rounded-full rounded-r-none border-r border-primary-300"
                 onClick={() => {
@@ -113,6 +114,7 @@ const DiagramControls: React.FC<DiagramControlsProps> = (props) => {
             {(ref, props) => (
               <button
                 ref={ref as RefObject<HTMLButtonElement>}
+                aria-label="zoom in"
                 {...props}
                 className="appearance-none flex w-8 h-8 items-center justify-center text-white bg-primary-500 hover:bg-primary-600 focus:bg-primary-700 rounded-full rounded-l-none border-l border-primary-300"
                 onClick={() => {
