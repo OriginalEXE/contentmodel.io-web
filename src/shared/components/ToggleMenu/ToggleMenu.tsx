@@ -146,7 +146,7 @@ const ToggleMenu: React.FC<ToggleMenuProps> = (props) => {
   const { buttonProps } = useButton(menuTriggerProps, ref);
 
   return (
-    <nav className="relative z-10">
+    <nav className="relative z-10" aria-label="user account navigation">
       <div className="flex justify-between items-center">
         <button {...buttonProps} ref={ref} className={props.buttonClassName}>
           <VisuallyHidden>{props.buttonLabel}</VisuallyHidden>

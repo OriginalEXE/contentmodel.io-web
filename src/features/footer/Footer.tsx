@@ -21,7 +21,10 @@ const Footer: React.FC = () => {
             </p>
           </div>
 
-          <nav className="mt-6 w-full flex flex-wrap lg:w-7/12 lg:mt-0">
+          <nav
+            className="mt-6 w-full flex flex-wrap lg:w-7/12 lg:mt-0"
+            aria-label="footer links"
+          >
             <ul className="w-full mt-6 sm:w-64 sm:mr-3">
               <li className="text-base font-semibold text-sepia-900 dark:text-gray-200">
                 Useful links
