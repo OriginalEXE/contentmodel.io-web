@@ -1,3 +1,4 @@
+import { useLocalStorageState } from 'ahooks';
 import { observer } from 'mobx-react-lite';
 import { useDarkMode } from 'next-dark-mode';
 import Link from 'next/link';
@@ -339,8 +340,43 @@ const HeaderLargeScreens: React.FC = observer(() => {
 });
 
 const Header: React.FC = observer(() => {
+  // Revise promotional header
+  const [
+    reviseHeaderBannerClosed,
+    setReviseHeaderBannerClosed,
+  ] = useLocalStorageState('revise_header_banner_closed', false);
+
   return (
     <header className="bg-sepia-100 dark:bg-gray-800 border-b border-sepia-200 dark:border-gray-900 relative z-50">
+      {reviseHeaderBannerClosed === false ? (
+        <a
+          href="https://tryrevise.com"
+          target="_blank"
+          className="block no-underline bg-white py-2"
+          rel="noreferrer"
+          onClick={() => {
+            setReviseHeaderBannerClosed(true);
+          }}
+        >
+          <div className="w-full max-w-screen-2xl mx-auto px-3">
+            <p className="m-0 text-center">
+              <span className="mr-2 inline-block text-seagreen-800 font-semibold text-sm border-b-2 border-seagreen-400 align-text-top">
+                New
+              </span>{' '}
+              Bulk edit content in Contentful with Revise{' '}
+              <span
+                className={getButtonClassName({
+                  size: 's',
+                  grow: false,
+                  className: 'mx-2',
+                })}
+              >
+                Manage content at scale
+              </span>
+            </p>
+          </div>
+        </a>
+      ) : null}
       <nav className="w-full max-w-screen-2xl mx-auto px-3">
         {/* Big screens nav */}
         <HeaderLargeScreens />

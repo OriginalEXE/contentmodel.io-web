@@ -11,7 +11,4 @@ module.exports = withImages({
     loader: 'cloudinary',
     path: 'https://res.cloudinary.com/contentmodelio/image/upload/',
   },
-  future: {
-    webpack5: true,
-  },
 });
