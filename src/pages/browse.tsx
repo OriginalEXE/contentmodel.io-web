@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps<{
   }
 
   const [contentModelsError, contentModels] = await catchify(
-    getContentModels({ visibility: 'PUBLIC' }, ctx.req.headers.cookie),
+    getContentModels({ visibility: 'PUBLIC', count: 100 }, ctx.req.headers.cookie),
   );
 
   let parsedContentModels: (ParsedDbContentModel | null)[] = [];

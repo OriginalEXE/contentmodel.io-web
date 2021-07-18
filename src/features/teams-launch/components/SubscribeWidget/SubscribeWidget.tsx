@@ -16,7 +16,9 @@ const SubscribeWidget: React.FC = () => {
       return;
     }
 
-    (window as any).iFrameResize({}, '.mj-w-res-iframe');
+    try {
+      (window as any).iFrameResize({}, '.mj-w-res-iframe');
+    } catch {}
   }, [scriptStatus]);
 
   return scriptStatus === 'ready' ? (
