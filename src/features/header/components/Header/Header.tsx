@@ -377,7 +377,10 @@ const Header: React.FC = observer(() => {
           </div>
         </a>
       ) : null}
-      <nav className="w-full max-w-screen-2xl mx-auto px-3">
+       <nav
+        className="w-full max-w-screen-2xl mx-auto px-3"
+        aria-label="header navigation"
+      >
         {/* Big screens nav */}
         <HeaderLargeScreens />
 
