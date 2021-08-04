@@ -13,9 +13,43 @@ type GetContentfulSpacesResult =
 const getContentfulSpaces = async (
   input: GetContentfulSpacesInput,
 ): Promise<GetContentfulSpacesResult> => {
-  return fetch(
-    `https://api.contentful.com/spaces?access_token=${input.token}&limit=1000`,
-  ).then((res) => res.json());
+  const pageSize = 1;
+
+  let items: z.infer<typeof contentfulSpacesSchema>['items'] = [];
+  let total = 0;
+  let error: z.infer<typeof contentfulRequestError> | undefined;
+
+  const fetchSpaces = async (skip = 0): Promise<void> => {
+    const spaces = await fetch(
+      `https://api.contentful.com/spaces?access_token=${
+        input.token
+      }&limit=${pageSize}&skip=${skip * pageSize}`,
+    ).then((res) => res.json());
+
+    if (spaces.items === undefined) {
+      error = spaces;
+      return;
+    }
+
+    items = [...items, ...spaces.items];
+
+    total = spaces.total;
+
+    if (total > pageSize * (skip + 1)) {
+      return fetchSpaces(skip + pageSize);
+    }
+  };
+
+  if (error !== undefined) {
+    return error;
+  }
+
+  await fetchSpaces();
+
+  return {
+    items,
+    total,
+  };
 };
 
 export default getContentfulSpaces;

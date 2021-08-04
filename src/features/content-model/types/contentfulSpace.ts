@@ -13,4 +13,5 @@ export const contentfulSpaceSchema = z.object({
 
 export const contentfulSpacesSchema = z.object({
   items: z.array(contentfulSpaceSchema),
+  total: z.number(),
 });

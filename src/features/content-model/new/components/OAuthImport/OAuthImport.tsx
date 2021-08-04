@@ -73,7 +73,7 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
     ['getContentfulSpaces', store.me?.contentful_token_read],
     () => {
       if (store.me === null || store.me.contentful_token_read === null) {
-        return Promise.resolve({ items: [] });
+        return Promise.resolve({ items: [], total: 0 });
       }
 
       return getContentfulSpaces({

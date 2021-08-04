@@ -67,7 +67,7 @@ const OAuthImport: React.FC<OAuthImport> = observer((props) => {
     ['getContentfulSpaces', managementToken],
     () => {
       if (store.me === null || managementToken === undefined) {
-        return Promise.resolve({ items: [] });
+        return Promise.resolve({ items: [], total: 0 });
       }
 
       return getContentfulSpaces({
