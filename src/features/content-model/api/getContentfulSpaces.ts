@@ -13,7 +13,7 @@ type GetContentfulSpacesResult =
 const getContentfulSpaces = async (
   input: GetContentfulSpacesInput,
 ): Promise<GetContentfulSpacesResult> => {
-  const pageSize = 1;
+  const pageSize = 100;
 
   let items: z.infer<typeof contentfulSpacesSchema>['items'] = [];
   let total = 0;
