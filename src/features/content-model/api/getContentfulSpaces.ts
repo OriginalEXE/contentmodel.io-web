@@ -14,7 +14,7 @@ const getContentfulSpaces = async (
   input: GetContentfulSpacesInput,
 ): Promise<GetContentfulSpacesResult> => {
   return fetch(
-    `https://api.contentful.com/spaces?access_token=${input.token}&limit=100`,
+    `https://api.contentful.com/spaces?access_token=${input.token}&limit=1000`,
   ).then((res) => res.json());
 };
 
