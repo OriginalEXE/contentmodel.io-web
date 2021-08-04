@@ -341,10 +341,8 @@ const HeaderLargeScreens: React.FC = observer(() => {
 
 const Header: React.FC = observer(() => {
   // Revise promotional header
-  const [
-    reviseHeaderBannerClosed,
-    setReviseHeaderBannerClosed,
-  ] = useLocalStorageState('revise_header_banner_closed', false);
+  const [reviseHeaderBannerClosed, setReviseHeaderBannerClosed] =
+    useLocalStorageState('revise_header_banner_closed', false);
 
   return (
     <header className="bg-sepia-100 dark:bg-gray-800 border-b border-sepia-200 dark:border-gray-900 relative z-50">
@@ -359,7 +357,7 @@ const Header: React.FC = observer(() => {
           }}
         >
           <div className="w-full max-w-screen-2xl mx-auto px-3">
-            <p className="m-0 text-center">
+            <p className="m-0 text-center text-gray-900">
               <span className="mr-2 inline-block text-seagreen-800 font-semibold text-sm border-b-2 border-seagreen-400 align-text-top">
                 New
               </span>{' '}
@@ -377,7 +375,7 @@ const Header: React.FC = observer(() => {
           </div>
         </a>
       ) : null}
-       <nav
+      <nav
         className="w-full max-w-screen-2xl mx-auto px-3"
         aria-label="header navigation"
       >
