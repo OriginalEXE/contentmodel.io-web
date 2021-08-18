@@ -54,6 +54,8 @@ export default async function importToContentful(
 
   res.status(200);
   res.json({
-    contentTypes: contentfulContentModel,
+    contentTypes: contentfulContentModel.filter(
+      (contentType) => contentType.internal !== true,
+    ),
   });
 }
