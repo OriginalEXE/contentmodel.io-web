@@ -15,6 +15,7 @@ import { getButtonClassName } from '@/src/shared/components/Button/getButtonClas
 import { initializeStore, StoreSnapshotInterface } from '@/store';
 import { StoreProvider } from '@/store/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import SubscribeWidget from '@/src/features/teams-launch/components/SubscribeWidget/SubscribeWidget';
 
 export const getServerSideProps: GetServerSideProps<{
   storeSnapshot: StoreSnapshotInterface;
@@ -77,6 +78,7 @@ const ContentModelsPage: React.FC<
 
   return (
     <StoreProvider store={store}>
+      <SubscribeWidget />
       <Header />
       <main className="w-full mb-8">
         <section className="w-full max-w-screen-2xl mx-auto py-16 px-3 text-center lg:py-24">

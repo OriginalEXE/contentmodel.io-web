@@ -7,6 +7,7 @@ import Footer from '@/src/features/footer/Footer';
 import Header from '@/src/features/header/components/Header/Header';
 import { getButtonClassName } from '@/src/shared/components/Button/getButtonClassName';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import SubscribeWidget from '@/src/features/teams-launch/components/SubscribeWidget/SubscribeWidget';
 
 interface BrowseViewProps {
   contentModels: ParsedDbContentModel[];
@@ -17,6 +18,7 @@ const BrowseView: React.FC<BrowseViewProps> = observer((props) => {
 
   return (
     <>
+      <SubscribeWidget />
       <Header />
       <main className="w-full max-w-screen-2xl mx-auto px-3 mb-8 xl:flex xl:mt-12">
         <div className="w-full max-w-5xl mt-8 mx-auto flex-shrink-0">
