@@ -30,19 +30,22 @@ const calculateConnectionsCount = (
 
         const linkContentTypeValidation = field.validations.find(
           (validation) =>
-            validation.linkContentType !== undefined &&
-            validation.linkContentType.length !== 0,
+            validation.linkContentType &&
+            Array.from(validation.linkContentType).length !== 0,
         );
 
         if (linkContentTypeValidation === undefined) {
           return registeredContentTypes;
         }
 
-        return linkContentTypeValidation.linkContentType.length === 0
+        return !linkContentTypeValidation.linkContentType ||
+          Array.from(linkContentTypeValidation.linkContentType).length === 0
           ? contentModel.map((cType) => cType.sys.id)
-          : linkContentTypeValidation.linkContentType.filter(
-              (cTypeId: string) =>
-                registeredContentTypes.includes(cTypeId) === true,
+          : (
+              Array.from(linkContentTypeValidation.linkContentType) as string[]
+            ).filter(
+              (cTypeId) =>
+                registeredContentTypes.includes(cTypeId as string) === true,
             );
       })();
 
@@ -78,17 +81,20 @@ const calculateConnectionsCount = (
 
         const linkContentTypeValidation = field.items.validations.find(
           (validation) =>
-            validation.linkContentType !== undefined &&
-            validation.linkContentType.length !== 0,
+            validation.linkContentType &&
+            Array.from(validation.linkContentType).length !== 0,
         );
 
         if (linkContentTypeValidation === undefined) {
           return registeredContentTypes;
         }
 
-        return linkContentTypeValidation.linkContentType.length === 0
+        return !linkContentTypeValidation ||
+          Array.from(linkContentTypeValidation.linkContentType).length === 0
           ? contentModel.map((cType) => cType.sys.id)
-          : linkContentTypeValidation.linkContentType.filter(
+          : (
+              Array.from(linkContentTypeValidation.linkContentType) as string[]
+            ).filter(
               (cTypeId: string) =>
                 registeredContentTypes.includes(cTypeId) === true,
             );
