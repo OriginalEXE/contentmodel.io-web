@@ -108,7 +108,11 @@ export default async function importToContentful(
   );
 
   if (contentfulImportError !== null) {
-    console.error(contentfulImportError);
+    console.error(
+      contentfulImportError,
+      (contentfulImportError as any).errors?.[0],
+    );
+
     res.status(502);
     res.json({
       error:
