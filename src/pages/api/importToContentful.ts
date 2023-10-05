@@ -116,8 +116,10 @@ export default async function importToContentful(
 
     res.status(502);
     res.json({
-      error:
-        'Something went wrong, please try again or reach out to us at hello@contentmodel.io',
+      error: `Something went wrong, please try again or reach out to us at hello@contentmodel.io Contentful error: ${
+        (contentfulImportError as any).errors?.[0]?.error?.data.details
+          .reasons[0]
+      }`,
     });
     return;
   }
