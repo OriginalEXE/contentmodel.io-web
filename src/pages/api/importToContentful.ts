@@ -110,7 +110,8 @@ export default async function importToContentful(
   if (contentfulImportError !== null) {
     console.error(
       contentfulImportError,
-      (contentfulImportError as any).errors?.[0],
+      (contentfulImportError as any).errors?.[0]?.error,
+      (contentfulImportError as any).errors?.[0]?.error?.data.details,
     );
 
     res.status(502);
