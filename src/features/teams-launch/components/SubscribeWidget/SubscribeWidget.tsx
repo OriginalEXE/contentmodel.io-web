@@ -1,7 +1,7 @@
 import useScript from '@/src/use-script/useScript';
 
 const SubscribeWidget: React.FC = () => {
-  const scriptStatus = useScript(
+  useScript(
     'https://app.mailjet.com/pas-nc-pop-in-v1.js',
   );
 
