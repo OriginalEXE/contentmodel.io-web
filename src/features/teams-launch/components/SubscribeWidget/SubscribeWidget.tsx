@@ -14,7 +14,7 @@ const SubscribeWidget: React.FC = () => {
           className={getButtonClassName({
             size: 's',
           })}
-          href="mailto:hello@contentmodel.io?subject=New%20version%20early%20access&body=Hello%2C%0A%0AI%20am%20interested%20in%20early%20access%20to%20the%20new%20version%20of%20ContentModel.io%0A%0AI%20would%20like%20to%20use%20it%20for%20..."
+          href="https://x7yh9.mjt.lu/wgt/x7yh9/x72v/form?c=730f8c6b"
         >
           Notify on early access
         </a>
