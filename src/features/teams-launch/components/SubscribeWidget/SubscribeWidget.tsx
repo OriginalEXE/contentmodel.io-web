@@ -5,6 +5,7 @@ const SubscribeWidget: React.FC = () => {
     <div>
       <p className="p-2 text-center" style={{
         backgroundColor: '#F4F4F4',
+      colo: 'rgb(17, 24, 39)'
       }}>A new and updated version of ContentModel.io is coming with many exciting new features 👀</p>
       <div className="flex items-center justify-center p-1" style={{
         backgroundColor: '#F4F4F4',
