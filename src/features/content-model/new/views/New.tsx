@@ -15,10 +15,6 @@ import createContentModel from '@/src/features/content-model/api/createContentMo
 import Details, {
   DetailsData,
 } from '@/src/features/content-model/components/Details/Details';
-import {
-  ImportTypeChoices,
-  importTypeChoiceSchema,
-} from '@/src/features/content-model/new/components/ImportChoice/ImportChoice';
 import contentModelSchema from '@/src/features/content-model/types/contentModel';
 import contentModelPositionSchema from '@/src/features/diagram/types/contentModelPosition';
 import contentTypePositionSchema from '@/src/features/diagram/types/contentTypePosition';
@@ -76,23 +72,6 @@ const NewView: React.FC = observer(() => {
     },
     [],
   );
-
-  // Import choice
-  const defaultImportChoice = useMemo<ImportTypeChoices | undefined>(() => {
-    if (typeof router.query.importType === undefined) {
-      return;
-    }
-
-    try {
-      const parsedChoice = importTypeChoiceSchema.parse(
-        router.query.importType,
-      );
-
-      return parsedChoice;
-    } catch {
-      return;
-    }
-  }, [router.query]);
 
   const [parsedContentModel, setParsedContentModel] = useState<
     z.infer<typeof contentModelSchema>
