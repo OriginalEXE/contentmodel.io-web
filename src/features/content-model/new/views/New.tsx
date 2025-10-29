@@ -114,24 +114,6 @@ const NewView: React.FC = observer(() => {
         chosenContentTypes.includes(contentType.sys.id),
     );
   }, [parsedContentModel, chosenContentTypes]);
-  const validateContentModel = (contentModelText: string): void => {
-    const parseResults = parseContentModel(contentModelText);
-
-    if (parseResults.success === false) {
-      setViewError(
-        importType === 'copyPaste'
-          ? 'We could not parse the JSON provided, copy-paste the full JSON as exported via either Contentful CLI or the Delivery API'
-          : 'Could not fetch the content model from the API. Check that you have provided the correct details.',
-      );
-      return;
-    }
-
-    const contentModel = addAssetToContentModel(parseResults.data);
-
-    setParsedContentModel(contentModel);
-    setViewError(null);
-    setViewStep('contentTypesSelection');
-  };
 
   // Content model details
   const [contentModelDetails, setContentModelDetails] = useState<DetailsData>({
