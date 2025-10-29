@@ -19,7 +19,6 @@ import {
   ImportTypeChoices,
   importTypeChoiceSchema,
 } from '@/src/features/content-model/new/components/ImportChoice/ImportChoice';
-import { SpaceImportData } from '@/src/features/content-model/new/types/spaceImport';
 import parseContentModel from '@/src/features/content-model/parsing/parseContentModel';
 import contentModelSchema from '@/src/features/content-model/types/contentModel';
 import addAssetToContentModel from '@/src/features/content-model/utilities/addAssetToContentModel';
@@ -96,20 +95,10 @@ const NewView: React.FC = observer(() => {
       return;
     }
   }, [router.query]);
-  const [importType, setImportType] = useState<ImportTypeChoices | undefined>(
+  const [importType] = useState<ImportTypeChoices | undefined>(
     defaultImportChoice,
   );
 
-  // We preserver space id + delivery API key temporarily in case they go back
-  const [spaceImportDetails, setSpaceImportDetails] = useState<SpaceImportData>(
-    {
-      spaceId: '',
-      token: '',
-      environmentId: '',
-    },
-  );
-
-  const [contentModelJSONText, setContentModelJSONText] = useState('');
   const [parsedContentModel, setParsedContentModel] = useState<
     z.infer<typeof contentModelSchema>
   >();
