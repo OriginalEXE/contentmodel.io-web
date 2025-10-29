@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useMutation } from 'react-query';
 import * as z from 'zod';
@@ -36,8 +35,6 @@ type NewViewStep =
   | 'success';
 
 const NewView: React.FC = observer(() => {
-  const router = useRouter();
-
   const [viewStep, setViewStep] = useState<NewViewStep>('contentModelInput');
   const [viewError, setViewError] = useState<string | null>(null);
 
