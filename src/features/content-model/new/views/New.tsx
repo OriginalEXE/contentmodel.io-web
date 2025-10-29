@@ -19,7 +19,6 @@ import {
   ImportTypeChoices,
   importTypeChoiceSchema,
 } from '@/src/features/content-model/new/components/ImportChoice/ImportChoice';
-import parseContentModel from '@/src/features/content-model/parsing/parseContentModel';
 import contentModelSchema from '@/src/features/content-model/types/contentModel';
 import addAssetToContentModel from '@/src/features/content-model/utilities/addAssetToContentModel';
 import contentModelPositionSchema from '@/src/features/diagram/types/contentModelPosition';
