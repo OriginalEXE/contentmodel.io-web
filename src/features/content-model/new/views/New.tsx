@@ -20,7 +20,6 @@ import {
   importTypeChoiceSchema,
 } from '@/src/features/content-model/new/components/ImportChoice/ImportChoice';
 import contentModelSchema from '@/src/features/content-model/types/contentModel';
-import addAssetToContentModel from '@/src/features/content-model/utilities/addAssetToContentModel';
 import contentModelPositionSchema from '@/src/features/diagram/types/contentModelPosition';
 import contentTypePositionSchema from '@/src/features/diagram/types/contentTypePosition';
 import approximateInitialContentModelPosition from '@/src/features/diagram/utilities/approximateInitialContentModelPosition';
