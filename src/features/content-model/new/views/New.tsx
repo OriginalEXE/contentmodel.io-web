@@ -93,9 +93,6 @@ const NewView: React.FC = observer(() => {
       return;
     }
   }, [router.query]);
-  const [importType] = useState<ImportTypeChoices | undefined>(
-    defaultImportChoice,
-  );
 
   const [parsedContentModel, setParsedContentModel] = useState<
     z.infer<typeof contentModelSchema>
