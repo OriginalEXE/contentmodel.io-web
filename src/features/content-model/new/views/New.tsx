@@ -15,13 +15,10 @@ import createContentModel from '@/src/features/content-model/api/createContentMo
 import Details, {
   DetailsData,
 } from '@/src/features/content-model/components/Details/Details';
-import ImportChoice, {
+import {
   ImportTypeChoices,
   importTypeChoiceSchema,
 } from '@/src/features/content-model/new/components/ImportChoice/ImportChoice';
-import JSONInput from '@/src/features/content-model/new/components/JSONInput/JSONInput';
-import ManualImport from '@/src/features/content-model/new/components/ManualImport/ManualImport';
-import OAuthImport from '@/src/features/content-model/new/components/OAuthImport/OAuthImport';
 import { SpaceImportData } from '@/src/features/content-model/new/types/spaceImport';
 import parseContentModel from '@/src/features/content-model/parsing/parseContentModel';
 import contentModelSchema from '@/src/features/content-model/types/contentModel';
