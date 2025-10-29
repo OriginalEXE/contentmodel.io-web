@@ -235,51 +235,7 @@ const NewView: React.FC = observer(() => {
           <h1 className="text-2xl font-bold text-center md:text-4xl">
             Visualize content model
           </h1>
-          {viewStep === 'contentModelInput' ? (
-            <>
-              <ImportChoice
-                defaultValue={importType}
-                onChoice={(choice) => {
-                  setViewError(null);
-                  setImportType(choice);
-                }}
-              />
-              {importType === 'copyPaste' ? (
-                <JSONInput
-                  contentModelJSONText={contentModelJSONText}
-                  onChange={(value) => {
-                    setContentModelJSONText(value.trim());
-                  }}
-                  validateContentModel={validateContentModel}
-                  viewError={viewError}
-                />
-              ) : null}
-              {importType === 'spaceimport' ? (
-                <ManualImport
-                  spaceImportDetails={spaceImportDetails}
-                  setSpaceImportDetails={setSpaceImportDetails}
-                  onChange={(value) => {
-                    setContentModelJSONText(value.trim());
-                  }}
-                  validateContentModel={validateContentModel}
-                  viewError={viewError}
-                  setViewError={setViewError}
-                />
-              ) : null}
-              {importType === 'oauth' ? (
-                <OAuthImport
-                  oauthImportDetails={spaceImportDetails}
-                  setOAuthImportDetails={setSpaceImportDetails}
-                  onChange={(value) => {
-                    setContentModelJSONText(value.trim());
-                  }}
-                  validateContentModel={validateContentModel}
-                  viewError={viewError}
-                  setViewError={setViewError}
-                />
-              ) : null}
-            </>
-          ) : null}
+          <p>Visualizing new content models is currently disabled as we migrate the data for the launch of the new version. Come back soon!</p>
         </div>
         {viewStep === 'contentTypesSelection' ? (
           <>
