@@ -70,7 +70,7 @@ const NewView: React.FC = observer(() => {
     [],
   );
 
-  const [parsedContentModel, setParsedContentModel] = useState<
+  const [parsedContentModel] = useState<
     z.infer<typeof contentModelSchema>
   >();
   const [chosenContentTypes, setChosenContentTypes] = useState<string[]>();
